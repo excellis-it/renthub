@@ -1,0 +1,312 @@
+:root {
+    --green-color: #44C6A9;
+    --blue-color:#1074A5;
+    --heading-color:#1e1e1e;
+    --text-color: #1E1E1E;
+    --white-color:#fff;
+    --black-color:#000;
+    --main-font: "Inter", sans-serif;
+    --heading-font: "Inter", sans-serif;
+    --button-font: "Inter", sans-serif;
+}
+
+@media (min-width:1550px){
+    .container{
+        max-width: 1500px;
+    }
+}
+
+@media (max-width:1900px){
+    .main_menu_hdr .form-control, .main_menu_hdr .new_york_city {
+        width: 300px;
+    }
+    .slide .slide__content--headings .title{
+        font-size: 60px;
+    }  
+}
+@media (max-width:1600px){
+    .slide .slide__content--headings .title{
+        font-size: 50px;
+    } 
+    .main_menu_hdr .form-control, .main_menu_hdr .new_york_city {
+        width: 250px;
+    }   
+}
+
+
+@media (max-width:1440px){
+    .main_menu_hdr .form-control, .main_menu_hdr .new_york_city {
+        width: 100%;
+    } 
+    .login a {
+        font-size: 14px;
+    }
+    .testimonial_sec {
+        padding: 0px 0 50px 80px;
+    }
+}
+@media (max-width:1366px){
+    .heading_hp h2 {
+        font-size: 40px;
+    }
+    .heading_hp p {
+        font-size: 15px;
+        line-height: 24px;
+    }
+    .middle_arrow .slick-nav.next-arrow{
+        right: 45%;
+    }
+    .middle_arrow .slick-nav.prev-arrow {
+        left: 45%;
+    }
+    .left_aa h4{
+        font-size: 17px;
+    }
+    .plan-inner {
+        min-width: 250px;
+    }
+    .entry-content {
+        min-height: 473px;
+    }
+    .commercial_propety {
+        font-size: 12px;
+    }
+    .feature_text {
+        font-size: 13px;
+    }
+}
+
+@media (max-width:1280px){
+    .right_login {
+        padding: 6px 0 0 15px;
+    }
+    #cssmenu > ul > li > a{
+        font-size: 14px;
+    }
+    .container-fluid {
+        padding: 0 2%;
+    }
+}
+
+@media (max-width:1024px){
+    .logo {
+        width: auto;
+    }
+    .main-menu .logo a{
+        position: relative;
+        padding: 0;
+    }
+    .main-menu .navbar{
+        flex-wrap: inherit;
+    }
+    .right_login{
+        padding: 6px 0px 3px;
+    }
+    #cssmenu > ul > li > a {
+        font-size: 14px;
+        letter-spacing: 0;
+        padding: 10px;
+    }
+    .inner-banner-text h1 {
+        font-size: 40px;
+    }
+    .entry-content {
+        min-height: 370px;
+    }
+}
+@media (max-width:991px){
+    .our_mis{
+        width: 700px;
+    }
+    .right_btm{
+        background: var(--blue-color);
+        text-align: left;
+    }
+}
+
+@media (max-width:768px){
+    #cssmenu > ul > li > a {
+        padding: 16px;
+    }
+    .entry-content {
+        min-height: auto;
+    }
+    .testimonial_sec {
+        padding: 50px 0 50px 50px;
+    }
+    .counter_js #counter {
+        display: block;
+        columns: 2;
+    }
+    .login{
+        display: none !important;
+    }
+    .right_login {
+        padding: 0px 5px 0px;
+        border-radius: 0 0px;
+    }
+    .right_top {
+        display: flex;
+        align-items: center;
+    }
+    .icon_c a {
+        padding: 4px;
+        width: 25px;
+        height: 25px;
+        font-size: 10px;
+    }
+    .main_menu {
+        padding: 0px 0;
+    }
+    .slide .slide__content.slide__content__left{
+        width: 60%;
+    }
+    .slider, .slide {
+        height: 80vh;
+    }
+    .middle_arrow .slick-nav.next-arrow {
+        right: 43%;
+    }
+    .middle_arrow .slick-nav.prev-arrow {
+        left: 43%;
+    }
+    .tow_box_j{
+        margin-bottom: 25px;
+    }
+    .quick_links_ul ul li {
+        padding: 0 10px;
+    }
+    .bg_step, .bg_fight{
+        display: none;
+    }
+    .slide .slide__content--headings .title {
+        font-size: 40px;
+    }
+    .slide .slide__content--headings .top-title{
+        font-size: 16px;
+    }
+    .inner_banner_ontent h2 {
+        font-size: 42px;
+    }
+    .abt_img_type2 {
+        padding: 0 0 20px 0px;
+        width: 100%;
+    }
+    .inner_banner_ontent h1 {
+        font-size: 40px;
+    }
+    .container-fluid {
+        padding: 0 4%;
+    }
+    .property-details-div{
+      margin-top: 20px;  
+    }
+
+}
+
+@media (max-width:767px){
+    .search_top{
+        display: none;
+    }
+    .right_hdr{
+        display: flex;
+    }
+    .testimonial_sec {
+        padding: 15px 0 15px 15px;
+    }
+    .red_btn {
+        padding: 12px 22px;
+        letter-spacing: 1px;
+        font-size: 13px;
+    }
+    .border_left_btm{
+        padding-left: 0;
+        border-left: 0;
+    }
+    .copy_right{
+        text-align: center;
+    }
+    .heading_hp h2 {
+        font-size: 25px;
+    }
+    .banner_text h1 {
+        font-size: 40px;
+    }
+    .slide .slide__content {
+        width: 80%;
+    }
+    .slide .slide__img:before{
+        width: 100%;
+    }
+    .slide .slide__content.slide__content__left {
+        left: 9%;
+        transform: translate(0%, -50%);
+        width: 90%;
+    }
+    .middle_arrow .slick-nav.next-arrow {
+        right: 38%;
+    }
+    .middle_arrow .slick-nav.prev-arrow {
+        left: 38%;
+    }
+    .hdr_manu_nav {
+        width: 37px;
+        height: 32px;
+    }
+    .main_menu_hdr label .burger {
+        width: 24px;
+        height: 16px;
+    }    
+    .about_sec {
+        padding: 50px 0;
+    }
+    
+    .quick_links_ul ul {
+        display: block;
+    }
+    .slide .slide__content--headings .title {
+        font-size: 30px;
+    }
+    .about_counter {
+        padding: 0 7px 25px;
+    }
+    .logo a{
+        width: 80px;
+    }
+    .last_card h3 {
+        font-size: 30px;
+    }
+    .float_filter{
+        display: none;
+    }
+    .room-details-div{
+        display: block !important;
+    }
+    .inner-banner-text h1 {
+        font-size: 30px;
+    }
+    .propety-type {
+        font-size: 18px;
+        line-height: 22px;
+    }
+    .propety-price {
+        font-size: 24px;
+        line-height: 28px;
+    }
+    .property-details-sec {
+        padding: 20px 0px;
+    }
+    .room-details-text h3 {
+        font-size: 16px;
+        line-height: 20px;
+    }
+}
+@media (max-width:375.98px){
+    .img_servic span {
+        width: 125px;
+        height: 125px;
+    }
+    .feature_text {
+        font-size: 13px;
+    }
+}
