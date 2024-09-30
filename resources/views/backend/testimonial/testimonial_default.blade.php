@@ -44,7 +44,7 @@
                             <tr>
                                 <td>{{ $testimonials->name }}</td>
                                 <td>
-                                    <img src="{{ asset('images/' . $testimonials->image) }}" alt="Image" style="width: 100px; height: auto;">
+                                    <img src="{{ asset('public/images/' . $testimonials->image) }}" alt="Image" style="width: 100px; height: auto;">
                                 </td>
                                 <td>{{ $testimonials->description }}</td>
 
@@ -117,7 +117,7 @@
                                                                                 class="form-control" type="file">
                                                                             <div>
                                                                                 <img class="card-img-top"
-                                                                                    src="{{ asset('images/' . $testimonials->image) }}"
+                                                                                    src="{{ asset('public/images/' . $testimonials->image) }}"
                                                                                     style="max-width: 250px; margin-top: 20px"
                                                                                     id="show_image">
                                                                             </div>

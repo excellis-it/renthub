@@ -6,7 +6,7 @@
                 <div class="for_rent">{{ strtoupper($val->product_type) }}</div>
                 <a href="javascript:void(0);" class="wishlist_rent"><i class="fa-solid fa-heart"></i></a>
                 <div class="feature_img">
-                    <a href="{{ url('/vehicle-details/' . $val->product_id) }}"><img
+                    <a href="{{ url('vehicle-details/' . $val->product_id) }}"><img
                             src="{{ asset('public/images/' . $val->product_thumbnail) }}" /></a>
                 </div>
                 <div class="feature_text">
@@ -44,7 +44,7 @@
                     <div class="agent_text">{{ strtoupper($val->vendor_type) }}</div>
                 </div>
                 <div class="addtocart">
-                    <a href="{{ url('/vehicle-details/' . $val->product_id) }}"><span>Inquire Now</span></a>
+                    <a href="{{ url('vehicle-details/' . $val->product_id) }}"><span>Inquire Now</span></a>
                 </div>
             </div>
 

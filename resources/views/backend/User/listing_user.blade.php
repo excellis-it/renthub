@@ -145,7 +145,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <th>Govt File</th>
-                                                                <td><img src="{{ asset('/images/' . $val->govt_id_file) }}"
+                                                                <td><img src="{{ asset('public/images/' . $val->govt_id_file) }}"
                                                                         alt="" height="100"></td>
                                                             </tr>
                                                             <tr>

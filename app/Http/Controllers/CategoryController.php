@@ -49,7 +49,7 @@ class CategoryController extends Controller
     public function categoryRemove(Request $request){
         try {
             $category = CategoryModel::findOrFail($request->id);
-            MyHelpers::deleteImageFromStorage($category->category_image , 'uploads/images/category/');
+           // MyHelpers::deleteImageFromStorage($category->category_image , 'uploads/images/category/');
             if ($category->delete())
                 return redirect()->route('category')->with('success', 'Successfully removed.');
             else
@@ -79,7 +79,7 @@ class CategoryController extends Controller
         {
 
             $data['category_image'] = $this->handleRequestImage($newImage, 'uploads/images/category');
-            MyHelpers::deleteImageFromStorage($category->category_image, 'uploads/images/category/');
+          //  MyHelpers::deleteImageFromStorage($category->category_image, 'uploads/images/category/');
         }
 
         // update

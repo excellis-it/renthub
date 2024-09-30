@@ -78,7 +78,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <img src="{{url('uploads/images/sub_category/' .
+                                                <img src="{{url('public/uploads/images/sub_category/' .
                                                 $item->sub_category_image)}}"
                                                      class="card-img-top" style="max-width: 300px; margin-left:
                                                          10px">
