@@ -120,10 +120,21 @@ class UserController extends Controller
     public function user_profile()
     {
         $user = auth()->user();
-        $user_enquries = UserEnquiry::where('user_id', auth()->user()->id)
-    ->with('product')
-    ->get();
-        return view('frontend.dashboard.user-profile', compact('user','user_enquries'));
+        $user_property_enquries = UserEnquiry::where('user_id', auth()->user()->id)
+        ->with('product')
+        ->whereHas('product', function ($query) {
+            $query->where('category_id', 1);
+        })
+        ->get();
+
+        $user_machinery_enquries = UserEnquiry::where('user_id', auth()->user()->id)
+        ->with('product')
+        ->whereHas('product', function ($query) {
+            $query->where('category_id', 2);
+        })
+        ->get();
+
+        return view('frontend.dashboard.user-profile', compact('user','user_property_enquries','user_machinery_enquries'));
     }
     public function edit($id)
     {

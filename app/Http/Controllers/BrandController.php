@@ -46,7 +46,7 @@ class BrandController extends Controller
     public function brandRemove(Request $request){
         try {
             $brand = BrandModel::findOrFail($request->id);
-            MyHelpers::deleteImageFromStorage($brand->brand_image , 'uploads/images/brand/');
+            // MyHelpers::deleteImageFromStorage($brand->brand_image , 'uploads/images/brand/');
             if ($brand->delete())
                 return redirect()->route('brand')->with('success', 'Successfully removed.');
             else
@@ -75,7 +75,7 @@ class BrandController extends Controller
         if ($newImage)
         {
             $data['brand_image'] = $this->handleRequestImage($request->file('brand_image'), 'uploads/images/brand');
-            MyHelpers::deleteImageFromStorage($brand->brand_image, 'uploads/images/brand/');
+            // MyHelpers::deleteImageFromStorage($brand->brand_image, 'uploads/images/brand/');
         }
 
         // update

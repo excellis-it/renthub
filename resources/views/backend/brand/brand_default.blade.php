@@ -58,7 +58,7 @@
                                                         aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <img src="{{url('uploads/images/brand/' . $item->brand_image)}}"
+                                                <img src="{{url('public/uploads/images/brand/' . $item->brand_image)}}"
                                                      class="card-img-top" style="max-width: 300px; margin-left:
                                                          10px">
                                                 <div class="card-body">
@@ -96,7 +96,7 @@
                                                 <div class="modal-body">
                                                     <div class="card">
                                                         <div class="card-body">
-                                                            <form class="brand_form" action="update_brand" method="POST"
+                                                            <form class="" action="{{ route('brand-update') }}" method="POST"
                                                                   enctype="multipart/form-data">
                                                                 @csrf
                                                                 <input name="brand_id" value="{{$item->brand_id}}"
@@ -119,13 +119,13 @@
                                                                         <h6 class="mb-0">Brand Image</h6>
                                                                     </div>
                                                                     <div class="col-sm-9 text-secondary">
-                                                                        <input name="brand_image" id="brand_image"
+                                                                        <input name="brand_image" 
                                                                                class="form-control" type="file">
                                                                         <small style="color: #e20000" class="error"
                                                                                id="brand_image-error"></small>
                                                                         <div>
                                                                             <img class="card-img-top" src="{{url
-                                                                        ('uploads/images/brand/' .
+                                                                        ('public/uploads/images/brand/' .
                                                                         $item->brand_image)}}"
                                                                                  style="max-width: 250px; margin-top: 20px"
                                                                                  id="show_image">

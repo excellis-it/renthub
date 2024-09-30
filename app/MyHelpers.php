@@ -51,7 +51,7 @@ class MyHelpers
         try {
             unlink($image);
         }catch (Exception $exception){
-            // log that exception
+           
         }
     }
 

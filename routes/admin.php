@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Backend\TestimonialController;
+use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\PagesController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubscriptionController;
@@ -35,8 +36,6 @@ Route::middleware(['auth', 'auth.role:admin'])
         Route::post('activate_vendor', 'vendorActivate')->name('activate-vendor');
         Route::post('remove_vendor', 'userRemove')->name('vendor-remove');
 
-      
-
 
         Route::prefix('pages')->group(function () {
             Route::get('list', [PagesController::class, 'pages_index']);
@@ -64,6 +63,15 @@ Route::middleware(['auth', 'auth.role:admin'])
             Route::get('edit/{id}', [TestimonialController::class, 'edit']);
             Route::post('update', [TestimonialController::class, 'testimonialUpdate']);
             Route::get('remove/{id}', [TestimonialController::class, 'testimonialRemove']);
+        });
+
+        Route::prefix('brands')->group(function () {
+            Route::get('list', [BrandController::class, 'index'])->name('brands.index');
+            Route::get('add', [BrandController::class, 'create'])->name('brands.create');
+            Route::post('create', [BrandController::class, 'store']);
+            Route::get('edit/{id}', [BrandController::class, 'edit']);
+            Route::post('update', [BrandController::class, 'update']);
+            Route::get('remove/{id}', [BrandController::class, 'destroy']);
         });
 
 

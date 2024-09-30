@@ -6,10 +6,6 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css" rel="stylesheet">
 
 
-@php
-    use App\Helpers\Product;
-@endphp
-
 
 <section class="inner_banner_sec" style="
     background-image: url({{ asset('frontend_assets/assets/images/inr-bnr.jpg') }});
@@ -49,17 +45,19 @@
 
                         <div class="list-group ">
                             <a href="{{ URL::to('/user/profile') }}"
-                                class="list-group-item list-group-item-action active" aria-current="true">
+                                class="list-group-item list-group-item-action" aria-current="true">
                                 <i class="fa-solid fa-home"></i> Dashboard
                             </a>
-                            <a href="{{ Route('user-enquiry-product',1) }}"
-                                class="list-group-item list-group-item-action" aria-current="true">
+                            <a href="{{ Route('user-enquiry-product', 1) }}"
+                                class="list-group-item list-group-item-action {{ Request::routeIs('user-enquiry-product') ? 'active' : '' }}"
+                                aria-current="true">
                                 <i class="fa-solid fa-hotel"></i> Properties
                             </a>
-                            <a href="{{ URL::to('/user/profile') }}"
-                                class="list-group-item list-group-item-action" aria-current="true">
-                                <i class="fa-solid fa-screwdriver-wrench"></i> Machineries
-                            </a>
+                            <a href="{{ Route('user-enquiry-machinery', 2) }}"
+                                class="list-group-item list-group-item-action {{ Request::routeIs('user-enquiry-machinery') ? 'active' : '' }}"
+                                aria-current="true">
+                                <i class="fa-solid fa-hotel"></i> Machineries
+                                </a>
                             <a href="{{ URL::to('/user/profile') }}"
                                 class="list-group-item list-group-item-action" aria-current="true">
                                 <i class="fa-solid fa-camera"></i> Electronics
@@ -93,14 +91,14 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="row g-3 mb-5">
-                        <div class="col-xl-6 col-sm-6 col-12">
+                        <div class="col-xl-4 col-sm-6 col-12">
                             <div class="card shadow border-0">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
                                             <span
                                                 class="h6 font-semibold text-muted text-sm d-block mb-2">Properties</span>
-                                            <span class="h3 font-bold mb-0">{{ count(Product::product(Auth::user()->id)['properties']) ?? 0 }}</span>
+                                            <span class="h3 font-bold mb-0">00</span>
                                         </div>
                                         <div class="col-auto">
                                             <div class="icon icon-shape bg-main text-white text-lg rounded-circle">
@@ -109,73 +107,56 @@
                                         </div>
                                     </div>
                                     <div class="mt-2 mb-0 text-sm">
-                                       
+                                        <span class="badge badge-pill bg-soft-success text-success me-2">
+                                            <i class="bi bi-arrow-up me-1"></i>0%
+                                        </span>
                                         <span class="text-nowrap text-xs text-muted">Since last month</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-6 col-sm-6 col-12">
+                        <div class="col-xl-4 col-sm-6 col-12">
                             <div class="card shadow border-0">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <span class="h6 font-semibold text-muted text-sm d-block mb-2">Equipments & Machinery</span>
-                                            <span class="h3 font-bold mb-0">{{ count(Product::product(Auth::user()->id)['machineries']) ?? 00 }}</span>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="icon icon-shape bg-primary text-white text-lg rounded-circle">
-                                                <i class="fa-solid fa-screwdriver-wrench"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mt-2 mb-0 text-sm">
-                                        
-                                        <span class="text-nowrap text-xs text-muted">Since last month</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-sm-6 col-12">
-                            <div class="card shadow border-0">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col">
-                                            <span
-                                                class="h6 font-semibold text-muted text-sm d-block mb-2">Vehicles</span>
+                                            <span class="h6 font-semibold text-muted text-sm d-block mb-2">Car</span>
                                             <span class="h3 font-bold mb-0">00</span>
                                         </div>
                                         <div class="col-auto">
-                                            <div class="icon icon-shape bg-info text-white text-lg rounded-circle">
+                                            <div class="icon icon-shape bg-primary text-white text-lg rounded-circle">
                                                 <i class="fa-solid fa-car"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="mt-2 mb-0 text-sm">
-                                        
+                                        <span class="badge badge-pill bg-soft-success text-success me-2">
+                                            <i class="bi bi-arrow-up me-1"></i>0%
+                                        </span>
                                         <span class="text-nowrap text-xs text-muted">Since last month</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-xl-6 col-sm-6 col-12">
+                        <div class="col-xl-4 col-sm-6 col-12">
                             <div class="card shadow border-0">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
                                             <span
-                                                class="h6 font-semibold text-muted text-sm d-block mb-2">Electronics</span>
+                                                class="h6 font-semibold text-muted text-sm d-block mb-2">Equipments</span>
                                             <span class="h3 font-bold mb-0">00</span>
                                         </div>
                                         <div class="col-auto">
                                             <div class="icon icon-shape bg-info text-white text-lg rounded-circle">
-                                                <i class="fa-solid fa-camera"></i>
+                                                <i class="fa-solid fa-screwdriver-wrench"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="mt-2 mb-0 text-sm">
-                                        
+                                        <span class="badge badge-pill bg-soft-danger text-danger me-2">
+                                            <i class="bi bi-arrow-down me-1"></i>0%
+                                        </span>
                                         <span class="text-nowrap text-xs text-muted">Since last month</span>
                                     </div>
                                 </div>
@@ -183,9 +164,9 @@
                         </div>
 
                     </div>
-                    {{-- <div class="card shadow border-0 mb-4">
+                    <div class="card shadow border-0 mb-4">
                         <div class="card-header">
-                            <h5 class="mb-0">Properties</h5>
+                            <h5 class="mb-0">Machineries</h5>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-hover table-nowrap mb-0">
@@ -193,76 +174,23 @@
                                     <tr>
                                         <th scope="col">Image</th> 
                                         <th scope="col">Title</th>
-                                        <th scope="col">Property description</th>
-                                        <th scope="col">product Price</th>
-                                        <th scope="col">market price</th>
-                                        <th scope="col">Sq Ft</th>
-                                        <!--<th></th>-->
+                                        <th scope="col">Date of Manufacture</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Listing by</th>
+                                        <th scope="col">New/Used</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach($user_property_enquries as $property_enqury)
-                                    <tr>
-                                        <td>{{ $property_enqury->product->product_name ?? '' }}</td>
-                                        <td>{!!$property_enqury->product->product_short_description !!}</td>
-                                        <td>${{$property_enqury->product->product_price ?? '' }}</td>
-                                        <td>${{$property_enqury->product->marked_price ?? ''}}</td>
-                                        
-                                    </tr>
-
-                                    @endforeach
-
+                                <tbody id="tableBodyContents"> 
+                                    @include('frontend.dashboard.machinery-enquiry-filter')
                                 </tbody>
                             </table>
+
+                            <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
                         </div>
                     </div>
 
-                    <div class="card shadow border-0 mb-4">
-                        <div class="card-header">
-                            <h5 class="mb-0">Machinery</h5>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-hover table-nowrap mb-0">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th scope="col">Image</th> 
-                                        <th scope="col">Title</th>
-                                        <th scope="col">Property description</th>
-                                        <th scope="col">product Price</th>
-                                        <th scope="col">market price</th>
-                                        <th scope="col">Sq Ft</th>
-                                        <!--<th></th>-->
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($user_machinery_enquries as $property_enqury)
-                                    <tr>
-                                        <!--<td>-->
-                                        <!--    <img alt="..." src="assets/images/feature_property.jpg"-->
-                                        <!--        class="avatar avatar-xs rounded-circle me-2" width="30px"-->
-                                        <!--        height="30px">-->
-                                        <!--</td> -->
-                                        <!--<td></td>-->
-                                        <td>{{ $property_enqury->product->product_name ?? '' }}</td>
-                                        <td>{!!$property_enqury->product->product_short_description !!}</td>
-                                        <td>${{$property_enqury->product->product_price ?? '' }}</td>
-                                        <td>${{$property_enqury->product->marked_price ?? ''}}</td>
-                                        <!--<td class="text-end">-->
-                                        <!--    <a href="#" class="view_icon">-->
-                                        <!--        <i class="fa-solid fa-eye"></i>-->
-                                        <!--    </a>-->
-                                        <!--    <a href="#" class="delete_icon">-->
-                                        <!--        <i class="fa-solid fa-trash"></i>-->
-                                        <!--    </a>-->
-                                        <!--</td>-->
-                                    </tr>
-
-                                    @endforeach
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div> --}}
+                   
                 </div>
             </div>
         </div>
@@ -367,4 +295,40 @@
 @include('frontend.includes.footer')
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox-plus-jquery.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+
+    function fetch_data(page, query = '') {
+        $.ajax({
+            url: "{{ route('vendor-property.filter') }}?page=" + page + "&query=" + query,
+            success: function (data) {
+                // Update the table body with new data
+                $('#tableBodyContents').html(data.data);
+                $('#pagination_links').html(data.pagination);
+            }
+        });
+    }
+
+    // Handle pagination click event
+    $(document).on('click', '.pagination a', function (event) {
+        event.preventDefault();
+        let page = $(this).attr('href').split('page=')[1];
+        $('#hidden_page').val(page);
+
+        // Fetch new data for the selected page
+        let query = $('#search').val(); // Optional search query
+        fetch_data(page, query);
+    });
+
+    // Optional: If you have a search field
+    $('#search').on('keyup', function () {
+        let query = $(this).val();
+        let page = $('#hidden_page').val();
+        fetch_data(page, query);
+    });
+});
+
+</script>
 @endsection

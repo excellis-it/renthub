@@ -40,4 +40,56 @@ class UserEnquiryController extends Controller
         else
             return redirect()->route('enquiry')->with('error', 'Failed to add this enquiry, try again.');
     }
+
+    public function enquiry_products($id)
+    {
+        $cat_id = $id;
+        $user = auth()->user();
+        $user_property_enquries = UserEnquiry::where('user_id', $user->id)
+            ->with('product')
+            ->whereHas('product', function ($query) use ($cat_id) {
+                $query->where('category_id', $cat_id);
+            })
+            ->paginate(10);
+
+        return view('frontend.dashboard.property-enquiry', compact('user','user_property_enquries'));
+    }
+
+    public function enquiry_products_filter(Request $request)
+    {
+        if ($request->ajax()) {
+            $query = $request->get('query');
+            $query = str_replace(" ", "%", $query);
+            $user = auth()->user();
+
+            $user_property_enquries = UserEnquiry::where('user_id', $user->id)
+                ->with('product')
+                ->whereHas('product', function ($queryBuilder) use ($cat_id) {
+                    $queryBuilder->where('category_id', $cat_id);
+                })
+                ->where(function ($queryBuilder) use ($query) {
+                    $queryBuilder->where('product_name', 'like', '%' . $query . '%')
+                        ->orWhere('location', 'like', '%' . $query . '%')
+                        ->orWhere('product_price', 'like', '%' . $query . '%');
+                })
+                ->orderBy('product_id', 'desc')
+                ->paginate(10);
+    
+            return response()->json(['data' => view('frontend.dashboard.property-enquiry-filter', compact('user_property_enquries','user'))->render()]);
+        }
+    }
+
+    public function enquiry_machinery($id)
+    {
+        $cat_id = $id;
+        $user = auth()->user();
+        $user_machinery_enquries = UserEnquiry::where('user_id', $user->id)
+            ->with('product')
+            ->whereHas('product', function ($query) use ($cat_id) {
+                $query->where('category_id', $cat_id);
+            })
+            ->paginate(10);
+
+        return view('frontend.dashboard.machinery-enquiry', compact('user','user_machinery_enquries'));
+    }
 }

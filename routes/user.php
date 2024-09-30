@@ -27,13 +27,17 @@ Route::middleware(['auth', 'auth.role:user'])
         Route::post('update-password', [UserController::class, 'updatePassword']);
         Route::get('payment-history', [UserController::class, 'payment_history']);
         Route::get('subscription-history', [UserController::class, 'subscription_history']);
-
-
+        
         Route::get('review/{id}', [ReviewController::class, 'review']);
         Route::post('review-store', [ReviewController::class, 'reviewstore']);
         
-        
         Route::get('enquiry', [UserEnquiryController::class, 'list'])->name('enquiry');
+        Route::get('enquiry-products/{id}', [UserEnquiryController::class, 'enquiry_products'])->name('enquiry-product');
+        Route::get('enquiry-products-filter', [UserEnquiryController::class, 'enquiry_products_filter'])->name('enquiry-product-filter');
+
+        Route::get('enquiry-machinery/{id}', [UserEnquiryController::class, 'enquiry_machinery'])->name('enquiry-machinery');
+        Route::get('enquiry-machinery-filter', [UserEnquiryController::class, 'enquiry_machinery_filter'])->name('enquiry-machinery-filter');
+
         Route::post('enquiry-store', [UserEnquiryController::class, 'enquirystore'])->name('enquiry-store');
         Route::get('edit/{id}', [UserEnquiryController::class, 'edit'])->name('enquiry.edit');
         Route::post('update', [UserEnquiryController::class, 'update'])->name('enquiry.update');
