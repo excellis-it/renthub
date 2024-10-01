@@ -62,10 +62,10 @@ Route::get('privacy-policy', [RegisterController::class, 'privacy']);
 
 Route::get('review', [CmsController::class, 'review']);
 
-Route::get('property-details/{id}', [CmsController::class, 'property_details']);
-Route::get('vehicle-details/{id}', [CmsController::class, 'vehicle_details']);
-Route::get('electronics-home-appliances-details/{id}', [CmsController::class, 'electronics_details']);
-Route::get('equipment-and-machineries-details/{id}', [CmsController::class, 'machineries_details']);
+Route::get('property-details/{id}', [CmsController::class, 'property_details'])->name('property-details');
+Route::get('vehicle-details/{id}', [CmsController::class, 'vehicle_details'])->name('vehicle-details');
+Route::get('electronics-home-appliances-details/{id}', [CmsController::class, 'electronics_details'])->name('electronics-details');
+Route::get('equipment-and-machineries-details/{id}', [CmsController::class, 'machineries_details'])->name('machineries-details');
 Route::get('subscription', [CmsController::class, 'subscription']);
 
 

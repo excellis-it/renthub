@@ -187,10 +187,10 @@
     <link href="{{asset('backend_assets')}}/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet"/>
 @endsection
 @section('js')
-    <script src="{{asset('backend_assets')}}/plugins/datatable/js/jquery.dataTables.min.js"></script>
-    <script src="{{asset('backend_assets')}}/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+    {{-- <script src="{{asset('backend_assets')}}/plugins/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="{{asset('backend_assets')}}/plugins/datatable/js/dataTables.bootstrap5.min.js"></script> --}}
 
-    <script>
+    {{-- <script>
         $(document).ready(function () {
             var table = $('#data_table').DataTable({
                 lengthChange: true,
@@ -200,7 +200,7 @@
             table.buttons().container()
                 .appendTo('#data_table_wrapper .col-md-6:eq(0)');
         });
-    </script>
+    </script> --}}
 
     <script src="sweetalert2.all.min.js"></script>
 

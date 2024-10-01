@@ -30,6 +30,7 @@ class SubCategoryController extends Controller
      */
     public function subCategoryCreate(SubCategoryRequest $request){
         // validate
+        
         $data = $request->validated();
         $data['status'] = 1;
 
@@ -59,7 +60,7 @@ class SubCategoryController extends Controller
     public function subCategoryRemove(Request $request){
         try {
             $sub_category = SubCategoryModel::findOrFail($request->id);
-            MyHelpers::deleteImageFromStorage($sub_category->sub_category_image , 'uploads/images/sub_category/');
+            // MyHelpers::deleteImageFromStorage($sub_category->sub_category_image , 'uploads/images/sub_category/');
             if ($sub_category->delete())
                 return redirect()->route('sub-category')->with('success', 'Successfully removed.');
             else
@@ -74,6 +75,8 @@ class SubCategoryController extends Controller
      */
     public function subCategoryUpdate(SubCategoryRequest $request){
         // validation
+        
+        $request->get('sub_category_id');
         $data = $request->validated();
         $data['status'] = $request->status;
 
@@ -81,7 +84,7 @@ class SubCategoryController extends Controller
         try {
             $sub_category = SubCategoryModel::findOrFail($request->get('sub_category_id'));
         }catch (ModelNotFoundException $exception){
-            return redirect()->route('admin-sub-category')->with('error', 'Something went wrong, try again.');
+            return redirect()->route('sub-category')->with('error', 'Something went wrong, try again.');
         }
 
         // handling if the request has an image
@@ -90,14 +93,14 @@ class SubCategoryController extends Controller
         {
 
             $data['sub_category_image'] = $this->handleRequestImage($newImage, 'uploads/images/sub_category');
-            MyHelpers::deleteImageFromStorage($sub_category->sub_category_image, 'uploads/images/sub_category/');
+            // MyHelpers::deleteImageFromStorage($sub_category->sub_category_image, 'uploads/images/sub_category/');
         }
 
         // update
         $data['sub_category_slug'] = $this->getCategorySlug($data['sub_category_name']);
         if ($sub_category->update($data))
-            return response(['msg' => 'Sub Category is updated successfully.'], 200);
+            return redirect()->route('sub-category')->with('success', 'Sub category updated successfully.');
         else
-            return redirect()->route('admin-sub-category')->with('error', 'Something went wrong, try again.');
+            return redirect()->route('sub-category')->with('error', 'Something went wrong, try again.');
     }
 }

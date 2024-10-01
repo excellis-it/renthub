@@ -136,34 +136,31 @@ class UserController extends Controller
 
         return view('frontend.dashboard.user-profile', compact('user','user_property_enquries','user_machinery_enquries'));
     }
-    public function edit($id)
+    public function edit()
     {
-        $user = auth()->user()->find($id);
-        // dd($user);
-
+        $user = auth()->user();
         return view('frontend.dashboard.profile-edit', compact('user'));
     }
 
     public function update(Request $request)
     {
+       
         $request->validate([
-            'username' =>  'required|string|max:255',
+            'username' => 'required|string|max:255',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'gender' => 'required',
             'phone_number' => 'required|string|max:15',
-
-            'address' => 'required|string|max:255',
-            'country' => 'required',
-            'city' => 'required',
-            'state' => 'required',
-            'zip_code' => 'required',
-
+            'address' => 'string|max:255',
+            'country' => 'string|max:255',
+            'state' => 'string|max:255',
+            'city' => 'string|max:255',
+            'zip_code' => 'string|max:10',
         ]);
 
-
         $user = User::find($request->id);
-        $user->update([
+
+        $updateData = [
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'phone_number' => $request->phone_number,
@@ -173,18 +170,31 @@ class UserController extends Controller
             'city' => $request->city,
             'zip_code' => $request->zip_code,
             'address' => $request->address,
+            'email' => $request->email,
+            'gender' => $request->gender,
+        ];
 
-        ]);
+        $image = $request->file('profile_image');
+        if ($image) {
+            $request->validate([
+                'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ]);
 
-        return response()->json([
-            'message' => 'Profile updated successfully.'
-        ]);
+            $updateData['photo'] = MyHelpers::uploadImage($image, 'uploads/images/profile');
+        }
+
+        try {
+            $user->update($updateData);
+            return response(['msg' => 'Profile updated successfully'], 200);
+        } catch (ModelNotFoundException $exception) {
+            return response(['msg' => 'Failed to update profile'], 500);
+        }
     }
 
 
-    public function change_password($id)
+    public function change_password()
     {
-        $user = auth()->user()->find($id);
+        $user = auth()->user();
         return view('frontend.dashboard.change-password', compact('user'));
     }
     /*public function update_password(Request $request)

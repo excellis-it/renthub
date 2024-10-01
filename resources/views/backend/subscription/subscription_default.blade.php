@@ -34,7 +34,6 @@
                     <tr>
                         <th>Title</th>
                         <th>Sub Title</th>
-                        <th>Description</th>
                         <th>Days</th>
                         <th>Price</th>
                         <th>Number Of Products</th>
@@ -47,7 +46,6 @@
                     <tr>
                         <td>{{ $val->title }}</td>
                         <td>{{ $val->subtitle }}</td>
-                        <td>{{ $val->description }}</td>
                         <td>{{ $val->days }}</td>
                         <td>{{ $val->price }}</td>
                         <td>{{ $val->no_of_product }}</td>

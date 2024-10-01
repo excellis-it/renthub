@@ -34,68 +34,14 @@
             <div class="row">
 
                 <div class="col-lg-3">
-                    <div class="card border-0 shadow py-4">
-                        <div class="text-center">
-                            <img src="{{ asset('frontend_assets/assets/images/logo.png') }}"
-                                class="card-img-top rounded-circle w-50 shadow" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">
-
-                                    <b>{{ $user->first_name }} {{ $user->last_name }}</b>
-                                </h5>
-                            </div>
-                        </div>
-
-
-                        <div class="list-group ">
-                            <a href="{{ URL::to('/user/profile') }}"
-                                class="list-group-item list-group-item-action active" aria-current="true">
-                                <i class="fa-solid fa-home"></i> Dashboard
-                            </a>
-                            <a href="{{ Route('user-enquiry-product',1) }}"
-                                class="list-group-item list-group-item-action" aria-current="true">
-                                <i class="fa-solid fa-hotel"></i> Properties
-                            </a>
-                            <a href="{{ URL::to('/user/profile') }}"
-                                class="list-group-item list-group-item-action" aria-current="true">
-                                <i class="fa-solid fa-screwdriver-wrench"></i> Machineries
-                            </a>
-                            <a href="{{ URL::to('/user/profile') }}"
-                                class="list-group-item list-group-item-action" aria-current="true">
-                                <i class="fa-solid fa-camera"></i> Electronics
-                            </a>
-                            <a href="{{ URL::to('/user/profile') }}"
-                                class="list-group-item list-group-item-action" aria-current="true">
-                                <i class="fa-solid fa-car"></i> Vehicles
-                            </a>
-                            <a href="{{ url('/user/edit/' . $user->id) }}"
-                                class="list-group-item list-group-item-action"> <i class="fa-solid fa-id-card-clip"></i>
-                                Update Profile</a>
-                            <a href="{{ url('/user/change-password/' . $user->id) }}"
-                                class="list-group-item list-group-item-action"><i class="fa-solid fa-key"></i> Change
-                                Password</a>
-                            <a href="{{ URL::to('/user/payment-history') }}"
-                                class="list-group-item list-group-item-action "> <i class="fa-solid fa-money-check"></i>
-                                Payment History</a>
-                            <a href="{{ URL::to('/user/subscription-history') }}"
-                                class="list-group-item list-group-item-action"> <i class="fa-solid fa-money-bill"></i>
-                                Subscription History</a>
-
-
-                            <a href="{{ URL::to('/logout') }}" class="list-group-item list-group-item-action"> <i
-                                    class="fa-solid fa-right-from-bracket" onclick="event.preventDefault(); this.closest
-                                            ('form').submit();"></i>
-                                Logout</a>
-
-                        </div>
-
-                    </div>
+                    @include('frontend.dashboard.sidebar')  
                 </div>
                 <div class="col-lg-9">
                     <div class="row g-3 mb-5">
                         <div class="col-xl-6 col-sm-6 col-12">
                             <div class="card shadow border-0">
                                 <div class="card-body">
+                                    <a href="{{ Route('user-enquiry-product', 1) }}">
                                     <div class="row">
                                         <div class="col">
                                             <span
@@ -112,12 +58,14 @@
                                        
                                         <span class="text-nowrap text-xs text-muted">Since last month</span>
                                     </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-6 col-sm-6 col-12">
                             <div class="card shadow border-0">
                                 <div class="card-body">
+                                    <a href="{{ Route('user-enquiry-machinery', 2) }}">
                                     <div class="row">
                                         <div class="col">
                                             <span class="h6 font-semibold text-muted text-sm d-block mb-2">Equipments & Machinery</span>
@@ -133,17 +81,19 @@
                                         
                                         <span class="text-nowrap text-xs text-muted">Since last month</span>
                                     </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-6 col-sm-6 col-12">
                             <div class="card shadow border-0">
                                 <div class="card-body">
+                                    <a href="{{ Route('user-enquiry-vehicles', 4) }}">
                                     <div class="row">
                                         <div class="col">
                                             <span
                                                 class="h6 font-semibold text-muted text-sm d-block mb-2">Vehicles</span>
-                                            <span class="h3 font-bold mb-0">00</span>
+                                            <span class="h3 font-bold mb-0">{{ count(Product::product(Auth::user()->id)['vehicles']) ?? 00 }}</span>
                                         </div>
                                         <div class="col-auto">
                                             <div class="icon icon-shape bg-info text-white text-lg rounded-circle">
@@ -155,6 +105,7 @@
                                         
                                         <span class="text-nowrap text-xs text-muted">Since last month</span>
                                     </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -162,11 +113,12 @@
                         <div class="col-xl-6 col-sm-6 col-12">
                             <div class="card shadow border-0">
                                 <div class="card-body">
+                                    <a href="{{ Route('user-enquiry-electronics',3) }}">
                                     <div class="row">
                                         <div class="col">
                                             <span
                                                 class="h6 font-semibold text-muted text-sm d-block mb-2">Electronics</span>
-                                            <span class="h3 font-bold mb-0">00</span>
+                                            <span class="h3 font-bold mb-0">{{ count(Product::product(Auth::user()->id)['electronics']) ?? 00 }}</span>
                                         </div>
                                         <div class="col-auto">
                                             <div class="icon icon-shape bg-info text-white text-lg rounded-circle">
@@ -178,6 +130,7 @@
                                         
                                         <span class="text-nowrap text-xs text-muted">Since last month</span>
                                     </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -270,99 +223,6 @@
     </div>
 </section>
 
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content bg_f7f7f7">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Enquire Now</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="propety-type mb-div">
-                    <div class="tour-form">
-                        <form>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label for="">First & last name</label>
-                                        <input type="text" class="form-control" id="" value=""
-                                            placeholder="First & last name" required="">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label for="">Phone</label>
-                                        <input type="text" class="form-control" id="" value="" placeholder="Phone"
-                                            required="">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label for="">Email</label>
-                                        <input type="text" class="form-control" id="" value="" placeholder="Email"
-                                            required="">
-                                    </div>
-                                </div>
-
-
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label for="">Message</label>
-                                        <textarea class="form-control form-control-1" id="" placeholder="Message"
-                                            rows="4"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label for="">Interested In</label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="flexRadioDefault1">
-                                            <label class="form-check-label" for="flexRadioDefault1">
-                                                Request a tour
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="flexRadioDefault2" checked>
-                                            <label class="form-check-label" for="flexRadioDefault2">
-                                                Apply
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="flexRadioDefault3" checked>
-                                            <label class="form-check-label" for="flexRadioDefault3">
-                                                Enquire
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label for="">Select a preferred date for tour
-                                            <span>(optional)</span></label>
-                                        <input type="date" class="form-control" id="" value="" placeholder="Email"
-                                            required="">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-12">
-                                        <div class="request-btn text-center">
-                                            <a href="#" class="">Inquire Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 @include('frontend.includes.footer')
 

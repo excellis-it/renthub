@@ -61,14 +61,14 @@
                                     <label for="inputProductDescription" class="form-label">Short Description<span style="color:red;">*</span></label>
                                     <textarea name="product_short_description" class="form-control"
                                               id="product_short_description"
-                                              rows="3" ></textarea>
+                                              ></textarea>
                                     <span style="color: #e20000" class="error"
                                            id="product_short_description-error"></span>
 
                                 </div>
                                 <div class="mb-3">
                                     <label for="inputProductLongDescription" class="form-label">Detailed Description</label>
-                                    <textarea name="product_long_description" class="form-control" id="product_long_description" rows="3"> </textarea>
+                                    <textarea name="product_long_description" class="form-control" id="product_long_description" height="200px;"> </textarea>
                                     <span style="color: #e20000" class="error"
                                            id="product_long_description-error"></span>
 

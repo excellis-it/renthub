@@ -75,12 +75,12 @@
                                 <td>
                                     <div class="d-flex order-actions">
                                      @if(Auth::user()->role == "admin")
-                                        <a href="{{url('admin/testimonial/edit/'.$testimonials->id)}}" class="ms-4" data-bs-toggle="modal"
+                                        {{-- <a href="{{url('admin/testimonial/edit/'.$testimonials->id)}}" class="ms-4" data-bs-toggle="modal"
                                             data-bs-target="#exampleFullScreenModal-{{ $testimonials->id }}">
                                             <i class='bx bxs-edit'></i>
 
 
-                                        </a>
+                                        </a> --}}
 
                                         <div class="modal fade" id="exampleFullScreenModal-{{ $testimonials->id }}"
                                             tabindex="-1" aria-hidden="true">
@@ -278,6 +278,12 @@
                                     positionClass: 'toast-top-right',
                                     timeOut: '3000',                          
                                 });
+
+                             
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 2000); 
+
 
                             }
                         });

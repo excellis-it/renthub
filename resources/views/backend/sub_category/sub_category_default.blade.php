@@ -119,9 +119,7 @@
                                                         <div class="modal-body">
                                                             <div class="card">
                                                                 <div class="card-body">
-                                                                    <form class="sub_category_form" action="{{route
-                                                                    ('sub-category-update')
-                                                                    }}" method="POST" enctype="multipart/form-data">
+                                                                    <form action="{{ route('sub-category-update') }}" method="POST" enctype="multipart/form-data">
                                                                         @csrf
                                                                         <input name="sub_category_id"
                                                                             value="{{$item->sub_category_id}}"

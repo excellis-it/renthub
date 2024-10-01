@@ -81,7 +81,7 @@ class BrandController extends Controller
         // update
         $data['brand_slug'] = $this->getBrandSlug($data['brand_name']);
         if ($brand->update($data))
-            return response(['msg' => 'Brand is updated successfully.'], 200);
+            return redirect()->back()->with('success', 'Successfully updated.');
         else
             return redirect()->route('admin-brand')->with('error', 'Something went wrong, try again.');
     }
