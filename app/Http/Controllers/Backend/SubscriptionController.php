@@ -15,6 +15,11 @@ class SubscriptionController extends Controller
         return view('backend.subscription.subscription_default', compact('data'));
     }
 
+    public function purchase()
+    {
+        
+    }
+
     
     public function history(Request $request)
     {

@@ -1,6 +1,7 @@
 @php
     use Illuminate\Support\Facades\Auth;
     $role = Auth::user()->role;
+    use App\Helpers\Product;
 @endphp
 @extends('backend.layouts.app')
 @section('PageTitle', 'Basic User')
@@ -29,7 +30,6 @@
                     <thead>
                         <tr>
                             <th>Sl No.</th>
-                            <th>Profile</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>username</th>
@@ -43,11 +43,13 @@
                         @foreach ($data as $index => $val)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $val->photo }}</td>
                                 <td>{{ strtoupper($val->first_name) }} {{ strtoupper($val->last_name) }}</td>
                                 <td>{{ $val->email }}</td>
                                 <td>{{ strtoupper($val->username) }}</td>
-                                <td>{{ $val->no_of_inquiries }}</td>
+                                <td>
+                                    {{ Product::userTotalEnquiry($val->id) }}
+
+                                </td>
                                 <td>
                                     <form method="POST" action="" class="activate_form">
                                         @csrf

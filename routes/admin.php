@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\PagesController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubscriptionController;
+use App\Http\Controllers\Backend\InquiryController;
 use App\Http\Controllers\Backend\UserController;
 
 /*
@@ -44,6 +45,21 @@ Route::middleware(['auth', 'auth.role:admin'])
             Route::get('edit/{id}', [PagesController::class, 'edit']);
             Route::post('update', [PagesController::class, 'pagesUpdate']);
             Route::get('remove/{id}', [PagesController::class, 'pagesRemove']);
+        });
+
+
+        Route::prefix('inquiries')->group(function(){
+            Route::get('/property-list', [InquiryController::class, 'property_list'])->name('inquiries-property-list');
+            Route::get('/property-filter', [InquiryController::class, 'property_filter'])->name('inquiries-property-filter');
+
+            Route::get('/machinery-list', [InquiryController::class, 'machinery_list'])->name('inquiries-machinery-list');
+            Route::get('/machinery-filter', [InquiryController::class, 'machinery_filter'])->name('inquiries-machinery-filter');
+
+            Route::get('/vehicle-list', [InquiryController::class, 'vehicle_list'])->name('inquiries-vehicle-list');
+            Route::get('/vehicle-filter', [InquiryController::class, 'vehicle_filter'])->name('inquiries-vehicle-filter');
+
+            Route::get('/electronics-list', [InquiryController::class, 'electronics_list'])->name('inquiries-electronics-list');
+            Route::get('/electronics-filter', [InquiryController::class, 'electronics_filter'])->name('inquiries-electronics-filter');
         });
 
 
@@ -85,7 +101,7 @@ Route::middleware(['auth', 'auth.role:admin'])
         });
 
         Route::prefix('user')->group(function () {
-            Route::get('listing_user', [UserController::class, 'listing_user']);
+            Route::get('listing_user', [UserController::class, 'listing_user'])->name('listing-user');
             Route::get('edit-user/{id}', [UserController::class, 'edit_user'])->name('edit-user');
             Route::post('update-user', [UserController::class, 'update_user'])->name('update-user');
             Route::get('basic_user', [UserController::class, 'basic_user']);

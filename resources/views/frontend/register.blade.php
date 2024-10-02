@@ -1,7 +1,6 @@
 @extends('frontend.includes.master')
 <link href="{{ asset('frontend_assets/assets/css/signup.css') }}" rel="stylesheet">
 
-
 @section('content')
 @include('frontend.includes.header')
 <div class="registration_sec">
@@ -19,7 +18,7 @@
                 </div>
 
 
-                <form id="listing_user" action="{{ url('listing-user-register') }}" method="post"
+                <form id="listing_user" action="{{ route('listing-user-register') }}" method="post"
                     enctype="multipart/form-data">
 
                     <div class="step" id="step1-1">
@@ -27,7 +26,7 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group mb-3">
-                                    <label>Title</label>
+                                    <label>Title<span style="color:red;">*</span></label>
 
                                     <select class="form-control" name="title">
                                         <option value="" selected>Choose</option>
@@ -35,47 +34,52 @@
                                         <option value="Mrs">Mrs.</option>
 
                                     </select>
+                                    <span id="title-error" style="color:red;"></span>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group mb-3">
-                                    <label>First Name</label>
+                                    <label>First Name<span style="color:red;">*</span></label>
 
                                     <input type="text" name="first_name"
                                         class="form-control @error('first_name') is-invalid @enderror"
-                                        placeholder="First Name" value="{{old('first_name')}}" required />
+                                        placeholder="First Name" value="{{old('first_name')}}"  />
+                                        <span id="first_name-error" style="color:red;"></span>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group mb-3">
-                                    <label>Last Name</label>
+                                    <label>Last Name<span style="color:red;">*</span></label>
 
                                     <input type="text" name="last_name"
                                         class="form-control @error('last_name') is-invalid @enderror"
                                         placeholder="Last Name" value="{{old('last_name')}}" />
-
+                                        <span id="last_name-error" style="color:red;"></span>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group mb-3">
-                                    <label>Gender</label>
+                                    <label>Gender<span style="color:red;">*</span></label>
 
                                     <select class="form-control @error('gender') is-invalid @enderror" name="gender">
-                                        <option selected>Choose</option>
+                                        <option selected value="">Choose</option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
                                         <option value="others">Others</option>
                                     </select>
+
+                                    <span id="gender-error" style="color:red;"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group mb-3">
-                                    <label>Phone No</label>
+                                    <label>Phone No<span style="color:red;">*</span></label>
 
                                     <input type="text" class="form-control  @error('phone_number') is-invalid @enderror"
                                         name="phone_number" placeholder="Phone No" value="{{old('phone_number')}}" />
+                                        <span id="phone_number-error" style="color:red;"></span>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -127,12 +131,14 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group mb-3">
-                                    <label>Street Address</label>
+                                    <label>Street Address<span style="color:red;">*</span></label>
                                     @error('address')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <input type="text" class="form-control @error('address') is-invalid @enderror"
                                         name="address" placeholder="Street Address" value="{{old('address')}}" />
+
+                                    <span id="address-error" style="color:red;"></span>
                                 </div>
                             </div>
                         </div>
@@ -148,17 +154,19 @@
                                     <input type="text" name="username"
                                         class="form-control @error('username') is-invalid @enderror"
                                         placeholder="User Name" value="{{old('username')}}" />
+                                    <span id="username-error" style="color:red;"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group mb-3">
-                                    <label>Email ID</label>
+                                    <label>Email ID<span style="color:red;">*</span></label>
                                     @error('email')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <input type="text" name="email"
                                         class="form-control @error('email') is-invalid @enderror" placeholder="Email ID"
                                         value="{{old('email')}}" />
+                                    <span id="email-error" style="color:red;"></span>
                                 </div>
                             </div>
                         </div>
@@ -166,23 +174,24 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group mb-3">
-                                    <label>Password</label>
+                                    <label>Password<span style="color:red;">*</span></label>
                                     @error('password')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <input type="password" class="form-control" name="password"
                                         placeholder="Password" />
-
+                                    <span id="password-error" style="color:red;"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group mb-3">
-                                    <label>Confirm Password</label>
+                                    <label>Confirm Password<span style="color:red;">*</span></label>
                                     @error('password_confirmation')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                     <input type="password" class="form-control" name="password_confirmation"
                                         placeholder="Confirm Password" />
+                                    <span id="password_confirmation-error" style="color:red;"></span>
                                 </div>
                             </div>
                         </div>
@@ -205,7 +214,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group mb-3">
-                                    <label></label>
+                                    <label>Govt Id file</label>
                                     @error('govt_id_file')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -262,17 +271,12 @@
             </div>
         </div>
 
-
-
-
-
-
         <div class="tab" id="SecondForm">
             <h4>Basic User</h4>
             <div class="progress-bar mb-3">
                 <div id="progress2" class="progress"></div>
             </div>
-            <form id="basic_user" action="{{ url('basic-user-register') }}" method="post">
+            <form id="basic_user" action="{{ route('basic-user-register') }}" method="post">
                 <!-- Step 1 -->
 
                 <div class="step" id="step1-2">
@@ -280,51 +284,56 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group mb-3">
-                                <label>Title</label>
+                                <label>Title<span style="color:red;">*</span></label>
 
-                                <select class="form-control" name="title">
+                                <select class="form-control" name="title" id="title">
                                     <option value="" selected>Choose</option>
                                     <option value="Mr">Mr.</option>
                                     <option value="Mrs">Mrs.</option>
                                 </select>
+                                <span class="title-error" style="color:red;"></span>
                             </div>
                         </div>
 
                         <div class="col-md-3">
                             <div class="form-group mb-3">
-                                <label>First Name</label>
+                                <label>First Name<span style="color:red;">*</span></label>
                                 <input type="text" name="first_name"
                                     class="form-control @error('first_name') is-invalid @enderror"
-                                    placeholder="First Name" required />
+                                    placeholder="First Name" />
+                                <span class="first_name-error" style="color:red;"></span>    
                             </div>
                         </div>
 
                         <div class="col-md-3">
                             <div class="form-group mb-3">
-                                <label>Last Name</label>
+                                <label>Last Name<span style="color:red;">*</span></label>
                                 <input type="text" name="last_name"
                                     class="form-control @error('last_name') is-invalid @enderror"
                                     placeholder="Last Name" />
+                                <span class="last_name-error" style="color:red;"></span>        
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group mb-3">
-                                <label>Gender</label>
+                                <label>Gender<span style="color:red;">*</span></label>
                                 <select class="form-control @error('gender') is-invalid @enderror" name="gender"
                                     aria-label="Default select example">
-                                    <option selected>Choose</option>
+                                    <option selected value="">Choose</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                     <option value="others">Others</option>
                                 </select>
+                                <span class="gender-error" style="color:red;"></span>        
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group mb-3">
-                                <label>Phone No</label>
+                                <label>Phone No<span style="color:red;">*</span></label>
                                 <input type="text" name="phone_number"
                                     class="form-control @error('phone_number') is-invalid @enderror"
                                     placeholder="Phone No" />
+                                <span class="phone_number-error" style="color:red;"></span>        
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -366,6 +375,7 @@
                                 <input type="text" name="address"
                                     class="form-control @error('address') is-invalid @enderror"
                                     placeholder="Street Address" />
+                                
                             </div>
                         </div>
                     </div>
@@ -375,24 +385,27 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group mb-3">
-                                <label>Username</label>
+                                <label>Username<span style="color:red;">*</span></label>
                                 @error('username')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                                 <input type="text" name="username"
                                     class="form-control @error('username') is-invalid @enderror" placeholder="User Name"
-                                    value="{{old('username')}}" />
+                                     />
+                                <span class="username-error" style="color:red;"></span>        
                             </div>
                         </div>
+
                         <div class="col-md-4">
                             <div class="form-group mb-3">
-                                <label>Email ID</label>
+                                <label>Email ID<span style="color:red;">*</span></label>
                                 @error('email')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                                 <input type="text" name="email"
                                     class="form-control @error('email') is-invalid @enderror" placeholder="Email ID"
-                                    value="{{old('email')}}" />
+                                     />
+                                <span class="email-error" style="color:red;"></span>            
                             </div>
                         </div>
                     </div>
@@ -400,16 +413,18 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group mb-3">
-                                <label>Password</label>
+                                <label>Password<span style="color:red;">*</span></label>
                                 <input type="password" class="form-control @error('password') is-invalid @enderror"
                                     name="password" placeholder="Password" />
+                                <span class="password-error" style="color:red;"></span>                
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group mb-3">
-                                <label>Confirm Password</label>
+                                <label>Confirm Password<span style="color:red;">*</span></label>
                                 <input type="password" class="form-control" name="confirm_password"
                                     placeholder="Confirm Password" />
+                                    <span class="confirm_password-error" style="color:red;"></span>                     
                             </div>
                         </div>
                     </div>
@@ -418,10 +433,8 @@
                         <div class="col-md-4">
                             <div class="form-group mb-3">
                                 <div class="d-flex align-items-center">
-
                                     <i class="lni lni-check-box"><input type="checkbox" id="terms-checkbox"
                                             class="form-check-input me-2" onclick="toggleSubmitButton()"></i>
-
                                     <label for="terms-checkbox" class="form-check-label">
                                         I accepted all the <a href="{{URL::to('/privacy-policy')}}"
                                             target="_blank">Terms & Conditions</a>
@@ -456,7 +469,10 @@
         </div>
     </div>
 </div>
+
 @include('frontend.includes.footer')
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -516,18 +532,19 @@
                         form[0].reset();
                     },
                     error: function(resp) {
-                        console.log('Error response:', resp);
-                        toastr.error('There was an issue submitting the form.', 'Error', {
-                            closeButton: true,
-                            progressBar: true,
-                            positionClass: 'toast-top-right',
-                            timeOut: '3000'
+                        let errors = resp.responseJSON.errors;
+                        // Loop through the errors and display them
+                        $.each(errors, function (key, value) {
+                            $('#' + key + '-error').text(value[0]);
                         });
+                        
                     }
                 });
             });
         });
 </script>
+
+
 <script type="text/javascript">
     $(document).ready(function() {
             $('#basic_user').on('submit', function(e) {
@@ -548,7 +565,7 @@
                     },
                     success: function(resp) {
                         console.log('Success response:', resp);
-                        toastr.success('Basic User added successfully.', 'Success', {
+                        toastr.success('Basic User registration successfully.', 'Success', {
                             closeButton: true,
                             progressBar: true,
                             positionClass: 'toast-top-right',
@@ -558,13 +575,12 @@
                         form[0].reset();
                     },
                     error: function(resp) {
-                        console.log('Error response:', resp);
-                        toastr.error('There was an issue submitting the form.', 'Error', {
-                            closeButton: true,
-                            progressBar: true,
-                            positionClass: 'toast-top-right',
-                            timeOut: '3000'
+                        let errors = resp.responseJSON.errors;
+                        // Loop through the errors and display them
+                        $.each(errors, function (key, value) {
+                            $('.' + key + '-error').text(value[0]);
                         });
+                        
                     }
                 });
             });

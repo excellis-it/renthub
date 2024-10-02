@@ -14,13 +14,6 @@ class ReviewController extends Controller
     {
 
         $data = $request->id;
-        // echo $productId;
-        // die;
-
-        //$rating = Review::where('id', $productId)->avg('rating_point');
-        //$review = $rating->rating_point;
-        // Debugging output
-        //dd($rating);
         return view('frontend.dashboard.review', compact('data'));
     }
     public function reviewstore(Request $request)

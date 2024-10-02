@@ -70,8 +70,8 @@ Route::get('subscription', [CmsController::class, 'subscription']);
 
 
 /*******Register Controller *******/
-Route::post('listing-user-register', [RegisterController::class, 'listing_user_register']);
-Route::post('basic-user-register', [RegisterController::class, 'basic_user_register']);
+Route::post('/listing-user-register', [RegisterController::class, 'listing_user_register'])->name('listing-user-register');
+Route::post('/basic-user-register', [RegisterController::class, 'basic_user_register'])->name('basic-user-register');
 
 // Route::get('/login', function () {
 //     return view('index');

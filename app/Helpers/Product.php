@@ -60,4 +60,10 @@ class Product {
         return $affiliate_wallet_formatted;
     }
 
+    public  static function userTotalEnquiry($userId)
+    {
+        $total_enquiry = UserEnquiry::where('user_id', $userId)->count();
+        return $total_enquiry;
+    }
+
 }

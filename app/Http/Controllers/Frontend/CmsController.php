@@ -12,6 +12,7 @@ use App\Models\SliderModel;
 use App\Models\CategoryModel;
 use App\Models\User;
 use App\Models\Review;
+use App\Models\UserEnquiry;
 
 use App\Models\SubCategoryModel;
 use Illuminate\Support\Facades\Auth;
@@ -436,7 +437,6 @@ class CmsController extends Controller
 
     public function property_details(Request $request)
     {
-
         $id = $request->id;
         $data = ProductModel::where([
             'product_status' => 1,
@@ -450,15 +450,18 @@ class CmsController extends Controller
             ->get();
         //dd($property);
 
-        $review =  Review::with('user')->where('product_id', $id)->get();;
-            //dd($productId);
-        //  $review = $productId->product_id;
-        //dd($review);
-      
+        $review =  Review::with('user')->where('product_id', $id)->get();
        
-
+        //check user alreay enquire or not
+        $user = Auth::user();
+        $enquiry = UserEnquiry::where('user_id', $user->id)->where('product_id', $id)->first();
+        if($enquiry){
+            $enquiry = 1;
+        }else{
+            $enquiry = 0;
+        }
         //dd($user);
-        return view('frontend.property_details', compact('data', 'images', 'property', 'review'));
+        return view('frontend.property_details', compact('data', 'images', 'property', 'review','enquiry'));
     }
 
 

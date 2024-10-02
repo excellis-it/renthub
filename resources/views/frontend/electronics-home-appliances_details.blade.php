@@ -96,28 +96,15 @@
                         <div class="room-details-div-wrap mb-div">
                             <div class="room-details-div d-flex align-items-center">
 
-                                {{-- <div class="room-details d-flex align-items-center">
-
-                                    <div class="room-d-img">
-                                        <img src="assets/images/mfg_date.svg" alt="">
-                                    </div>
-                                    <div class="room-details-text">
-                                        <h3>MFG Date: Jan.2022</h3>
-                                    </div>
-
-                                </div> --}}
-
-
                                 <div class="room-details d-flex align-items-center">
                                     <div class="room-d-img">
                                         <img src="{{ asset('frontend_assets/assets/images/mfg_date.svg') }}" alt="">
                                     </div>
                                     <div class="room-details-text">
-                                        <h3> MFG Date: {{ date('jS F, Y', strtotime($data->manufacture_date ?? '')) }}</h3>
+                                        <h3> MFG Date: {{ date('jS F, Y', strtotime($data->manufacture_date ?? '')) }}
+                                        </h3>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                         <div class="propety-type mb-div"> <span> <span><img
@@ -129,11 +116,11 @@
                             <div class="addtocart">
                                 @if(Auth::user() && Auth::user()->hasRole('user'))
                                 <a href="javascript:void();" class="inquire-modal"><span>Inquire Now</span></a>
-                            @elseif(Auth::user() && !Auth::user()->hasRole('user'))
+                                @elseif(Auth::user() && !Auth::user()->hasRole('user'))
                                 <a href="#"><span>Inquire Now</span></a>
-                            @else
+                                @else
                                 <a href="{{ url('login/') }}"><span>Inquire Now</span></a>
-                            @endif
+                                @endif
                             </div>
                         </div>
 
@@ -162,6 +149,69 @@
                         </div>
 
 
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <h2 class="title">Reviews</h2>
+    
+                    <div class="card p-3 shadow border-0 updateprofile_sec mt-4">
+                        <form id="reviewForm" action="{{ url('/user/review-store') }}" method="post">
+                            <!-- Step 1 -->
+                            <div class="step" id="step1-2">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $data }}" />
+                                <div class="row">
+    
+                                    <div class="rating-all d-flex align-items-center">
+                                        <div class="rating-point me-3">
+                                            <h4 class="mb-0">Customer Rating</h4>
+                                        </div>
+                                        <div class="rating-all d-flex align-items-center">
+                                            <div class="rating">
+                                                <label for="star1" aria-label="Rating 1">
+                                                    <input type="radio" id="star1" name="rating_point" value="1"
+                                                        class="sr-only" onclick="star(1)">
+                                                </label>
+                                                <label for="star2" aria-label="Rating 2">
+                                                    <input type="radio" id="star2" name="rating_point" value="2"
+                                                        class="sr-only" onclick="star(2)">
+                                                </label>
+                                                <label for="star3" aria-label="Rating 3">
+                                                    <input type="radio" id="star3" name="rating_point" value="3"
+                                                        class="sr-only" onclick="star(3)">
+                                                </label>
+                                                <label for="star4" aria-label="Rating 4">
+                                                    <input type="radio" id="star4" name="rating_point" value="4"
+                                                        class="sr-only" onclick="star(4)">
+                                                </label>
+                                                <label for="star5" aria-label="Rating 5">
+                                                    <input type="radio" id="star5" name="rating_point" value="5"
+                                                        class="sr-only" onclick="star(5)">
+                                                </label>
+                                            </div>
+    
+                                        </div>
+    
+                                    </div>
+    
+                                    <div class="col-md-12">
+                                        <div class="form-group mb-3">
+                                            <label>Review</label>
+                                            <textarea name="description" type="text" rows="6"
+                                                placeholder="Write Your Comment Here" class="form-control" id=""></textarea>
+                                        </div>
+                                    </div>
+    
+    
+                                </div>
+    
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" name="submit" class="btn btn_green">Submit</button>
+                                </div>
+    
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -215,6 +265,8 @@
                         </div>
                     </div>
                 </div>
+
+
                 @endforeach
                 @endif
             </div>

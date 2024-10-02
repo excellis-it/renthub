@@ -19,9 +19,7 @@ class RegisterController extends Controller
     }
     public function listing_user_register(Request $request)
     {
-        /*echo '<pre>';
-        print_r($_POST);
-        die;*/
+       
         $request->validate([
             'email' => 'required|email|unique:users,email',
             'username' => [
@@ -41,9 +39,7 @@ class RegisterController extends Controller
             'phone_number' => 'required|string|max:15',
             'username' => 'required|string|max:255|unique:users,username',
             'email' => 'required|string|email|max:255|unique:users,email',
-            'address' => 'required|string|max:255',
-            'govt_id_type' => 'required',
-            'govt_id_file' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048'
+            'address' => 'required|string|max:255'
         ]);
         $data = [
             'title' => $request->title,
@@ -66,7 +62,6 @@ class RegisterController extends Controller
             'role' => 'vendor',
             'remember_token' => Str::random(60),
 
-
         ];
 
         if ($request->hasFile('govt_id_file')) {
@@ -80,7 +75,7 @@ class RegisterController extends Controller
         //dd($vendor);
         $vendor->save();
         return response()->json([
-            'message' => 'Listing user updated successfully.'
+            'message' => 'Listing user registration successfully.'
         ]);
     }
     public function basic_user_register(Request $request)
@@ -136,7 +131,7 @@ class RegisterController extends Controller
         $user->save();
 
         return response()->json([
-            'message' => 'Basic user updated successfully.'
+            'message' => 'Basic user registration successfully.'
         ]);
     }
 }

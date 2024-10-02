@@ -76,7 +76,7 @@ Route::middleware(['auth', 'auth.role:vendor'])
             Route::get('remove/{id}', [ElectronicsController::class, 'delete']);
         });
 
-
+        Route::get('subscription-purchase',[SubscriptionController::class, 'purchase'])->name('subscription-purchase');
         Route::get('subscription-history', [SubscriptionController::class, 'history'])->name('subscription-history');
         Route::get('subscription-ajax-history',[SubscriptionController::class, 'ajaxHistory'])->name('ajax.subscription-history');
         Route::get('payment/{id}', [PaymentController::class, 'payment_index']);

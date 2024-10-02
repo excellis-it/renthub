@@ -2203,7 +2203,7 @@ width: 150px;
   border-width: 0;
 }
 .rating {
-  --star-size: clamp(1rem, 5vw, 3rem);
+  --star-size: clamp(1rem, 5vw, 2rem);
   --star-clr-inactive: rgba(128, 128, 128, 0.7);
   --star-clr-active: rgb(245, 158, 11);
   --star-clr-hover: rgba(236, 201, 136, 0.2);
