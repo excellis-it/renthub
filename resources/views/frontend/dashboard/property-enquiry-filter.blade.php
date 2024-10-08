@@ -6,11 +6,11 @@
                     height="30px">
             </td>  
             <!--<td></td>-->
-            <td>{{ $property_enqury->product->product_name ?? '' }}</td>
-            <td>{{ $property_enqury->product->product_type }}</td>
-            <td>{{$property_enqury->product->product_price ?? '' }}</td>
-            <td>{{$property_enqury->product->vendor->first_name ?? ''}}</td>
-            <td>{{$property_enqury->product->property_size ?? ''}}</td>
+            <td>{{ $property_enqury->product->product_name ?? 'N/A' }}</td>
+            <td>{{ $property_enqury->product->product_type ?? 'N/A'}}</td>
+            <td>{{$property_enqury->product->product_price ?? 'N/A' }}</td>
+            <td>{{$property_enqury->product->vendor->first_name ?? 'N/A'}}</td>
+            <td>{{$property_enqury->product->property_size ?? 'N/A'}}</td>
             <td class="text-end">
                 <a href="{{ route('property-details', $property_enqury->product_id) }}" class="view_icon">
                     <i class="fa-solid fa-eye"></i>

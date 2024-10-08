@@ -6,11 +6,11 @@
             height="30px">
     </td>  
     <!--<td></td>-->
-    <td>{{ $electronics_enquries->product->product_name ?? '' }}</td>
-    <td>{{ $electronics_enquries->product->product_type }}</td>
-    <td>{{$electronics_enquries->product->product_price ?? '' }}</td>
-    <td>{{$electronics_enquries->product->vendor->first_name ?? ''}}</td>
-    <td>{{$electronics_enquries->product->manufacture_date ?? ''}}</td>
+    <td>{{ $electronics_enquries->product->product_name ?? 'N/A' }}</td>
+    <td>{{ $electronics_enquries->product->product_type ?? 'N/A'}}</td>
+    <td>{{$electronics_enquries->product->product_price ?? 'N/A' }}</td>
+    <td>{{$electronics_enquries->product->vendor->first_name ?? 'N/A'}}</td>
+    <td>{{$electronics_enquries->product->manufacture_date ?? 'N/A'}}</td>
     <td class="text-end">
         <a href="{{ URL::to('electronics-home-appliances-details/' . $electronics_enquries->product_id) }}" class="view_icon">
             <i class="fa-solid fa-eye"></i>

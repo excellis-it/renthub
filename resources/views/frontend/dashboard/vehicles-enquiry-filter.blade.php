@@ -6,11 +6,11 @@
             height="30px">
     </td>  
     <!--<td></td>-->
-    <td>{{ $vehicle_enqury->product->product_name ?? '' }}</td>
-    <td>{{ $vehicle_enqury->product->product_type ?? ''}}</td>
-    <td>{{$vehicle_enqury->product->product_price ?? '' }}</td>
-    <td>{{$vehicle_enqury->product->vendor->first_name ?? ''}}</td>
-    <td>{{$vehicle_enqury->product->manufacture_date ?? ''}}</td>
+    <td>{{ $vehicle_enqury->product->product_name ?? 'N/A' }}</td>
+    <td>{{ $vehicle_enqury->product->product_type ?? 'N/A'}}</td>
+    <td>{{$vehicle_enqury->product->product_price ?? 'N/A' }}</td>
+    <td>{{$vehicle_enqury->product->vendor->first_name ?? 'N/A'}}</td>
+    <td>{{$vehicle_enqury->product->manufacture_date ?? 'N/A'}}</td>
     <td class="text-end">
         <a href="{{ route('vehicle-details', $vehicle_enqury->product_id) }}" class="view_icon">
             <i class="fa-solid fa-eye"></i>
