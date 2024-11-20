@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\product\ProductModel;
 use App\Models\BrandModel;
 use App\Models\SubCategoryModel;
@@ -14,7 +15,8 @@ class ElectronicsController extends Controller
 {
     public function list()
     {
-        $data = ProductModel::where('category_id', 3)->orderBy('product_id', 'desc')->paginate(10);
+        $vendorId = auth()->id();
+        $data = ProductModel::where(['category_id'=> 3,'vendor_id' => $vendorId])->orderBy('product_id', 'desc')->paginate(10);
         return view('backend.product.electronics-appliances_list', compact('data'));
     }
 
@@ -77,8 +79,9 @@ class ElectronicsController extends Controller
             'product_status' => $request->product_status,
             'category_id' => 3,
             'vendor_id'=>$vendorId,
+            'product_slug' => Str::slug($request->product_name, '-'),
         ];
-        // dd($data);
+         //dd($data);
         // echo $request->tag_line;die;
         if ($request->hasFile('product_thumbnail')) {
             $imageName = time() . '.' . $request->product_thumbnail->extension();
@@ -142,6 +145,15 @@ class ElectronicsController extends Controller
         // echo $id;die;
         $product = ProductModel::where('product_id', $id)->first();
         // dd($product);
+        $productSlug = Str::slug($request->product_name, '-');
+
+        // Check if the slug already exists in the database
+        $existingSlug = ProductModel::where('product_slug', $productSlug)->first();
+
+        // If slug exists, append a unique number
+        if ($existingSlug) {
+            $productSlug = $productSlug . '-' . Str::random(8); // Random 8-character string
+        }
         $data = [
             'tag_line' => $request->tag_line,
             'product_name' => $request->product_name,
@@ -159,6 +171,7 @@ class ElectronicsController extends Controller
             'product_status' => $request->product_status,
             'category_id' => 3,
             'vendor_id'=>$vendorId,
+            'product_slug' =>  $productSlug,
         ];
         // dd($request->tag_line);
         // echo $request->tag_line;die;

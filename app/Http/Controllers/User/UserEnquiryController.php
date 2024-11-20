@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\UserEnquiry;
+use App\Models\EmailTemplate;
+use App\Models\CategoryModel;
+use App\Models\product\ProductModel;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Crypt;
 
 class UserEnquiryController extends Controller
 {
@@ -24,22 +31,46 @@ class UserEnquiryController extends Controller
             'message' => 'required',
             'interested_in' => 'required',
         ]);
-
-
+        $product_id = decrypt($request->product_id);
+       
         $enquiry = new UserEnquiry();
         $enquiry->user_id = auth()->user()->id;
-        $enquiry->product_id = $request->product_id;
+        $enquiry->product_id = $product_id;
         $enquiry->name = $request->name;
         $enquiry->email = $request->email;
         $enquiry->phone = $request->phone;
         $enquiry->message = $request->message;
         $enquiry->interested_in = $request->interested_in;
-        
+        $enquiry->save();
 
-        if ($enquiry->save())
-            return response(['status' => true,'msg' => 'User Enquiry is added successfully.'], 200);
-        else
-        return response(['status' => false,'msg' => 'Something went wrong'], 400);
+        $product = ProductModel::where(['product_id'=>$product_id,'product_status'=>1])->first();
+
+        $category = CategoryModel::where(['category_status' => 1, 'category_id' => $product->category_id])->first();   
+        
+        $name=$request->name;
+        $phone = $request->phone;
+        $email=$request->email;
+        $product_name = $product->product_name; 
+        $category_name =$category->category_name;       
+        $message = $request->message;
+        $interest = $request->interested_in;
+        $template=EmailTemplate::where(['id'=>5,'status'=>1])->first();
+        $template=$template->template;
+        $template = str_replace("@NAME@", $name, $template);
+        $template = str_replace("@PRODUCT_NAME@", $product_name, $template);
+        $template = str_replace("@PHONE@", $phone, $template);
+        $template = str_replace("@CATEGORY@", $category_name, $template);
+        $template = str_replace("@EMAIL@", $email, $template);
+        $template = str_replace("@MESSAGE@", $message, $template);
+        $template = str_replace("@INTEREST@", $interest, $template);
+         echo $template; die;
+        
+        $to=$email;
+        $subject="RentHub: Inquiry";
+        Helper::smtp_inquiry_email($to,$subject,$template);
+        return response(['status' => true,'msg' => 'User Enquiry is added successfully.'], 200);
+       
+       
     }
 
     public function enquiry_products($id)
@@ -55,7 +86,7 @@ class UserEnquiryController extends Controller
 
         return view('frontend.dashboard.property-enquiry', compact('user','user_property_enquries','cat_id'));
     }
-
+ 
     public function enquiry_products_filter(Request $request)
     {
         if ($request->ajax()) {

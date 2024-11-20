@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\Backend;
 
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\EmailTemplate;
 use App\Models\UserEnquiry;
+
+
+use Illuminate\Support\Facades\Crypt;
 
 class InquiryController extends Controller
 {
@@ -13,11 +18,26 @@ class InquiryController extends Controller
     public function property_list()
     {
         $cat_id = 1;
-        $user_property_enquries = UserEnquiry::with('product')
-            ->whereHas('product', function ($query) use ($cat_id) {
-                $query->where('category_id', $cat_id);
-            })
-            ->paginate(10);
+        $vendorId=auth()->id();
+        //dd($vendorId);
+        $role = auth()->user()->role; 
+
+        if ($role == 'admin') {
+          
+            $user_property_enquries = UserEnquiry::with('product')
+                ->whereHas('product', function ($query) use ($cat_id) {
+                    $query->where('category_id', $cat_id);
+                })
+                ->paginate(10);
+        } else {
+           
+            $user_property_enquries = UserEnquiry::with('product')
+                ->whereHas('product', function ($query) use ($cat_id, $vendorId) {
+                    $query->where('category_id', $cat_id)
+                        ->where('vendor_id', $vendorId); 
+                })
+                ->paginate(10);
+        }
 
         return view('backend.inquiries.property_list',compact('user_property_enquries'));
     }
@@ -61,13 +81,27 @@ class InquiryController extends Controller
     public function machinery_list(Request $request)
     {
         $cat_id = 2;
-        $user_machinery_enquries = UserEnquiry::with('product')
-            ->whereHas('product', function ($query) use ($cat_id) {
-                $query->where('category_id', $cat_id);
-            })
-            ->paginate(10);
+        $vendorId = auth()->id(); 
+        $role = auth()->user()->role; 
 
-        return view('backend.inquiries.machinery_list',compact('user_machinery_enquries'));
+        if ($role == 'admin') {
+          
+            $user_machinery_enquries = UserEnquiry::with('product')
+                ->whereHas('product', function ($query) use ($cat_id) {
+                    $query->where('category_id', $cat_id);
+                })
+                ->paginate(10);
+        } else {
+           
+            $user_machinery_enquries = UserEnquiry::with('product')
+                ->whereHas('product', function ($query) use ($cat_id, $vendorId) {
+                    $query->where('category_id', $cat_id)
+                        ->where('vendor_id', $vendorId); 
+                })
+                ->paginate(10);
+        }
+
+        return view('backend.inquiries.machinery_list', compact('user_machinery_enquries'));
     }
 
     public function machinery_filter(Request $request)
@@ -107,12 +141,26 @@ class InquiryController extends Controller
 
     public function vehicle_list()
     {
-        $cat_id = 3;
-        $user_vehicle_enquries = UserEnquiry::with('product')
-            ->whereHas('product', function ($query) use ($cat_id) {
-                $query->where('category_id', $cat_id);
-            })
-            ->paginate(10);
+        $cat_id = 4;
+        $vendorId=auth()->id();
+        $role = auth()->user()->role; 
+
+        if ($role == 'admin') {
+          
+            $user_vehicle_enquries = UserEnquiry::with('product')
+                ->whereHas('product', function ($query) use ($cat_id) {
+                    $query->where('category_id', $cat_id);
+                })
+                ->paginate(10);
+        } else {
+           
+            $user_vehicle_enquries = UserEnquiry::with('product')
+                ->whereHas('product', function ($query) use ($cat_id, $vendorId) {
+                    $query->where('category_id', $cat_id)
+                        ->where('vendor_id', $vendorId); 
+                })
+                ->paginate(10);
+        }
 
         return view('backend.inquiries.vehicle_list',compact('user_vehicle_enquries'));
     }
@@ -120,7 +168,7 @@ class InquiryController extends Controller
     public function vehicle_filter(Request $request)
     {
             
-        $cat_id = 3;
+        $cat_id = 4;
         if ($request->ajax()) {
             $query = $request->get('query');
             $query = str_replace(" ", "%", $query);
@@ -154,12 +202,26 @@ class InquiryController extends Controller
 
     public function electronics_list(Request $request)
     {
-        $cat_id = 4;
-        $user_electronics_enquries = UserEnquiry::with('product')
-            ->whereHas('product', function ($query) use ($cat_id) {
-                $query->where('category_id', $cat_id);
-            })
-            ->paginate(10);
+        $cat_id = 3;
+        $vendorId=auth()->id();
+        $role = auth()->user()->role; 
+
+        if ($role == 'admin') {
+          
+            $user_electronics_enquries = UserEnquiry::with('product')
+                ->whereHas('product', function ($query) use ($cat_id) {
+                    $query->where('category_id', $cat_id);
+                })
+                ->paginate(10);
+        } else {
+           
+            $user_electronics_enquries = UserEnquiry::with('product')
+                ->whereHas('product', function ($query) use ($cat_id, $vendorId) {
+                    $query->where('category_id', $cat_id)
+                        ->where('vendor_id', $vendorId); 
+                })
+                ->paginate(10);
+        }
 
         return view('backend.inquiries.electronics_list',compact('user_electronics_enquries'));
     }
@@ -167,7 +229,7 @@ class InquiryController extends Controller
     public function electronics_filter(Request $request)
     {
                 
-        $cat_id = 4;
+        $cat_id = 3;
         if ($request->ajax()) {
             $query = $request->get('query');
             $query = str_replace(" ", "%", $query);

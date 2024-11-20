@@ -1,8 +1,10 @@
 @php
-use Illuminate\Support\Facades\Auth;
-$role = Auth::user()->role;
-$status = Auth::user()->status;
+    use Illuminate\Support\Facades\Auth;
+    $role = Auth::user()->role;
+    $status = Auth::user()->status;
 @endphp
+
+
 <div class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header">
         <div>
@@ -76,15 +78,25 @@ $status = Auth::user()->status;
                 <div class="parent-icon"><i class='lni lni-graph'></i></div>
                 <div class="menu-title">Products</div>
             </a>
-            <ul>
-                <li><a href="{{ URL::to('/vendor/property/list') }}" class="submenu-item"><i
-                            class="bx bx-right-arrow-alt"></i>Property</a></li>
-                <li><a href="{{ URL::to('/vendor/machinery/list') }}" class="submenu-item"><i
-                            class="bx bx-right-arrow-alt"></i>Equipment & Machineries</a></li>
-                <li><a href="{{ URL::to('/vendor/electronics/list') }}" class="submenu-item"><i
-                            class="bx bx-right-arrow-alt"></i>Electronics & Home Appliances</a></li>
-                <li><a href="{{ URL::to('/vendor/vehicle/list') }}" class="submenu-item"><i
-                            class="bx bx-right-arrow-alt"></i>Vehicles</a></li>
+            <ul style="display:block">
+                <li><a href="{{ URL::to('/vendor/property/list') }}" class="submenu-item"><i class="bx bx-right-arrow-alt"></i>Property</a></li>
+                <li><a href="{{ URL::to('/vendor/machinery/list') }}" class="submenu-item"><i class="bx bx-right-arrow-alt"></i>Equipment & Machineries</a></li>
+                <li><a href="{{ URL::to('/vendor/electronics/list') }}" class="submenu-item"><i class="bx bx-right-arrow-alt"></i>Electronics & Home Appliances</a></li>
+                <li><a href="{{ URL::to('/vendor/vehicle/list') }}" class="submenu-item"><i class="bx bx-right-arrow-alt"></i>Vehicles</a></li>
+            </ul>
+        </li>
+        
+        <li>
+            <a class="has-arrow" style="cursor: pointer">
+                <div class="parent-icon"><i class="lni lni-package"></i>
+                </div>
+                <div class="menu-title">Inquiries</div>
+            </a>
+            <ul style="display:block">
+                <li> <a href="{{ route('vendor-inquiries-property-list') }}"><i class="bx bx-right-arrow-alt"></i>Properties</a></li>
+                <li> <a href="{{ route('vendor-inquiries-machinery-list') }}"><i class="bx bx-right-arrow-alt"></i>Machinery</a></li>
+                <li> <a href="{{ route('vendor-inquiries-vehicle-list') }}"><i class="bx bx-right-arrow-alt"></i>Vehicle</a></li>
+                <li> <a href="{{ route('vendor-inquiries-electronics-list') }}"><i class="bx bx-right-arrow-alt"></i>Electronics</a></li>
             </ul>
         </li>
         <li>
@@ -93,7 +105,7 @@ $status = Auth::user()->status;
                 </div>
                 <div class="menu-title">Subscription</div>
             </a>
-            <ul>
+            <ul style="display:block">
                 <li> <a href="{{ route('vendor-vendor-list') }}" class="submenu-item"><i
                             class="bx bx-right-arrow-alt"></i>Purchase Plan
                     </a>
@@ -153,6 +165,9 @@ $status = Auth::user()->status;
                 <li> <a href="{{ URL::to('admin/subscription/add') }}"><i class="bx bx-right-arrow-alt"></i>Add
                         Plan</a>
                 </li>
+                <li> <a href="{{ URL::to('admin/subscription/history') }}"><i class="bx bx-right-arrow-alt"></i>History
+                    </a>
+            </li>
             </ul>
         </li>
 
@@ -205,7 +220,7 @@ $status = Auth::user()->status;
 
         <li>
             <a class="has-arrow" style="cursor: pointer">
-                <div class="parent-icon"><i class="lni lni-pagination"></i>
+               <div class="parent-icon"><i class="lni lni-folder"></i>
                 </div>
                 <div class="menu-title">Pages</div>
             </a>

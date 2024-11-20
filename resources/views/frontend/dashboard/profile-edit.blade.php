@@ -178,7 +178,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        {{-- <div class="col-md-3">
                                             <div class="form-group mb-3">
                                                 <label>Select Industry</label>
                                                 <select class="form-control" id="industry"
@@ -191,7 +191,7 @@
 
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
 
 

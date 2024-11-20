@@ -21,11 +21,15 @@
             <div class="col-lg-3 col-md-6">
               <div class="left_aa">
                 <h4>POPULAR CATEGORIES</h4>
+                @php
+                   $category = App\Models\CategoryModel::get();
+                @endphp
                 <ul>
-                  <li><a href="">Cars</a></li>
-                  <li><a href="">Properties</a></li>
-                  <li><a href="">Mobile Phones</a></li>
-                  <li><a href="">Jobs</a></li>
+                  @if($category)
+                    @foreach ($category as $val)
+                  <li><a href="{{ url('/' . $val->category_slug) }}">{{ $val->category_name }}</a></li>
+                    @endforeach
+                  @endif
                 </ul>
               </div>
             </div>

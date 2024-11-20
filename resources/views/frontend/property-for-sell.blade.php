@@ -1,8 +1,6 @@
 @extends('frontend.includes.master')
 @section('content')
-    @include('frontend.includes.header')
-
-
+@include('frontend.includes.header')
     <div class="filter_map">
         <div class="m-0 row align-items-center gx-2">
             <div class="col-xxl-2 col-xl-3">

@@ -55,23 +55,14 @@
                                         <input name="current_status" value="{{ $testimonials->status }}" hidden/>
 
                                         <div class="form-check form-switch">
-                                            @if($testimonials->status == 1)
-                                                <input name="activate" class="btn btn-outline-success" type="submit"
-                                                value=" Activate " disabled>
-                                               
+                                           @if ($testimonials->status == 1)
+                                                <span style="color: green;font-weight: bold;">Active</span>
                                             @else
-                                                <input name="de_activate" class="btn btn-outline-danger" type="submit"
-                                                value="De-Active" disabled>
+                                                <span style="color: red;font-weight: bold;">In-Active</span>
                                             @endif
-
                                         </div>
                                     </form>
                                 </td>
-
-
-
-
-
                                 <td>
                                     <div class="d-flex order-actions">
                                      @if(Auth::user()->role == "admin")
@@ -81,7 +72,6 @@
 
 
                                         </a> --}}
-
                                         <div class="modal fade" id="exampleFullScreenModal-{{ $testimonials->id }}"
                                             tabindex="-1" aria-hidden="true">
                                             <div class="modal-dialog">
@@ -144,14 +134,14 @@
                                                                                     <input class="form-check-input" type="radio" name="status" id="status-active" value="1"
                                                                                            @if($testimonials->status == 1) checked @endif>
                                                                                     <label class="form-check-label" for="status-active">
-                                                                                        <i class="fa fa-check-circle" aria-hidden="true"></i> Active
+                                                                                         Active
                                                                                     </label>
                                                                                 </div>
                                                                                 <div class="form-check">
                                                                                     <input class="form-check-input" type="radio" name="status" id="status-inactive" value="0"
                                                                                            @if($testimonials->status == 0) checked @endif>
                                                                                     <label class="form-check-label" for="status-inactive">
-                                                                                        <i class="fa fa-times-circle" aria-hidden="true"></i> Inactive
+                                                                                         Inactive
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -177,11 +167,12 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <a href="{{url('admin/testimonial/remove/'.$testimonials->id)}}" class="ms-3" data-bs-toggle="modal"
-                                            data-bs-target="#exampleDangerModal-{{ $testimonials->id }}">
-                                            <i class='bx bxs-trash'></i>
-                                        </a>
+                                            <div class="d-flex justify-content-center">
+                                                    <a href="{{url('admin/testimonial/remove/'.$testimonials->id)}}" class="ms-3" data-bs-toggle="modal"
+                                                        data-bs-target="#exampleDangerModal-{{ $testimonials->id }}">
+                                                        <i class='bx bxs-trash'></i>
+                                                    </a>
+                                            </div>
 
                                         <div class="modal fade" id="exampleDangerModal-{{ $testimonials->id }}"
                                             tabindex="-1" aria-hidden="true">
@@ -207,9 +198,20 @@
                                 </td>
                             </tr>
                         @endforeach
+                        <tr>
+                            <td colspan="8">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>{!! $data->links('vendor.pagination.bootstrap-4') !!}</div>
+                                    <div>(Showing {{ $data->firstItem() }} – {{ $data->lastItem() }} of {{ $data->total() }} results)</div>
+                                </div>
+                            </td>
+                        </tr>
+                        
+    
                     </tbody>
 
                 </table>
+              
             </div>
         </div>
     </div>

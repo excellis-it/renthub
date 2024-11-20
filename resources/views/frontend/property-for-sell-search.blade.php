@@ -5,7 +5,7 @@
                 <div class="for_rent">{{ $val->product_type }}</div>
                 <a href="" class="wishlist_rent"><i class="fa-solid fa-heart"></i></a>
                 <div class="feature_img">
-                    <a href="{{ URL::to('property-details/' . $val->product_id) }}"><img
+                    <a href="{{ URL::to('property-details/' . Crypt::encrypt($val->product_id)) }}"><img
                             src="{{ asset('public/images/' . $val->product_thumbnail) }}" /></a>
                 </div>
                 <div class="feature_text">
@@ -15,7 +15,7 @@
                         </div>
                         @if (isset($data))
                             <div class="star-div mb-div">
-                                <a href="{{ URL::to('/user/review/' . $data->product_id) }}">
+                                <a href="{{ URL::to('/user/review/' .  Crypt::encrypt($data->product_id)) }}">
                                     <ul class="star_ul ">
                                         <li><i class="fa-solid fa-star"></i></li>
                                         <li><i class="fa-solid fa-star"></i></li>
@@ -31,7 +31,7 @@
                     </div>
                     <span class="price_text">${{ $val->product_price }} <span>${{ $val->marked_price }}</span></span>
                     <a
-                        href="{{ URL::to('property-details/' . $val->product_id) }}">{{ strip_tags($val->product_name) }}</a>
+                        href="{{ URL::to('property-details/' . Crypt::encrypt($val->product_id)) }}">{{ strip_tags($val->product_name) }}</a>
                     <div class="d-flex align-items-center">
                         <div class="d-flex align-items-center pe-2"><span class="me-1"><img
                                     src="{{ asset('frontend_assets/assets/images/bed.svg') }}" alt="" /></span>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="addtocart">
                     @if(Auth::user())
-                        <a href="{{ url('/property-details/' . $val->product_id) }}"><span>Inquire Now</span></a>
+                        <a href="{{ url('/property-details/' . Crypt::encrypt($val->product_id)) }}"><span>Inquire Now</span></a>
                     @else
                     <a href="{{ url('login/') }}"><span>Inquire Now</span></a>
                     @endif

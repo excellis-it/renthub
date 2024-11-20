@@ -61,7 +61,7 @@
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <textarea name="description" type="text"
-                            class="form-control @error('description') is-invalid @enderror" placeholder="Enter Description"
+                            class="form-control @error('description') is-invalid @enderror" placeholder="Enter Description" id="description"
                             value="{{ old('description') }}" rows="3"></textarea>
                         <small style="color: #e20000" class="error" id="description-error"></small>
                     </div>
@@ -116,7 +116,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>   
 
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#description'))
+                .catch(error => {
+                    console.error(error);
+                });
+        </script>
 
 
     <script>

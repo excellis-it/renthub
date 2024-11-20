@@ -3,6 +3,7 @@
     $role = Auth::user()->role;
 @endphp
 @extends('backend.layouts.app')
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 @section('PageTitle', 'Add New Pages')
 @section('content')
@@ -20,11 +21,11 @@
         </div>
     </div>
 
-    @if (session('message'))
+    {{-- @if (session('message'))
         <div class="alert alert-success">
             {{ session('message') }}
         </div>
-    @endif
+    @endif --}}
 
     <!-- End Breadcrumb -->
     <div class="card">
@@ -48,9 +49,9 @@
                         <h6 class="mb-0">Description</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                        <textarea name="description" type="text"
-                            class="form-control @error('description') is-invalid @enderror" placeholder="Enter Description"
-                            value="{{ old('description') }}" rows="3"></textarea>
+                        <textarea name="description"  id="description" rows="5" class="form-control" placeholder="Enter Description"
+                            value="{{ old('description') }}"></textarea>
+                              <span class="text-danger"></span>
                         
                     </div>
                 </div>
@@ -96,6 +97,16 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+       <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#description'))
+                .catch(error => {
+                    console.error(error);
+                });
+        </script>
+
 
         <script type="text/javascript">
             $(document).ready(function() {
@@ -108,7 +119,7 @@
         
                     $.ajax({
                         type: "POST",
-                        url: url,
+                        url: {{url('admin/pages/create')}},
                         data: data,
                         processData: false,
                         contentType: false,

@@ -17,6 +17,10 @@
         th,td{
             text-align: center;
         }
+
+        .ck-editor__editable_inline{
+            min-height:200px;
+            }
     </style>
 
 </head>

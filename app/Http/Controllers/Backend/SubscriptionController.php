@@ -23,13 +23,25 @@ class SubscriptionController extends Controller
     
     public function history(Request $request)
     {
+   
         $vendorId = auth()->id();
-        $subscriptionId = SubscriptionHistoryModel::where('subscription_id', $request->subscription_id);
-        $data = SubscriptionModel::where('title', $request->title)->first();
-        $subscriptions = SubscriptionHistoryModel::where('vendor_id', $vendorId)->with('subscription')->orderBy('id', 'desc')->paginate(10);
-
-        // dd($subscription);
-        return view('backend.subscription.subscription_history', compact('subscriptions'));
+    
+    if (auth()->user()->hasRole('admin')) {
+        
+        $subscriptions = SubscriptionHistoryModel::with(['subscription', 'vendor'])
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+           
+    } else {
+        
+        $subscriptions = SubscriptionHistoryModel::where('vendor_id', $vendorId)
+            ->with('subscription')
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+    }
+    
+    
+    return view('backend.subscription.subscription_history', compact('subscriptions'));
     }
 
     public function ajaxHistory(Request $request)
@@ -85,6 +97,7 @@ class SubscriptionController extends Controller
         // dd($data);
         $data->save();
         // dd($pages);
+      
         return redirect()->back()->with('success', 'Subscription added successfully.');
     }
 

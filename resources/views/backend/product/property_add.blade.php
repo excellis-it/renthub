@@ -62,7 +62,7 @@ $role = Auth::user()->role;
                             <div class="mb-3">
                                 <label for="inputProductDescription" class="form-label">Short Description<span style="color:red;">*</span></label>
                                 <textarea name="product_short_description" id="product_short_description"
-                                    class="form-control" style="height:100vh"  value="{{ old('product_short_description') }}"></textarea>
+                                    class="form-control" style="height: 300px;" rows="30" value="{{ old('product_short_description') }}"></textarea>
 
                                 <span style="color: #e20000" class="error"
                                     id="product_short_description-error"></span>
@@ -200,7 +200,10 @@ $role = Auth::user()->role;
                                     </label>
                                 </div>
 
-{{-- 
+                                <div class="">
+                                    <a href="{{URL::to('privacy-policy')}}" target="_blank">Terms and Condition</a>
+                                </div>
+                            {{--                            
                                 <div class="col-12">
                                     <input type="submit" name="submit" class="btn btn-primary" value="Save Product" />
                                 </div> --}}
@@ -299,20 +302,54 @@ $role = Auth::user()->role;
 
 
 
-<script>
+
+   <script>
     ClassicEditor
-            .create(document.querySelector('#product_short_description'))
-            .catch(error => {
-                console.error(error);
-            });
+        .create(document.querySelector('#product_short_description'), {
+            // Configuration for image and file uploads
+            ckfinder: {
+                // The URL for the file upload handler (must be defined on the server)
+                uploadUrl: '/public/uploads/images/product',
+                options: {
+                allowedTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/jfif'], 
+            }
+            },
+            // You can adjust other configurations as necessary
+            height: '300px',
+            // Enable any other required plugins
+            toolbar: [
+                'heading', '|',
+                'bold', 'italic', '|',
+                'link', 'bulletedList', 'numberedList', '|',
+                'imageUpload', 'blockQuote', 'insertTable', '|',
+                'undo', 'redo'
+            ]
+        })
+        .catch(error => {
+            console.error(error);
+        });
 
-        ClassicEditor
-            .create(document.querySelector('#product_long_description'))
-            .catch(error => {
-                console.error(error);
-            });
-
+    ClassicEditor
+        .create(document.querySelector('#product_long_description'), {
+            ckfinder: {
+                uploadUrl: '/public/uploads', // Adjust this to your server-side endpoint
+            },
+            height: '500px',
+            toolbar: [
+                'heading', '|',
+                'bold', 'italic', '|',
+                'link', 'bulletedList', 'numberedList', '|',
+                'imageUpload', 'blockQuote', 'insertTable', '|',
+                'undo', 'redo'
+            ]
+        })
+        .catch(error => {
+            console.error(error);
+        });
 </script>
+
+
+
 <script>
     $(document).ready(function(){
             $('#multi_image').on('change', function(){ //on file input change

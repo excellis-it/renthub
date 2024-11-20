@@ -12,7 +12,7 @@ class TestimonialController extends Controller
 
     public function testimonial_default()
     {
-        $data = TestimonialModel::orderBy('id', 'desc')->get();
+        $data = TestimonialModel::orderBy('id', 'desc')->paginate(10);
         return view('backend.testimonial.testimonial_default', compact('data'));
     }
     public function testimonial_add()

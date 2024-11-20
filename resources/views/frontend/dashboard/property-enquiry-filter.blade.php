@@ -12,12 +12,12 @@
             <td>{{$property_enqury->product->vendor->first_name ?? 'N/A'}}</td>
             <td>{{$property_enqury->product->property_size ?? 'N/A'}}</td>
             <td class="text-end">
-                <a href="{{ route('property-details', $property_enqury->product_id) }}" class="view_icon">
+                <a href="{{ route('property-details', Crypt::encrypt($property_enqury->product_id)) }}" class="view_icon">
                     <i class="fa-solid fa-eye"></i>
                 </a>
-                <a href="#" class="delete_icon" data-id="{{ $property_enqury->id }}" data-url="{{ route('user-delete-enquiry') }}">
+                {{-- <a href="#" class="delete_icon" data-id="{{ $property_enqury->id }}" data-url="{{ route('user-delete-enquiry') }}">
                     <i class="fa-solid fa-trash"></i>
-                </a>
+                </a> --}}
             </td>
         </tr>
 

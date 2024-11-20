@@ -12,4 +12,9 @@ class SubscriptionModel extends Model
     protected $guarded = [];
     public $timestamps = false;
     protected $primaryKey = 'id';
+
+    public function subscriptionHistories()
+        {
+            return $this->hasMany(SubscriptionHistoryModel::class, 'subscription_id');
+        }
 }

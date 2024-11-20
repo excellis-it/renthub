@@ -1,3 +1,130 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3a4RB6BBJ_KKKH7ITpffyZ1raQnIPn8M&callback=initializeMap"
+  type="text/javascript"></script>
+
+{{-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places"></script> --}}
+
+<script type="text/javascript">
+        let map, geocoder;
+
+function initializeMap() {
+    const mapOptions = {
+        center: { lat: 51.508742, lng: -0.120850 },
+        zoom: 5,
+    };
+    map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    //console.log(map);
+    geocoder = new google.maps.Geocoder();
+   // console.log(geocoder);
+    
+}
+
+function searchLocation() {
+    const input = document.getElementById("search-input").value.trim();
+    console.log(input);
+
+    if (!input) {
+        alert("Please enter a location.");
+        return;
+    }
+
+    geocoder.geocode({ address: input }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            const location = results[0].geometry.location;
+
+            map.setCenter(location);
+            map.setZoom(10);
+
+            new google.maps.Marker({
+                position: location,
+                map: map,
+                title: results[0].formatted_address,
+            });
+        } else {
+            alert("Could not find the location. Please try again.");
+            console.error("Geocode error: ", status);
+        }
+    });
+}
+
+</script>
+
+
+
+<script>
+    $(document).ready(function () {
+    $('#search_text').on('keydown', function () {
+        var search = $(this).val();
+        var route = $(this).data('route');
+        
+            if (search.length > 2) { // Optional: Only trigger search if input has more than 2 characters
+                $.ajax({
+                    url: route,
+                    method: "POST",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "search": search
+                    },
+                    success: function (response) {
+                        $('#search-result').html(response.view);
+                    },
+                    error: function (xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+        });
+    });
+
+    /*function search_view() {
+            var search = $('#search_text').val();
+            var url=determineURL(search);
+            console.log(url);
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'text',
+                data: {
+                    search: search,
+                },
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success: function(res) {
+                    
+                    var res = JSON.parse(res);
+                   // console.log(res);
+                    console.log(res.result);
+                     $('#vehicleList').html(res.result);
+                     $('#propertyList').html(res.result);
+                     $('#electronicList').html(res.result);
+                     $('#machineList').html(res.result);
+                    $('#resultCount').text(`Results found: ${res.count}`);
+                }
+            });
+        }
+
+
+
+ function determineURL(search) {
+    const urlMap = {
+        'frontend.property-for-rent': "{{ URL::to('/property-for-rent') }}",
+        'frontend.property-for-sell': "{{ URL::to('/property-for-sell') }}",
+        'frontend.equipment-and-machineries': "{{ URL::to('/equipment-and-machineries') }}",
+        'frontend.electronics-home-appliances': "{{ URL::to('/electronics-home-appliances') }}",
+        'frontend.vehicle': "{{ URL::to('/vehicle') }}"
+    };
+
+    for (const key in urlMap) {
+        if (search.includes(key)) {
+            return urlMap[key];
+        }
+    }
+    return "{{ URL::to('/') }}"; // Default or fallback URL
+}
+*/
+</script>
+
 <div class="float_filter">
     <ul>
         <li><a href="" class=""><i class="fa-solid fa-house"></i></a></li>
@@ -27,7 +154,7 @@
                             <form>
                                 <div class="d-block d-md-flex align-items-center">
                                     <div class="">
-                                        <div class="dropdown">
+                                        {{-- <div class="dropdown">
                                             <a class="btn new_york_city dropdown-toggle" href="#" role="button"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
                                                 <img src="{{ asset('frontend_assets/assets/images/map.svg') }}"
@@ -38,14 +165,44 @@
                                                 <li><a class="dropdown-item" href="#">Another action</a></li>
                                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                                             </ul>
+                                        </div> --}}
+                                        {{-- <div class="dropdown">
+                                            <input type="text" id="address-input" class="form-control" placeholder="Enter a location" onclick="add_search()">
+                                            <ul class="dropdown-menu" id="suggestions"></ul>
+                                        </div> --}}
+                                        <div class="dropdown">
+                                                <a class="btn new_york_city dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <img src="{{ asset('frontend_assets/assets/images/map.svg') }}" alt=""/>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li><input id="search-input" class="form-control" type="text" placeholder="Search location..." onkeyup="searchLocation()"/></li>
+                                                    <li><div id="map" style="height: 400px; width: 100%;"></div></li>
+                                                </ul>
                                         </div>
+                                        
                                     </div>
-                                    <div class="d-flex align-items-center">
-                                        <input type="text" class="form-control" id=""
-                                            placeholder="Find property, Cars and more...">
-                                        <button type="submit" class="btn btn_magnifing"><i
-                                                class="fa-solid fa-magnifying-glass"></i></button>
+                                    {{-- <form action="javascript:void(0);">
+                                        <input type="text" placeholder="search here" name="search" id="search-blog" data-route="{{ route('blogs.search') }}" />
+                                        <button type="submit">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </form> --}}
+                                   <div class="d-flex align-items-center">
+                                        <form action="javascript:void(0);">
+                                            <input type="text" class="form-control" id="search_text" name="search" 
+                                                placeholder="Find property, cars, and more..." data-route="{{ route('product.search') }}">
+                                            <a href="javascript:void(0);" class="btn btn_magnifing">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                            </a>
+                                        </form>
+                                    
+                                
+                                    
                                     </div>
+                                     {{-- <button type="button" class="btn btn_magnifing" onclick="search_data()">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </button> --}}
+
                                 </div>
                             </form>
                         </div>
@@ -136,3 +293,52 @@
         </div>
     </div>
 </div>
+@section('scripts')
+ 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+<script>
+       /* function search_data() {
+            var search = $('#search').val();
+        
+            console.log("Search Value:", search);
+        }*/
+      
+
+    // Determine which URL to use based on conditions (example conditions provided)
+   // var url = determineURL(search);
+
+    /*$.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            search: search,
+        },
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        success: function(res) {
+            var res = JSON.parse(res);
+            console.log(res);
+            $('#propertyList').html(res.result);
+            $('#resultCount').text(`Results found: ${res.count}`);
+        }
+    });*/
+
+
+// Example function to determine URL based on some conditions
+/*function determineURL(search) {
+    if (search) {
+        return "{{ URL::to('/property-for-rent-search') }}";
+    } else if (search) {
+        return "{{ URL::to('/property-for-sell-search') }}";
+    } else if (search) {
+        return "{{ URL::to('/equipment-and-machineries-search') }}";
+    } else if (search) {
+        return "{{ URL::to('/electronics-home-appliances-search') }}";
+    } else {
+        return "{{ URL::to('/vehicle-search') }}";
+    }
+}*/
+
+</script>
+@endsection

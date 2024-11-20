@@ -22,6 +22,7 @@
   <link href="{{ asset('frontend_assets/assets/css/responsive.css') }}" rel="stylesheet">
   <link href="{{ asset('frontend_assets/assets/css/lightbox.min.css') }}" rel="stylesheet">
   <script src="{{ asset('frontend_assets/assets/js/jquery.min.js') }}"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   {{-- toaster css --}}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">

@@ -54,11 +54,13 @@ $role = Auth::user()->role;
                     <tr>
                         <th>User Name</th>
                         <th>Email</th>
-                        <th>Phone</th>
+                        <th>Phone</th>   
                         <th>Message</th>
                         <th>Property Name</th>
                         <th>Property Price</th>
+                        @if($role=='admin')
                         <th>Vendor of the Property</th>
+                        @endif
                         {{-- <th>Action</th> --}}
                     </tr>
                 </thead>

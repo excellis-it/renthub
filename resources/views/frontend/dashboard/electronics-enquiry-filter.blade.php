@@ -12,12 +12,12 @@
     <td>{{$electronics_enquries->product->vendor->first_name ?? 'N/A'}}</td>
     <td>{{$electronics_enquries->product->manufacture_date ?? 'N/A'}}</td>
     <td class="text-end">
-        <a href="{{ URL::to('electronics-home-appliances-details/' . $electronics_enquries->product_id) }}" class="view_icon">
+        <a href="{{ URL::to('electronics-home-appliances-details/' . Crypt::encrypt($electronics_enquries->product_id)) }}" class="view_icon">
             <i class="fa-solid fa-eye"></i>
         </a>
-        <a href="#" class="delete_icon" data-id="{{ $electronics_enquries->id }}" data-url="{{ route('user-delete-enquiry') }}">
+        {{-- <a href="#" class="delete_icon" data-id="{{ $electronics_enquries->id }}" data-url="{{ route('user-delete-enquiry') }}">
             <i class="fa-solid fa-trash"></i>
-        </a>
+        </a> --}}
     </td>
 </tr>
 

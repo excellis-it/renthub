@@ -1,10 +1,7 @@
 @extends('frontend.includes.master')
 @section('content')
 @include('frontend.includes.header')
-
 <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css" rel="stylesheet">
-
-
 <section class="inner_banner_sec" style="
       background-image: url({{ asset('frontend_assets/assets/images/inr-bnr.jpg') }});
       background-position: center;
@@ -30,7 +27,7 @@
                     <div class="row">
                         <div class="mb-3 col-lg-12">
                             <div class="property-img-main">
-                                <a href="{{ URL::to('electronics-home-appliances-details/' . $data->product_id) }}"
+                                <a href="{{ URL::to('electronics-home-appliances-details/' . Crypt::encrypt($data->product_id)) }}"
                                     data-lightbox="homePortfolio">
                                     <img src="{{ asset('public/images/' . $data->product_thumbnail) }}" />
                                 </a>
@@ -47,7 +44,7 @@
                             @foreach ($images as $val)
                             <div class="mb-3 col-lg-6">
                                 <div class="property-img-others">
-                                    <a href="{{ URL::to('electronics-home-appliances-details/' . $data->product_id) }}"
+                                    <a href="{{ URL::to('electronics-home-appliances-details/' . Crypt::encrypt($data->product_id)) }}"
                                         data-lightbox="homePortfolio">
                                         <img src="{{ asset('public/images/' . $val->product_image) }}" />
                                     </a>
@@ -68,23 +65,38 @@
                         <div class="">
                             <div class="d-block d-md-flex justify-content-between">
                                 <div class="propety-title mb-div">
-                                    {{ $data->tag_line ?? ''}}
+                                    @if (isset($data->tag_line))
+                                        {{ $data->tag_line }}
+                                    @endif
                                 </div>
-                                @if (isset($data))
-                                <div class="star-div mb-div">
-                                    <a href="{{ URL::to('/user/review/' . $data->product_id) }}">
-                                        <ul class="star_ul ">
-                                            <li><i class="fa-solid fa-star"></i></li>
-                                            <li><i class="fa-solid fa-star"></i></li>
-                                            <li><i class="fa-solid fa-star"></i></li>
-                                            <li><i class="fa-solid fa-star"></i></li>
-                                            <li><i class="fa-solid fa-star"></i></li>
-                                            <li><span>(5)</span></li>
-                                        </ul>
-
-                                    </a>
-                                </div>
+                               @if (isset($data))
+                                    <div class="star-div mb-div">
+                                        @if (Auth::check())
+                                            <a href="{{ URL::to('/user/review/' . Crypt::encrypt($data->product_id)) }}">
+                                                <ul class="star_ul">
+                                                    <li><i class="fa-solid fa-star"></i></li>
+                                                    <li><i class="fa-solid fa-star"></i></li>
+                                                    <li><i class="fa-solid fa-star"></i></li>
+                                                    <li><i class="fa-solid fa-star"></i></li>
+                                                    <li><i class="fa-solid fa-star"></i></li>
+                                                    <li><span>(5)</span></li>
+                                                </ul>
+                                            </a>
+                                        @else
+                                            <a href="{{ URL::to('/login') }}">
+                                                <ul class="star_ul">
+                                                    <li><i class="fa-solid fa-star"></i></li>
+                                                    <li><i class="fa-solid fa-star"></i></li>
+                                                    <li><i class="fa-solid fa-star"></i></li>
+                                                    <li><i class="fa-solid fa-star"></i></li>
+                                                    <li><i class="fa-solid fa-star"></i></li>
+                                                    <li><span>(5)</span></li>
+                                                </ul>
+                                            </a>
+                                        @endif
+                                    </div>
                                 @endif
+
                             </div>
 
                             <div class="propety-price mb-div">${{ $data->product_price ??''}}
@@ -152,7 +164,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-12">
+                {{-- <div class="col-lg-12">
                     <h2 class="title">Reviews</h2>
     
                     <div class="card p-3 shadow border-0 updateprofile_sec mt-4">
@@ -213,7 +225,7 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
 
@@ -232,13 +244,15 @@
                         <div class="for_rent">{{ strtoupper($val->product_type) }}</div>
                         <a href="javascript:void(0);" class="wishlist_rent"><i class="fa-solid fa-heart"></i></a>
                         <div class="feature_img">
-                            <a href="{{ URL::to('electronics-home-appliances-details/' . $val->product_id) }}"><img
+                            <a href="{{ URL::to('electronics-home-appliances-details/' . Crypt::encrypt($val->product_id)) }}"><img
                                     src="{{ asset('public/images/' . $val->product_thumbnail) }}" /></a>
                         </div>
                         <div class="feature_text">
                             <div class="d-block d-md-flex justify-content-between">
                                 <div class="commercial_propety">
-                                    Type
+                                   @if (isset($data->tag_line))
+                                      {{ $data->tag_line }}
+                                    @endif
                                 </div>
                                 <ul class="star_ul">
                                     <li><i class="fa-solid fa-star"></i></li>

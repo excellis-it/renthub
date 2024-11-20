@@ -30,6 +30,7 @@
                     <thead>
                         <tr>
                             <th>Sl No.</th>
+                            <th>Profile Picture</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>username</th>
@@ -43,6 +44,7 @@
                         @foreach ($data as $index => $val)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
+                                <td><img src="{{ asset('public/uploads/images/profile/' . $val->photo) }}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;"/></td>
                                 <td>{{ strtoupper($val->first_name) }} {{ strtoupper($val->last_name) }}</td>
                                 <td>{{ $val->email }}</td>
                                 <td>{{ strtoupper($val->username) }}</td>
@@ -78,6 +80,14 @@
                                         <i class='fa fa-pen'></i>
                                     </a>
 
+                                    <a href="{{ route('admin-change-password-basic', $val->id) }}" class="ms-3" >
+                                        <i class='fa fa-key'></i>
+                                    </a>
+
+                                    <a href="{{ route('admin-remove-basic-user', $val->id) }}" class="ms-3" data-bs-toggle="modal" data-bs-target="#deletePageModal-{{ $val->id }}">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+
 
 
                                     {{-- <button type="button" class="px-4 btn btn-primary btn-sm radius-30"
@@ -103,7 +113,10 @@
                                                     <div class="card-body">
 
                                                         <table id="data_table" class="table table-striped table-bordered">
-
+                                                            <tr>
+                                                                <th>Profile Picture</th>
+                                                                <td><img src="{{ asset('public/uploads/images/profile/' . $val->photo) }}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;"/></td>
+                                                            </tr>
                                                             <tr>
                                                                 <th>Name</th>
                                                                 <td>{{ strtoupper($val->first_name) }}
@@ -153,9 +166,37 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- Delete User Modal -->
+                                        <div class="modal fade" id="deletePageModal-{{ $val->id }}" tabindex="-1" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content bg-danger">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title text-white">Are you sure?</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                                                        <button 
+                                                            onclick="window.location.replace('{{ URL::to('admin/user/remove-basic-user/' . $val->id) }}');"
+                                                            class="btn btn-dark">
+                                                            Confirm
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                 </td>
                             </tr>
                         @endforeach
+                         <tr>
+                            <td colspan="8">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>{!! $data->links('vendor.pagination.bootstrap-4') !!}</div>
+                                    <div>(Showing {{ $data->firstItem() }} – {{ $data->lastItem() }} of {{ $data->total() }} results)</div>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
 
                 </table>
@@ -202,37 +243,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#testimonial_form').on('submit', function(e) {
-                e.preventDefault();
 
-                var form = $(this);
-                var data = new FormData(this);
-                var url = form.attr('action');
-
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: data,
-                    processData: false,
-                    contentType: false,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(resp) {
-                        toastr.success('Testimonial Updated successfully.', 'Success', {
-                            closeButton: true,
-                            progressBar: true,
-                            positionClass: 'toast-top-right',
-                            timeOut: '3000',
-                        });
-
-                    }
-                });
-            });
-        });
-    </script>
 
     <!-- Image Preview Script -->
     <script type="text/javascript">

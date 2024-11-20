@@ -1,6 +1,5 @@
 @extends('frontend.includes.master')
 <link href="{{ asset('frontend_assets/assets/css/signup.css') }}" rel="stylesheet">
-
 @section('content')
 @include('frontend.includes.header')
 <div class="registration_sec">
@@ -77,8 +76,8 @@
                                 <div class="form-group mb-3">
                                     <label>Phone No<span style="color:red;">*</span></label>
 
-                                    <input type="text" class="form-control  @error('phone_number') is-invalid @enderror"
-                                        name="phone_number" placeholder="Phone No" value="{{old('phone_number')}}" />
+                                    <input type="tel" class="form-control  @error('phone_number') is-invalid @enderror"
+                                        id="phone_number" name="phone_number" placeholder="Phone No" value="{{old('phone_number')}}" />
                                         <span id="phone_number-error" style="color:red;"></span>
                                 </div>
                             </div>
@@ -178,8 +177,9 @@
                                     @error('password')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
-                                    <input type="password" class="form-control" name="password"
-                                        placeholder="Password" />
+                                   
+                                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" />
+                                
                                     <span id="password-error" style="color:red;"></span>
                                 </div>
                             </div>
@@ -329,8 +329,12 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group mb-3">
-                                <label>Phone No<span style="color:red;">*</span></label>
-                                <input type="text" name="phone_number"
+                                <label>Phone No
+                                @error ('phone_number')
+                                    <span style="color:red;">*</span>
+                                @enderror
+                                </label>
+                                <input type="tel" name="phone_number" id="phone_number"
                                     class="form-control @error('phone_number') is-invalid @enderror"
                                     placeholder="Phone No" />
                                 <span class="phone_number-error" style="color:red;"></span>        
@@ -477,7 +481,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+<script>
+    const input = document.querySelector("#phone_number");
+    const iti = window.intlTelInput(input, {
+    // separateDialCode: true,
+    initialCountry: "us",
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.4.0/build/js/utils.js",
+    });
 
+    // store the instance variable so we can access it in the console e.g. window.iti.getNumber()
+    window.iti = iti;
+</script>
 
 <script>
     $(document).ready(function() {
@@ -521,7 +535,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(resp) {
-                        console.log('Success response:', resp);
+                        //console.log('Success response:', resp);
                         toastr.success('Your profile is under verification!', 'Success', {
                             closeButton: true,
                             progressBar: true,
@@ -564,7 +578,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(resp) {
-                        console.log('Success response:', resp);
+                        //console.log('Success response:', resp);
                         toastr.success('Basic User registration successfully.', 'Success', {
                             closeButton: true,
                             progressBar: true,

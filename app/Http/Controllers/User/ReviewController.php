@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\Review;
 use App\Models\User;
 use App\Models\product\ProductModel;
+use Illuminate\Support\Facades\Crypt;
 
 class ReviewController extends Controller
 {
     public function review(Request $request)
     {
 
-        $data = $request->id;
+        $data = Crypt::decrypt($request->id);
         return view('frontend.dashboard.review', compact('data'));
     }
     public function reviewstore(Request $request)
@@ -22,16 +23,15 @@ class ReviewController extends Controller
             'rating_point' => 'required|integer|min:1|max:5',
             'description' => 'required|string|max:255',
             'product_id' => 'required',
+            
         ]);
 
         $product = ProductModel::find($request->product_id);
 
        //dd($product);
-
+     
         $user = auth()->user();
-
-
-        $data = [
+     $data = [
             'user_id' => $user->id,
             'rating_point' => $request->rating_point,
             'description' => $request->description,

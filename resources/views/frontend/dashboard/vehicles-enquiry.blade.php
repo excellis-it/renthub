@@ -48,7 +48,7 @@
                                         <th scope="col">Model</th>
                                         <th scope="col">Price($)</th>
                                         <th scope="col">Listing by</th>
-                                        <th scope="col">Manufacture Date</th>
+                                        <th scope="col">Distance Covered</th>
                                         <th></th>
                                     </tr>
                                 </thead>

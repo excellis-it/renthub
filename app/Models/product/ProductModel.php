@@ -33,7 +33,8 @@ class ProductModel extends Model
         'category_id',
         'product_slug',
         'vendor_id',
-        'product_thumbnail' // if applicable
+        'product_thumbnail', // if applicable
+        'product_slug',
     ];
     protected $table = 'product';
     protected $primaryKey = 'product_id';
@@ -57,4 +58,8 @@ class ProductModel extends Model
     {
         return $this->belongsTo(User::class,'vendor_id');
     }
+    public function user()
+{
+    return $this->belongsTo(User::class, 'vendor_id', 'id');
+}
 }

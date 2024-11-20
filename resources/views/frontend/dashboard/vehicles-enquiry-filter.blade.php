@@ -10,14 +10,14 @@
     <td>{{ $vehicle_enqury->product->product_type ?? 'N/A'}}</td>
     <td>{{$vehicle_enqury->product->product_price ?? 'N/A' }}</td>
     <td>{{$vehicle_enqury->product->vendor->first_name ?? 'N/A'}}</td>
-    <td>{{$vehicle_enqury->product->manufacture_date ?? 'N/A'}}</td>
+    <td>{{$vehicle_enqury->product->vehicle_km ?? 'N/A'}} Km</td>
     <td class="text-end">
-        <a href="{{ route('vehicle-details', $vehicle_enqury->product_id) }}" class="view_icon">
+        <a href="{{ route('vehicle-details', Crypt::encrypt($vehicle_enqury->product_id)) }}" class="view_icon">
             <i class="fa-solid fa-eye"></i>
         </a>
-        <a href="#" class="delete_icon" data-id="{{ $vehicle_enqury->id }}" data-url="{{ route('user-delete-enquiry') }}">
+        {{-- <a href="#" class="delete_icon" data-id="{{ $vehicle_enqury->id }}" data-url="{{ route('user-delete-enquiry') }}">
             <i class="fa-solid fa-trash"></i>
-        </a>
+        </a> --}}
     </td>
 </tr>
 

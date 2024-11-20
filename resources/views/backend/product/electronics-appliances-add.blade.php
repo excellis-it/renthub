@@ -193,6 +193,10 @@
                                         </label>                                      
                                     </div>
 
+                                    <div class="">
+                                        <a href="{{URL::to('privacy-policy')}}" target="_blank">Terms and Condition</a>
+                                    </div>
+
                                     {{-- <div class="col-12">
                                         <input type="submit" name="submit" class="btn btn-primary" value="Save Product" />
                                     </div> --}}

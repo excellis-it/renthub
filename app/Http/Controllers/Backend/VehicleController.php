@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Http\Requests\ProductRequest;
 use App\Models\product\ProductModel;
 use App\Models\BrandModel;
@@ -17,7 +18,8 @@ class VehicleController extends Controller
 
     public function list()
     {
-        $data = ProductModel::where('category_id', 4)->orderBy('product_id', 'desc')->paginate(10);
+        $vendorId = auth()->id();
+        $data = ProductModel::where(['category_id'=> 4,'vendor_id' => $vendorId])->orderBy('product_id', 'desc')->paginate(10);
         return view('backend.product.vehicle_list', compact('data'));
     }
 
@@ -63,6 +65,16 @@ class VehicleController extends Controller
         if ($user->role == 'vendor') {
             $vendorId = $user->id;
         }
+
+        $productSlug = Str::slug($request->product_name, '-');
+
+        // Check if the slug already exists in the database
+        $existingSlug = ProductModel::where('product_slug', $productSlug)->first();
+
+        // If slug exists, append a unique number
+        if ($existingSlug) {
+            $productSlug = $productSlug . '-' . Str::random(8); // Random 8-character string
+        }
         $data = [
             'tag_line' => $request->tag_line,
             'product_name' => $request->product_name,
@@ -80,6 +92,7 @@ class VehicleController extends Controller
             'product_status' => $request->product_status,
             'category_id' => 4,
             'vendor_id'=>$vendorId,
+            'product_slug' => $productSlug,
         ];
         // dd($data);
         if ($request->hasFile('product_thumbnail')) {
@@ -159,6 +172,7 @@ class VehicleController extends Controller
             'product_status' => $request->product_status,
             'category_id' => 4,
             'vendor_id'=>$vendorId,
+            'product_slug' => Str::slug($request->product_name, '-'),
         ];
         // dd($request->tag_line);
         // dd($data);

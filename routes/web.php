@@ -10,17 +10,7 @@ use App\Http\Controllers\Frontend\RegisterController;
 use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Frontend\ProfileController;
 
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\CronJobController;
 
 Route::get('/', [CmsController::class, 'home'])->name('home');
 
@@ -43,21 +33,8 @@ Route::get('all-categories', [CmsController::class, 'all_categories']);
 Route::get('signup', [CmsController::class, 'register']);
 
 Route::get('all-categories-sub/{category_slug}/{sub_category_slug}', [CmsController::class, 'all_categories_subcategories']);
-/**********User Dashboard ********/
 
-
-/****************************************/
-//      USER DASHBIARD (START)
-/***************************************/
-
-
-
-/****************************************/
-//      USER DASHBIARD (END)
-/***************************************/
-
-
-
+Route::post('/search-result', [CmsController::class, 'searchResult'])->name('product.search');
 Route::get('privacy-policy', [RegisterController::class, 'privacy']);
 
 Route::get('review', [CmsController::class, 'review']);
@@ -73,14 +50,7 @@ Route::get('subscription', [CmsController::class, 'subscription']);
 Route::post('/listing-user-register', [RegisterController::class, 'listing_user_register'])->name('listing-user-register');
 Route::post('/basic-user-register', [RegisterController::class, 'basic_user_register'])->name('basic-user-register');
 
-// Route::get('/login', function () {
-//     return view('index');
-// });
 
-
-// Route::fallback(function () {
-//     return redirect('/login');
-// });
 
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/admin.php';
@@ -97,3 +67,6 @@ require_once __DIR__ . '/socialite.php';
 
 Route::get('/{category_slug}', [CmsController::class, 'categories']);
 Route::get('/{category_slug}/{sub_category_slug}', [CmsController::class, 'subcategories']);
+
+Route::get('/product-search', [CmsController::class, 'searchProduct'])->name('search.product');
+Route::post('/search-result', [CmsController::class, 'searchResult'])->name('product.search');

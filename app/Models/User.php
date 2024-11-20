@@ -37,6 +37,7 @@ class User extends Authenticatable
         'govt_id_file',
         'role',
         'status',
+        'is_delete',
         'company_name',
         'corporate_id',
         'tax_id',
@@ -76,6 +77,11 @@ class User extends Authenticatable
     {
         return $this->role === $role;
     }
+    public function subscriptionHistory()
+{
+    return $this->hasMany(SubscriptionHistoryModel::class, 'vendor_id');
+}
+
 
     
 }

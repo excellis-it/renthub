@@ -1,3 +1,9 @@
+@php
+
+use Illuminate\Support\Facades\Auth;
+$role = Auth::user()->role;
+
+@endphp
 @extends('backend.layouts.app')
 @section('PageTitle', 'Subscription')
 @section('content')
@@ -52,6 +58,9 @@
                     <thead>
                         <tr>
                             <th>Sl No.</th>
+                            @if($role=='admin')
+                            <th>Listing User</th>
+                            @endif
                             <th>Subscription Plan</th>
                             <th>Price($)</th>
                             <th>Days</th>
@@ -118,8 +127,12 @@
     $(document).ready(function () {
 
         function fetch_data(page, query = '') {
+             var userRole = '{{ auth()->user()->role }}'; // Assumes you have a way to get the user's role
+                var url = userRole === 'admin' 
+        ? "{{ route('admin-ajax.subscription-history') }}?page=" + page + "&query=" +query
+        : "{{ route('vendor-ajax.subscription-history') }}?page=" + page + "&query=" + query;
             $.ajax({
-                url: "{{ route('vendor-ajax.subscription-history') }}?page=" + page + "&query=" + query,
+                url: url,
                 success: function (data) {
                     // Update the table body with new data
                     $('#tableBodyContents').html(data.data);

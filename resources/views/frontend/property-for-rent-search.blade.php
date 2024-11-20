@@ -5,7 +5,7 @@
                     <div class="for_rent">{{$val->product_type}}</div>
                     <a href="" class="wishlist_rent"><i class="fa-solid fa-heart"></i></a>
                     <div class="feature_img">
-                      <a href="{{URL::to('property-details/'.$val->product_id)}}"><img src="{{asset('public/images/' . $val->product_thumbnail)}}" /></a>
+                      <a href="{{URL::to('property-details/'.Crypt::encrypt($val->product_id))}}"><img src="{{asset('public/images/' . $val->product_thumbnail)}}" /></a>
                     </div>
                     <div class="feature_text">
                       <div class="d-block d-md-flex justify-content-between">
@@ -15,7 +15,8 @@
                         @if(isset($data))
 
                             <div class="star-div mb-div">
-                                <a href="{{ URL::to('/user/review/'.$data->product_id) }}">
+                            
+                                <a href="{{ URL::to('/user/review/'.Crypt::encrypt($data->product_id)) }}">
                                 <ul class="star_ul ">
                                   <li><i class="fa-solid fa-star"></i></li>
                                   <li><i class="fa-solid fa-star"></i></li>
@@ -43,7 +44,7 @@
                     </div>
                     <div class="addtocart">
                       @if(Auth::user())
-                      <a href="{{ url('property-details/' . $val->product_id) }}"><span>Inquire Now</span></a>
+                      <a href="{{ url('property-details/' . Crypt::encrypt($val->product_id)) }}"><span>Inquire Now</span></a>
                       @else
                       <a href="{{ url('login/') }}"><span>Inquire Now</span></a>
                       @endif
@@ -51,5 +52,10 @@
                     </div>
                   </div>
                 </div>
+
                   @endforeach
+                 
               @endif
+              
+      
+             

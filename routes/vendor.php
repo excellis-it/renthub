@@ -11,8 +11,11 @@ use App\Http\Controllers\Backend\VehicleController;
 use App\Http\Controllers\Backend\MachineryController;
 use App\Http\Controllers\Backend\ElectronicsController;
 
+use App\Http\Controllers\Backend\InquiryController;
 use App\Http\Controllers\Backend\SubscriptionController;
 use App\Http\Controllers\Backend\PaymentController;
+
+use App\Http\Controllers\Backend\CronJobController;
 
 use App\Http\Controllers\Vendor\PaypalPaymentController;
 
@@ -76,13 +79,29 @@ Route::middleware(['auth', 'auth.role:vendor'])
             Route::get('remove/{id}', [ElectronicsController::class, 'delete']);
         });
 
+        
+        Route::prefix('inquiries')->group(function(){
+            Route::get('/property-list', [InquiryController::class, 'property_list'])->name('inquiries-property-list');
+            Route::get('/property-filter', [InquiryController::class, 'property_filter'])->name('inquiries-property-filter');
+
+            Route::get('/machinery-list', [InquiryController::class, 'machinery_list'])->name('inquiries-machinery-list');
+            Route::get('/machinery-filter', [InquiryController::class, 'machinery_filter'])->name('inquiries-machinery-filter');
+
+            Route::get('/vehicle-list', [InquiryController::class, 'vehicle_list'])->name('inquiries-vehicle-list');
+            Route::get('/vehicle-filter', [InquiryController::class, 'vehicle_filter'])->name('inquiries-vehicle-filter');
+
+            Route::get('/electronics-list', [InquiryController::class, 'electronics_list'])->name('inquiries-electronics-list');
+            Route::get('/electronics-filter', [InquiryController::class, 'electronics_filter'])->name('inquiries-electronics-filter');
+        });
+
+
         Route::get('subscription-purchase',[SubscriptionController::class, 'purchase'])->name('subscription-purchase');
         Route::get('subscription-history', [SubscriptionController::class, 'history'])->name('subscription-history');
         Route::get('subscription-ajax-history',[SubscriptionController::class, 'ajaxHistory'])->name('ajax.subscription-history');
         Route::get('payment/{id}', [PaymentController::class, 'payment_index']);
         Route::post('payment-create', [PaymentController::class, 'payment_create']);
 
-
+       
         
 
         // fallback

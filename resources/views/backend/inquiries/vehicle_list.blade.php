@@ -59,7 +59,9 @@ $role = Auth::user()->role;
                         <th>Property Name</th>
                         <th>Property Model</th>
                         <th>Property Price</th>
+                        @if($role=='admin')
                         <th>Vendor of the Property</th>
+                        @endif
                         {{-- <th>Action</th> --}}
                     </tr>
                 </thead>

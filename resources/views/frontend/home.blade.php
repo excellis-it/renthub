@@ -1,3 +1,4 @@
+@php use App\MyHelpers;use Illuminate\Support\Facades\Auth; @endphp
 @extends('frontend.includes.master')
 @section('content')
     @include('frontend.includes.header')
@@ -43,11 +44,10 @@
                                     @foreach ($subcategories as $subval)
                                         <div class="service_padding">
                                             
-                                            @if(isset($category))
-                                                @foreach($category as $val)
-                                                    <a href="{{ url('/'.$val->category_slug.'/'.$subval->sub_category_slug) }}">
-                                                @endforeach
-                                            @endif
+                                        @if (isset($subval->category))
+                                            <a href="{{ url('/'.$subval->category->category_slug.'/'.$subval->sub_category_slug) }}">
+                                        @endif
+
                                                         <div class="img_box_card">
                                                             <div class="img_servic">
                                                                 <span style="background: #FF4C37;">
@@ -64,7 +64,7 @@
                                 </div>
                             </div>
                         </div>
-                    @endif
+                @endif
 
             </div>
         </div>
@@ -80,21 +80,21 @@
                 </div>
                 <div class="col-md-4 text-end">
                     <div>
-                        <a href="javascript:void(0);" class="red_btn"><span>View all</span></a>
+                        <a href="{{URL::to('property-for-rent')}}" class="red_btn"><span>View all</span></a>
                     </div>
                 </div>
             </div>
             <div class="featured_slider right_middle_arrow">
 
 
-                @if (isset($property))
+                @if (count($property)>0)
                     @foreach ($property as $val)
                         <div class="feature_slid_padding">
                             <div class="feature_box">
                                 <div class="for_rent">{{ $val->product_type }}</div>
                                 <a href="javascript:void(0);" class="wishlist_rent"><i class="fa-solid fa-heart"></i></a>
                                 <div class="feature_img">
-                                    <a href="{{ URL::to('property-details/' . $val->product_id) }}"><img
+                                    <a href="{{ URL::to('property-details/' . Crypt::encrypt($val->product_id)) }}"><img
                                             src="{{ asset('public/images/' . $val->product_thumbnail) }}" /></a>
                                 </div>
                                 <div class="feature_text">
@@ -114,7 +114,7 @@
                                     <span class="price_text">${{ $val->product_price }}
                                         <span>${{ $val->marked_price }}</span></span>
                                     <a
-                                        href="{{ URL::to('property-details/' . $val->product_id) }}">{{ $val->product_name }}</a>
+                                        href="{{ URL::to('property-details/' . Crypt::encrypt($val->product_id)) }}">{{ $val->product_name }}</a>
                                     <div class="d-flex"><span class="me-1"><img
                                                 src="{{ asset('frontend_assets/assets/images/map.svg') }}"
                                                 alt="" /></span> {{ $val->location }}
@@ -122,12 +122,16 @@
                                     <div class="agent_text">{{ strtoupper($val->vendor_type) }}</div>
                                 </div>
                                 <div class="addtocart">
-                                    <a href="{{ URL::to('property-details/' . $val->product_id) }}"><span>Inquire
+                                    <a href="{{ URL::to('property-details/' . Crypt::encrypt($val->product_id)) }}"><span>Inquire
                                             Now</span></a>
+                                           
+                                           
                                 </div>
                             </div>
                         </div>
                     @endforeach
+                    @else
+                    <p>NO RECORD FOUND</p>
                 @endif
             </div>
         </div>
@@ -143,21 +147,21 @@
                 </div>
                 <div class="col-md-4 text-end">
                     <div>
-                        <a href="javascript:void(0);" class="red_btn" id="viewAllBtn"><span>View all</span></a>
+                        <a href="{{URL::to('equipment-and-machineries')}}" class="red_btn" id="viewAllBtn"><span>View all</span></a>
                     </div>
                 </div>
             </div>
             <div class="featured_slider_machinery right_middle_arrow">
 
 
-                @if (isset($machinery))
+                @if (count($machinery)>0)
                     @foreach ($machinery as $val)
                         <div class="feature_slid_padding">
                             <div class="feature_box">
                                 <div class="for_rent">{{ $val->product_type }}</div>
                                 <a href="javascript:void(0)" class="wishlist_rent"><i class="fa-solid fa-heart"></i></a>
                                 <div class="feature_img">
-                                    <a href="{{ URL::to('equipment-and-machineries-details/' . $val->product_id) }}"><img
+                                    <a href="{{ URL::to('equipment-and-machineries-details/' . Crypt::encrypt($val->product_id)) }}"><img
                                             src="{{ asset('public/images/' . $val->product_thumbnail) }}" /></a>
                                 </div>
                                 <div class="feature_text">
@@ -177,7 +181,7 @@
                                     <span class="price_text">${{ $val->product_price }}
                                         <span>${{ $val->marked_price }}</span></span>
                                     <a
-                                        href="{{ URL::to('equipment-and-machineries-details/' . $val->product_id) }}">{{ $val->product_name }}</a>
+                                        href="{{ URL::to('equipment-and-machineries-details/' . Crypt::encrypt($val->product_id)) }}">{{ $val->product_name }}</a>
                                     <div class="d-flex"><span class="me-1"><img
                                                 src="{{ asset('frontend_assets/assets/images/map.svg') }}"
                                                 alt="" /></span> {{ $val->location }}
@@ -185,12 +189,14 @@
                                     <div class="agent_text">{{ strtoupper($val->vendor_type) }}</div>
                                 </div>
                                 <div class="addtocart">
-                                    <a href="{{ URL::to('equipment-and-machineries-details/' . $val->product_id) }}"><span>Inquire
+                                    <a href="{{ URL::to('equipment-and-machineries-details/' . Crypt::encrypt($val->product_id)) }}"><span>Inquire
                                             Now</span></a>
                                 </div>
                             </div>
                         </div>
                     @endforeach
+                    @else
+                    <p>NO RECORD FOUND</p>
                 @endif
 
 
@@ -212,7 +218,7 @@
                 </div>
                 <div class="col-md-4 text-end">
                     <div>
-                        <a href="javascript:void(0);" class="red_btn"><span>View all</span></a>
+                        <a href="{{URL::to('vehicles')}}" class="red_btn"><span>View all</span></a>
                     </div>
                 </div>
             </div>
@@ -220,14 +226,14 @@
 
 
 
-                @if (isset($vehicle))
+                @if (count($vehicle)>0)
                     @foreach ($vehicle as $val)
                         <div class="feature_slid_padding">
                             <div class="feature_box">
                                 <div class="for_rent">{{ $val->product_type }}</div>
                                 <a href="javascript:void(0);" class="wishlist_rent"><i class="fa-solid fa-heart"></i></a>
                                 <div class="feature_img">
-                                    <a href="{{ URL::to('vehicle-details/' . $val->product_id) }}"><img
+                                    <a href="{{ URL::to('vehicle-details/' . Crypt::encrypt($val->product_id)) }}"><img
                                             src="{{ asset('public/images/' . $val->product_thumbnail) }}" /></a>
                                 </div>
                                 <div class="feature_text">
@@ -247,7 +253,7 @@
                                     <span class="price_text">${{ $val->product_price }}
                                         <span>${{ $val->marked_price }}</span></span>
                                     <a
-                                        href="{{ URL::to('vehicle-details/' . $val->product_id) }}">{{ $val->product_name }}</a>
+                                        href="{{ URL::to('vehicle-details/' . Crypt::encrypt($val->product_id)) }}">{{ $val->product_name }}</a>
                                     <div class="d-flex"><span class="me-1"><img
                                                 src="{{ asset('frontend_assets/assets/images/map.svg') }}"
                                                 alt="" /></span>{{ $val->location }}
@@ -255,12 +261,14 @@
                                     <div class="agent_text">{{ strtoupper($val->vendor_type) }}</div>
                                 </div>
                                 <div class="addtocart">
-                                    <a href="{{ URL::to('vehicle-details/' . $val->product_id) }}"><span>Inquire
+                                    <a href="{{ URL::to('vehicle-details/' . Crypt::encrypt($val->product_id)) }}"><span>Inquire
                                             Now</span></a>
                                 </div>
                             </div>
                         </div>
                     @endforeach
+                    @else
+                    <p>NO RECORD FOUND</p>
                 @endif
 
 
@@ -282,21 +290,21 @@
                 </div>
                 <div class="col-md-4 text-end">
                     <div>
-                        <a href="javascript:void(0);" class="red_btn"><span>View all</span></a>
+                        <a href="{{URL::to('electronics-home-appliances')}}" class="red_btn"><span>View all</span></a>
                     </div>
                 </div>
             </div>
             <div class="featured_slider_truck right_middle_arrow">
 
 
-                @if (isset($electronics))
+                @if (count($electronics)>0)
                     @foreach ($electronics as $val)
                         <div class="feature_slid_padding">
                             <div class="feature_box">
                                 <div class="for_rent">{{ $val->product_type }}</div>
                                 <a href="javascript:void(0)" class="wishlist_rent"><i class="fa-solid fa-heart"></i></a>
                                 <div class="feature_img">
-                                    <a href="{{ URL::to('electronics-home-appliances-details/' . $val->product_id) }}"><img
+                                    <a href="{{ URL::to('electronics-home-appliances-details/' . Crypt::encrypt($val->product_id)) }}"><img
                                             src="{{ asset('public/images/' . $val->product_thumbnail) }}" /></a>
                                 </div>
                                 <div class="feature_text">
@@ -316,7 +324,7 @@
                                     <span class="price_text">${{ $val->product_price }}
                                         <span>${{ $val->marked_price }}</span></span>
                                     <a
-                                        href="{{ URL::to('electronics-home-appliances-details/' . $val->product_id) }}">{{ $val->product_name }}</a>
+                                        href="{{ URL::to('electronics-home-appliances-details/' . Crypt::encrypt($val->product_id)) }}">{{ $val->product_name }}</a>
                                     <div class="d-flex"><span class="me-1"><img
                                                 src="{{ asset('frontend_assets/assets/images/map.svg') }}"
                                                 alt="" /></span> {{ $val->location }}
@@ -324,12 +332,14 @@
                                     <div class="agent_text">{{ strtoupper($val->vendor_type) }}</div>
                                 </div>
                                 <div class="addtocart">
-                                    <a href="{{ URL::to('electronics-home-appliances-details/' . $val->product_id) }}"><span>Inquire
+                                    <a href="{{ URL::to('electronics-home-appliances-details/' . Crypt::encrypt($val->product_id)) }}"><span>Inquire
                                             Now</span></a>
                                 </div>
                             </div>
                         </div>
                     @endforeach
+                    @else
+                    <p>NO RECORD FOUND</p>
                 @endif
 
 

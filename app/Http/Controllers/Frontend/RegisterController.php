@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\EmailTemplate;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -36,9 +38,10 @@ class RegisterController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'gender' => 'required',
-            'phone_number' => 'required|string|max:15',
-            'username' => 'required|string|max:255|unique:users,username',
-            'email' => 'required|string|email|max:255|unique:users,email',
+            'phone_number' => 'required|numeric|digits:10|regex:/^[0-9\-\(\)\/\+\s]+$/',
+          
+            'email' => 'required|string|regex:/^[a-z][\w\-\.]*@([\w\-]+\.)+[\w\-]{2,4}$/|max:255|unique:users,email',
+
             'address' => 'required|string|max:255'
         ]);
         $data = [
@@ -60,6 +63,7 @@ class RegisterController extends Controller
             'corporate_id' => $request->corporate_id,
             'tax_id' => $request->tax_id,
             'role' => 'vendor',
+            'is_delete'=>1,
             'remember_token' => Str::random(60),
 
         ];
@@ -74,6 +78,24 @@ class RegisterController extends Controller
         $vendor->fill($data);
         //dd($vendor);
         $vendor->save();
+
+
+        /**********************************/
+        //Email Template for verification
+
+        /***********************************/
+
+        $name=$request->first_name." ".$request->last_name;
+       
+        $template=EmailTemplate::where(['id'=>2,'status'=>1])->first();
+        $template=$template->template;
+        $template = str_replace("@NAME@", $name, $template);
+        // echo $template; die;
+        $to=$email;
+        $subject="RentHub: Confirm Your Registration";
+        Helper::smtp_register_email($to,$subject,$template);
+
+
         return response()->json([
             'message' => 'Listing user registration successfully.'
         ]);
@@ -98,11 +120,8 @@ class RegisterController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'gender' => 'required',
-            'phone_number' => 'required|string|max:15',
-            'username' => 'required|string|max:255|unique:users,username',
-            'email' => 'required|string|email|max:255|unique:users,email',
-
-
+            'phone_number' => 'required|numeric|digits:10|regex:/^[0-9\-\(\)\/\+\s]+$/',
+            'email' => 'required|string|regex:/^[a-z][\w\-\.]*@([\w\-]+\.)+[\w\-]{2,4}$/|max:255|unique:users,email',
         ]);
 
         $data = [
@@ -122,6 +141,7 @@ class RegisterController extends Controller
 
             'role' => 'user',
             'status' => 1,
+            'is_delete'=>1,
             'remember_token' => Str::random(60),
 
         ];
@@ -129,6 +149,22 @@ class RegisterController extends Controller
         $user->fill($data);
         //dd($user);
         $user->save();
+
+           /**********************************/
+        //Email Template for verification
+
+        /***********************************/
+
+        $email=$request->email;
+        $name=$request->first_name." ".$request->last_name;
+       
+        $template=EmailTemplate::where(['id'=>3,'status'=>1])->first();
+        $template=$template->template;
+        $template = str_replace("@NAME@", $name, $template);
+        //echo $template; die;
+        $to=$email;
+        $subject="RentHub: Confirm Your Registration";
+        //Helper::smtp_register_email($to,$subject,$template);
 
         return response()->json([
             'message' => 'Basic user registration successfully.'

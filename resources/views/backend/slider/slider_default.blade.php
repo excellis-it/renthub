@@ -31,6 +31,7 @@
             <table id="data_table" class="table table-striped table-bordered">
                 <thead>
                     <tr>
+                        <th>SL No.</th>
                         <th>Name</th>
                         <th>Image</th>
                         <th>Description</th>
@@ -40,8 +41,9 @@
                 </thead>
 
                 <tbody>
-                    @foreach ($data as $slider)
+                    @foreach ($data as $key=>$slider)
                     <tr>
+                        <td>{{$key+1}}</td>
                         <td>{{ $slider->title }}</td>
                         <td>
                             <img src="{{ asset('public/images/' . $slider->image) }}" alt="Image"
@@ -56,16 +58,12 @@
                                 <input name="id" value="{{ $slider->id }}" hidden/>
                                 <input name="status" value="{{ $slider->status }}" hidden/>
 
-                                <div class="form-check form-switch">
-                                    @if($slider->status == 1)
-                                        <input name="activate" class="btn btn-outline-success" type="submit"
-                                        value=" Activate " disabled>
-                                       
-                                    @else
-                                        <input name="de_activate" class="btn btn-outline-danger" type="submit"
-                                        value="De-Active" disabled>
-                                    @endif
-
+                               <div class="form-check form-switch">
+                                            @if ($slider->status == 1)
+                                            <span style="color: green;font-weight: bold;">Active</span>
+                                            @else
+                                            <span style="color: red;font-weight: bold;">In-Active</span>
+                                            @endif
                                 </div>
                             </form>
                         </td>

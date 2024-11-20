@@ -34,6 +34,7 @@
             <table id="data_table" class="table table-striped table-bordered">
                 <thead>
                     <tr>
+                        <th>SL No.</th>
                         <th>Title</th>
                         <th>Description</th>
                         <th>Status</th>
@@ -41,10 +42,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $page)
+                    @foreach ($data as $key=>$page)
                     <tr>
+                        <td>{{$key+1}}</td>
                         <td>{{ $page->title }}</td>
-                        <td>{{ $page->description }}</td>
+                        <td>{!! \Illuminate\Support\Str::limit($page->description, 50) !!}</td>
+
                         <td>
                             <form method="POST" action="" class="activate_form">
                                 @csrf
@@ -52,15 +55,11 @@
                                 <input name="current_status" value="{{ $page->status }}" hidden/>
 
                                 <div class="form-check form-switch">
-                                    @if($page->status == 1)
-                                        <input name="activate" class="btn btn-outline-success" type="submit"
-                                        value=" Activate " disabled>
-                                       
-                                    @else
-                                        <input name="de_activate" class="btn btn-outline-danger" type="submit"
-                                        value="De-Active" disabled>
-                                    @endif
-
+                                            @if ($page->status == 1)
+                                            <span style="color: green;font-weight: bold;">Active</span>
+                                            @else
+                                            <span style="color: red;font-weight: bold;">In-Active</span>
+                                            @endif
                                 </div>
                             </form>
                         </td>
@@ -176,6 +175,14 @@
                         </td>
                     </tr>
                     @endforeach
+                    <tr>
+                        <td colspan="8">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>{!! $data->links('vendor.pagination.bootstrap-4') !!}</div>
+                                <div>(Showing {{ $data->firstItem() }} – {{ $data->lastItem() }} of {{ $data->total() }} results)</div>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -194,6 +201,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 
         <script>
             $(document).ready(function() {

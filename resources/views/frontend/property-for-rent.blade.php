@@ -1,8 +1,6 @@
 @extends('frontend.includes.master')
 @section('content')
 @include('frontend.includes.header')
-
-    
     <div class="filter_map">
       <div class="row align-items-center m-0 gx-2">
         <div class="col-xxl-2 col-xl-3">
@@ -133,12 +131,12 @@
                 </div>
               </div>
               @endif
-              <div class="row"  id="propertyList">
-  
-                @include('frontend.property-for-rent-search')
-              
-              
-            </div>
+                <div class="infinite-scroll">
+                    <div class="row"  id="propertyList">
+                      @include('frontend.property-for-rent-search')
+                    
+                    </div>
+                </div>
           </div>
         </div>
       </div>
@@ -148,6 +146,22 @@
 
 
     @section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+        <script type="text/javascript">
+          $('ul.pagination').hide();
+          $(function() {
+              $('.infinite-scroll').jscroll({
+                  autoTrigger: true,
+                  padding: 0,
+                  nextSelector: '.pagination li.active + li a',
+                  contentSelector: 'div.infinite-scroll',
+                  callback: function() {
+                      $('ul.pagination').remove();
+                  }
+              });
+          });
+      </script> 
           <script>
               $(document).ready(function() {
                   $('#searchForm').on('submit', function(e) {
@@ -208,8 +222,9 @@
                   },
                   headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                   success: function(res) {
+                    //console.log(res.result);
                           var res = JSON.parse(res);
-                          $('#propertyList').html(res.result);
+                          $('#propertyList').html(res.result);                    
                            $('#resultCount').text(`Results found: ${res.count}`);
                         }
                   

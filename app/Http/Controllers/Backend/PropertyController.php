@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\product\ProductModel;
 use App\Models\BrandModel;
 use App\Models\SubCategoryModel;
@@ -16,7 +17,9 @@ class PropertyController extends Controller
 
     public function list()
     {
-        $data = ProductModel::where('category_id', 1)->orderBy('product_id', 'desc')->paginate(10);
+        $vendorId = auth()->id();
+        //dd($vendorId);
+        $data = ProductModel::where(['category_id'=> 1 ,'vendor_id' => $vendorId])->orderBy('product_id', 'desc')->paginate(10);
         return view('backend.product.property_list', compact('data'));
     }
 
@@ -85,6 +88,7 @@ class PropertyController extends Controller
             'product_status' => $request->product_status,
             'category_id' => 1,
             'vendor_id' => $vendorId,
+            'product_slug' => Str::slug($request->product_name, '-'),
         ];
         // dd($data);
         if ($request->hasFile('product_thumbnail')) {
@@ -172,6 +176,7 @@ class PropertyController extends Controller
             'product_status' => $request->product_status,
             'category_id' => 1,
             'vendor_id' => $vendorId,
+            'product_slug' => Str::slug($request->product_name, '-'),
         ];
         // dd($data);
         if ($request->hasFile('product_thumbnail')) {

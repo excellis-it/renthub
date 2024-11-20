@@ -6,7 +6,7 @@
                 <div class="for_rent">{{ strtoupper($val->product_type) }}</div>
                 <a href="javascript:void(0);" class="wishlist_rent"><i class="fa-solid fa-heart"></i></a>
                 <div class="feature_img">
-                    <a href="{{ url('vehicle-details/' . $val->product_id) }}"><img
+                    <a href="{{ url('vehicle-details/' . Crypt::encrypt($val->product_id)) }}"><img
                             src="{{ asset('public/images/' . $val->product_thumbnail) }}" /></a>
                 </div>
                 <div class="feature_text">
@@ -16,7 +16,7 @@
                         </div>
                         @if (isset($data))
                             <div class="star-div mb-div">
-                                <a href="{{ URL::to('/user/review/' . $data->product_id) }}">
+                                <a href="{{ URL::to('/user/review/' . Crypt::encrypt($data->product_id)) }}">
                                     <ul class="star_ul ">
                                         <li><i class="fa-solid fa-star"></i></li>
                                         <li><i class="fa-solid fa-star"></i></li>
@@ -31,7 +31,7 @@
                         @endif
                     </div>
                     <span class="price_text">${{ $val->product_price }} <span>${{ $val->marked_price }}</span></span>
-                    <a href="{{ url('/vehicle-details/' . $val->product_id) }}">{{ strip_tags($val->product_name) }}</a>
+                    <a href="{{ url('/vehicle-details/' . Crypt::encrypt($val->product_id)) }}">{{ strip_tags($val->product_name) }}</a>
                     <div class="d-flex align-items-center">
                         {{-- <div class="d-flex align-items-center pe-2"><span class="me-1"><img
             src="assets/images/mfg_date.svg" alt="" /></span> MFG Date: {{  date('jS F, Y',strtotime($val->created_at))  }}</div> --}}
@@ -44,7 +44,7 @@
                     <div class="agent_text">{{ strtoupper($val->vendor_type) }}</div>
                 </div>
                 <div class="addtocart">
-                    <a href="{{ url('vehicle-details/' . $val->product_id) }}"><span>Inquire Now</span></a>
+                    <a href="{{ url('vehicle-details/' . Crypt::encrypt($val->product_id)) }}"><span>Inquire Now</span></a>
                 </div>
             </div>
 

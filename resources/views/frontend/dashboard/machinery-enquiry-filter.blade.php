@@ -1,7 +1,7 @@
 @foreach($user_machinery_enquries as $machinery_enqury)
 <tr>
     <td>
-        <img alt="..." src="{{ asset('public/uploads/products/'.$machinery_enqury->product->product_thumbnail) }}"
+        <img alt="..." src="{{ asset('public/images/'.$machinery_enqury->product->product_thumbnail) }}"
             class="avatar avatar-xs rounded-circle me-2" width="30px" height="30px">
     </td>
     <!--<td></td>-->
@@ -11,12 +11,12 @@
     <td>{{$machinery_enqury->product->vendor->first_name ?? 'N/A'}}</td>
     <td>{{$machinery_enqury->product->product_type ?? 'N/A'}}</td>
     <td class="text-end">
-        <a href="{{ route('machineries-details', $machinery_enqury->product_id) }}" class="view_icon">
+        <a href="{{ route('machineries-details', Crypt::encrypt($machinery_enqury->product_id)) }}" class="view_icon">
             <i class="fa-solid fa-eye"></i>
         </a>
-        <a  class="delete_icon" data-id="{{ $machinery_enqury->id }}" data-url="{{ route('user-delete-enquiry') }}">
+        {{-- <a  class="delete_icon" data-id="{{ $machinery_enqury->id }}" data-url="{{ route('user-delete-enquiry') }}">
             <i class="fa-solid fa-trash"></i>
-        </a>
+        </a> --}}
     </td>
 </tr>
 

@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Vendor;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\SubscriptionModel;
 use App\Models\PaymentModel;
 use App\Models\SubscriptionHistoryModel;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use App\Models\EmailTemplate;
 use Carbon\Carbon;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
@@ -96,12 +99,32 @@ class PaypalPaymentController extends Controller
             $payment->payment_currency = 'USD';
             $payment->save();
 
+            $user = Auth::user();
+            $name = strtoupper($user->first_name." ".$user->last_name); 
+            $email = $user->email;
+            $user_type = strtoupper($user->role); 
+            $plan_name = strtoupper($data->title);
+            $start_date = date('jS F,Y',strtotime(Carbon::now()));
+            $end_date = date('jS F,Y',strtotime($formattedExpiryDate));
+          
+            $template=EmailTemplate::where(['id'=>6,'status'=>1])->first();
+            $template=$template->template;
+            $template = str_replace("@NAME@", $name, $template);
+            $template = str_replace("@USER_TYPE@", $user_type, $template);
+            $template = str_replace("@PLAN_NAME@", $plan_name, $template);
+            $template = str_replace("@PRICE@", $price, $template);
+            $template = str_replace("@START_DATE@", $start_date, $template);
+            $template = str_replace("@END_DATE@", $end_date, $template);
+         
+            echo $template; die;
+            
+            $to=$email;
+            $subject="RentHub: Subscription";
+            Helper::smtp_subscription_email($to,$subject,$template);
+
             return redirect()->route('vendor-subscription-history')->with('success', 'Payment successful');
             
-        } else {
-            return redirect()->back()->with('error', 'Something went wrong');
-            
-        }
+        } 
     }
 
     public function cancelPayment(Request $request)

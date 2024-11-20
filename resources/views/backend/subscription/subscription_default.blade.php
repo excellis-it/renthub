@@ -56,15 +56,11 @@
                                 <input name="current_status" value="{{ $val->status }}" hidden/>
 
                                 <div class="form-check form-switch">
-                                    @if($val->status == 1)
-                                        <input name="status" class="btn btn-outline-success" type="submit"
-                                        value=" Activate " disabled>
-                                       
+                                    @if ($val->status == 1)
+                                        <span style="color: green;font-weight: bold;">Active</span>
                                     @else
-                                        <input name="status" class="btn btn-outline-danger" type="submit"
-                                        value="De-Active" disabled>
+                                        <span style="color: red;font-weight: bold;">In-Active</span>
                                     @endif
-
                                 </div>
                             </form>
                         </td>

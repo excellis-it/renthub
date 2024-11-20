@@ -22,9 +22,15 @@ class VendorController extends UserController
     {
         $data = User::where('role', '=', 'vendor')->get();
         $value = SubscriptionModel::where('status',1)->orderBy('id','desc')->get();
-        // $check_vendor_activePlan = SubscriptionHistoryModel::where('vendor_id',Auth::user()->id)->where('status',true)->whereDate("end_date" , '>' , 'date('Y-m-d')')->first();
+
+       
+      
+        
         return view('backend.vendor.all_vendors', compact('data', 'value'));
+    
     }
+
+     
     public function updateInfo(VendorInfoRequest $request)
     {
         // validation

@@ -34,6 +34,24 @@
                 @csrf
 
                 <input type="hidden" name="id" value="{{ $data->id ?? '' }}" />
+
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Profile Picture<span style="color:red;">*</span></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        <label for="profile_image_input">Upload Image</label>
+                        <div class="mt-1">
+                            <input type="file" name="photo" class="form-control" id="profile_image_input" onchange="previewImage(event)">
+                        </div>
+                        <div class="col-md-auto mt-3">
+                            <img src="{{ $data->photo ? asset('public/uploads/images/profile/'.$data->photo) : asset('frontend_assets/assets/images/admin-logo.jpg') }}"
+                                alt="Profile Image" class="rounded-circle" width="120" height="120"
+                                id="profile_image_preview">
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row mb-3">
                     <div class="col-sm-3">
                         <h6 class="mb-0">Title<span style="color:red;">*</span></h6>
@@ -298,7 +316,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-
+    <script>
+            document.getElementById('profile_image_input').addEventListener('change', function(event) {
+                const [file] = event.target.files;
+                if (file) {
+                document.getElementById('profile_image_preview').src = URL.createObjectURL(file);
+            }
+        });
+    </script>
     <script type="text/javascript">
         $(document).ready(function () {
        

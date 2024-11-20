@@ -1,10 +1,7 @@
 @extends('frontend.includes.master')
 @section('content')
-    @include('frontend.includes.header')
-
+@include('frontend.includes.header')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css" rel="stylesheet">
-
-
     <section class="inner_banner_sec"
         style="
       background-image: url({{ asset('frontend_assets/assets/images/inr-bnr.jpg') }});
@@ -65,26 +62,44 @@
                     <div class="property-details-div">
                         <div class="property-details">
                             <div class="">
-                                <div class="d-block d-md-flex justify-content-between">
-                                    <div class="propety-title mb-div">
-                                        {{ $data->tag_line }}
-                                    </div>
-                                    @if (isset($data))
-                                        <div class="star-div mb-div">
-                                            <a href="{{ URL::to('/user/review/' . $data->product_id) }}">
-                                                <ul class="star_ul ">
-                                                    <li><i class="fa-solid fa-star"></i></li>
-                                                    <li><i class="fa-solid fa-star"></i></li>
-                                                    <li><i class="fa-solid fa-star"></i></li>
-                                                    <li><i class="fa-solid fa-star"></i></li>
-                                                    <li><i class="fa-solid fa-star"></i></li>
-                                                    <li><span>(5)</span></li>
-                                                </ul>
+                                        <div class="d-block d-md-flex justify-content-between">
+                                            
+                                                <div class="propety-title mb-div">
+                                                    @if (isset($data->tag_line))
+                                                        {{ $data->tag_line }}
+                                                    @endif
+                                                </div>
+                                            
 
-                                            </a>
+                                            @if (isset($data))
+                                                <div class="star-div mb-div">
+                                                    @if (Auth::check())
+                                                        <a href="{{ URL::to('/user/review/' . Crypt::encrypt($data->product_id)) }}">
+                                                            <ul class="star_ul">
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><span>(5)</span></li>
+                                                            </ul>
+                                                        </a>
+                                                    @else
+                                                        <a href="{{ URL::to('/login') }}">
+                                                            <ul class="star_ul">
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><span>(5)</span></li>
+                                                            </ul>
+                                                        </a>
+                                                    @endif
+                                                </div>
+                                            @endif
+
                                         </div>
-                                    @endif
-                                </div>
 
                                 <div class="propety-price mb-div">${{ $data->product_price }}
                                     <span>${{ $data->marked_price }}</span>
@@ -183,22 +198,44 @@
                                     <a href="javascript:void(0);" class="wishlist_rent"><i
                                             class="fa-solid fa-heart"></i></a>
                                     <div class="feature_img">
-                                        <a href="{{ URL::to('equipment-and-machineries-details/' . $val->product_id) }}"><img
+                                        <a href="{{ URL::to('equipment-and-machineries-details/' . Crypt::encrypt($val->product_id)) }}"><img
                                                 src="{{ asset('public/images/' . $val->product_thumbnail) }}" /></a>
                                     </div>
                                     <div class="feature_text">
                                         <div class="d-block d-md-flex justify-content-between">
-                                            <div class="commercial_propety">
-                                                Type
+                                            <div class="propety-title mb-div">
+                                                @if (isset($data->tag_line))
+                                                    {{ $data->tag_line }}
+                                                @endif
                                             </div>
-                                            <ul class="star_ul">
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><i class="fa-solid fa-star"></i></li>
-                                                <li><span>(5)</span></li>
-                                            </ul>
+                                            @if (isset($data))
+                                                <div class="star-div mb-div">
+                                                    @if (Auth::check())
+                                                        <a href="{{ URL::to('/user/review/' . Crypt::encrypt($data->product_id)) }}">
+                                                            <ul class="star_ul">
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><span>(5)</span></li>
+                                                            </ul>
+                                                        </a>
+                                                    @else
+                                                        <a href="{{ URL::to('/login') }}">
+                                                            <ul class="star_ul">
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><i class="fa-solid fa-star"></i></li>
+                                                                <li><span>(5)</span></li>
+                                                            </ul>
+                                                        </a>
+                                                    @endif
+                                                </div>
+                                            @endif
+
                                         </div>
                                         <span class="price_text">${{ $val->product_price }}
                                             <span>${{ $val->marked_price }}</span>

@@ -13,6 +13,7 @@ use App\Http\Controllers\Backend\SubscriptionController;
 use App\Http\Controllers\Backend\InquiryController;
 use App\Http\Controllers\Backend\UserController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
@@ -98,15 +99,25 @@ Route::middleware(['auth', 'auth.role:admin'])
             Route::get('edit/{id}', [SubscriptionController::class, 'edit']);
             Route::post('update', [SubscriptionController::class, 'subscriptionUpdate']);
             Route::get('remove/{id}', [SubscriptionController::class, 'subscriptionRemove']);
+            Route::get('history', [SubscriptionController::class, 'history']);
+            Route::get('subscription-ajax-history',[SubscriptionController::class, 'ajaxHistory'])->name('ajax.subscription-history');
+            
         });
 
         Route::prefix('user')->group(function () {
             Route::get('listing_user', [UserController::class, 'listing_user'])->name('listing-user');
             Route::get('edit-user/{id}', [UserController::class, 'edit_user'])->name('edit-user');
             Route::post('update-user', [UserController::class, 'update_user'])->name('update-user');
+            Route::get('remove-listing-user/{id}', [UserController::class, 'remove_listing_user'])->name('remove-listing-user');
+            Route::get('change-password-list/{id}',[UserController::class,'list_change_password'])->name('change-password-list');
+            Route::post('store-password',[UserController::class,'store'])->name('store-password-list');
             Route::get('basic_user', [UserController::class, 'basic_user']);
             Route::get('edit-basic-user/{id}', [UserController::class, 'edit_basic_user'])->name('basic-user');
             Route::post('update-basic-user', [UserController::class, 'update_basic_user'])->name('update-basic-user');
+            Route::get('remove-basic-user/{id}', [UserController::class, 'remove_basic_user'])->name('remove-basic-user');
+            Route::get('change-password-basic/{id}',[UserController::class,'basic_user_change_password'])->name('change-password-basic');
+            Route::post('update-password',[UserController::class,'store_basic_user'])->name('store-basic-user');
+            
         });
 
         // fallback

@@ -26,4 +26,9 @@ class SubscriptionHistoryModel extends Model
     {
         return $this->belongsTo(SubscriptionModel::class, 'subscription_id');
     }
+    public function vendor()
+    {
+    return $this->belongsTo(User::class, 'vendor_id'); 
+    }
+
 }

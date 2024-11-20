@@ -11,7 +11,7 @@ class PagesController extends Controller
     //
     public function pages_index()
     {
-        $data = PageModel::orderBy('id', 'desc')->get();
+        $data = PageModel::orderBy('id', 'desc')->paginate(15);
         return view('backend.pages.pages_default', compact('data'));
     }
     public function create()
@@ -20,7 +20,7 @@ class PagesController extends Controller
     }
     public function pages_create(Request $request)
     {
-        // dd($request->all());
+         //dd($request->all());
         $request->validate([
             'title' => 'required',
             'description' => 'required'
@@ -34,8 +34,9 @@ class PagesController extends Controller
 
         $pages->description = $request->description;
         $pages->status = 1;
-        $pages->save();
         // dd($pages);
+        $pages->save();
+        
         toastr()->success('Pages Added successfully', ['timeout' => 1000]);
         return redirect()->back()->with(['success', 'Pages added successfully.']);
     }

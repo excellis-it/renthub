@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\product\ProductModel;
 use App\Models\BrandModel;
 use App\Models\SubCategoryModel;
@@ -14,7 +15,8 @@ class MachineryController extends Controller
 {
     public function list()
     {
-        $data = ProductModel::where('category_id', 2)->orderBy('product_id', 'desc')->paginate(10);
+        $vendorId = auth()->id();
+        $data = ProductModel::where(['category_id'=> 2 ,'vendor_id' => $vendorId])->orderBy('product_id', 'desc')->paginate(10);
         return view('backend.product.equipment-machinery_list', compact('data'));
     }
 
@@ -60,7 +62,7 @@ class MachineryController extends Controller
         //dd($user);
         if ($user->role == 'vendor') {
             $vendorId = $user->id;
-        }
+        }        
         $data = [
             'tag_line' => $request->tag_line,
 
@@ -79,8 +81,9 @@ class MachineryController extends Controller
             'product_status' => $request->product_status,
             'category_id' => 2,
             'vendor_id'=>$vendorId,
+           
         ];
-        // dd($data);
+        //dd($data);
         // echo $request->tag_line;die;
         if ($request->hasFile('product_thumbnail')) {
             $imageName = time() . '.' . $request->product_thumbnail->extension();
@@ -88,9 +91,19 @@ class MachineryController extends Controller
             $data['product_thumbnail'] = $imageName;
         }
 
+
         $product = new ProductModel();
+        if ($product->name != $request->product_name) {
+            $slug = str_replace(" ", "-", $request->product_name);
+            $slug = strtolower($slug);
+            $is_slug_exist = ProductModel::where('product_slug', $slug)->first();
+            if ($is_slug_exist) {
+                $slug = $slug . '-' . time();
+            }
+            $product->product_slug = $slug;
+        }
         $product->fill($data);
-        // dd($product);
+         //dd($product);
         $product->save();
 
         $productId = $product->product_id;
@@ -142,6 +155,7 @@ class MachineryController extends Controller
         $id = $request->product_id;
         // echo $id;die;
         $product = ProductModel::where('product_id', $id)->first();
+
         // dd($product);
         $data = [
             'tag_line' => $request->tag_line,
@@ -163,11 +177,21 @@ class MachineryController extends Controller
         ];
         // dd($request->tag_line);
         // echo $request->tag_line;die;
-        // dd($data);
+         //dd($data);
         if ($request->hasFile('product_thumbnail')) {
             $imageName = time() . '.' . $request->product_thumbnail->extension();
             $request->product_thumbnail->move(public_path('images'), $imageName);
             $data['product_thumbnail'] = $imageName;
+        }
+        //product slug
+        if ($product->name != $request->product_name) {
+            $slug = str_replace(" ", "-", $request->product_name);
+            $slug = strtolower($slug);
+            $is_slug_exist = ProductModel::where('product_slug', $slug)->first();
+            if ($is_slug_exist) {
+                $slug = $slug . '-' . time();
+            }
+            $product->product_slug = $slug;
         }
 
         $product->update($data);
