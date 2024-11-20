@@ -12,6 +12,8 @@ use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubscriptionController;
 use App\Http\Controllers\Backend\InquiryController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\HomeController;
+
 
 
 /*
@@ -38,6 +40,11 @@ Route::middleware(['auth', 'auth.role:admin'])
         Route::post('activate_vendor', 'vendorActivate')->name('activate-vendor');
         Route::post('remove_vendor', 'userRemove')->name('vendor-remove');
 
+        //cms-update
+        Route::prefix('home')->group(function () {
+            Route::get('/index', [HomeController::class, 'homeContentIndex'])->name('index');
+            Route::post('/update', [HomeController::class, 'homeUpdate'])->name('update');
+        });
 
         Route::prefix('pages')->group(function () {
             Route::get('list', [PagesController::class, 'pages_index']);
@@ -101,7 +108,7 @@ Route::middleware(['auth', 'auth.role:admin'])
             Route::get('remove/{id}', [SubscriptionController::class, 'subscriptionRemove']);
             Route::get('history', [SubscriptionController::class, 'history']);
             Route::get('subscription-ajax-history',[SubscriptionController::class, 'ajaxHistory'])->name('ajax.subscription-history');
-            
+
         });
 
         Route::prefix('user')->group(function () {
@@ -117,7 +124,7 @@ Route::middleware(['auth', 'auth.role:admin'])
             Route::get('remove-basic-user/{id}', [UserController::class, 'remove_basic_user'])->name('remove-basic-user');
             Route::get('change-password-basic/{id}',[UserController::class,'basic_user_change_password'])->name('change-password-basic');
             Route::post('update-password',[UserController::class,'store_basic_user'])->name('store-basic-user');
-            
+
         });
 
         // fallback

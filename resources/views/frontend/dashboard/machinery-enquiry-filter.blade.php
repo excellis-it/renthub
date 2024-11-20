@@ -1,7 +1,7 @@
 @foreach($user_machinery_enquries as $machinery_enqury)
 <tr>
     <td>
-        <img alt="..." src="{{ asset('public/images/'.$machinery_enqury->product->product_thumbnail) }}"
+        <img alt="..." src="{{ asset('images/'.$machinery_enqury->product->product_thumbnail) }}"
             class="avatar avatar-xs rounded-circle me-2" width="30px" height="30px">
     </td>
     <!--<td></td>-->

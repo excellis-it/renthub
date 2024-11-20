@@ -40,14 +40,14 @@ $role = Auth::user()->role;
                             <div class="mb-3">
                                 <label for="inputProductTitle" class="form-label">Tag Name<span style="color:red;">*</span></label>
                                 <input name="tag_line" type="text" class="form-control" id="inputProductTitle"
-                                    placeholder="Enter tag title" 
+                                    placeholder="Enter tag title"
                                     value="{{ old('tag_line', $item->tag_line) }}">
                                 <span style="color: #e20000" class="error" id="tag_line-error"></span>
                             </div>
                             <div class="mb-3">
                                 <label for="inputProductTitle" class="form-label">Product Name/Title<span style="color:red;">*</span></label>
                                 <input name="product_name" type="text" class="form-control" id="inputProductTitle"
-                                    placeholder="Enter product title" 
+                                    placeholder="Enter product title"
                                     value="{{ old('product_name', $item->product_name) }}">
                                 <span style="color: #e20000" class="error" id="product_name-error"></span>
                             </div>
@@ -88,7 +88,7 @@ $role = Auth::user()->role;
                                     <span style="color: #e20000" class="error" id="product_thumbnail-error"></span>
                                     <div>
                                         <img class="card-img-top" style="max-width: 250px; margin-top: 20px"
-                                            id="show_image" src="{{ asset('public/images/' . $item->product_thumbnail) }}">
+                                            id="show_image" src="{{ asset('images/' . $item->product_thumbnail) }}">
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@ $role = Auth::user()->role;
                                     @if($images)
                                     @foreach($images as $val)
                                     <div class="col-md-2">
-                                        <img class="thumb" src="{{asset('public/images/'.$val->product_image)}}"
+                                        <img class="thumb" src="{{asset('images/'.$val->product_image)}}"
                                             style="width: 130px; height: 120px;" />
                                         <i class="bx bxs-trash"></i>
                                     </div>
@@ -269,7 +269,7 @@ $role = Auth::user()->role;
                 e.preventDefault();
                 $('.error').text('');
                 let formData = new FormData(this);
-    
+
                 $.ajax({
                     type: "POST",
                     url: "{{ url('vendor/electronics/update') }}",  // Laravel route URL
@@ -278,9 +278,9 @@ $role = Auth::user()->role;
                     processData: false,
                     success: function (response) {
                         console.log(response); // Log the response for debugging
-    
+
                         if(response.status == true){
-                           
+
                             window.location.replace("{{ URL::to('/vendor/electronics/list') }}");
                             toastr.success(response.message, {timeout: 1000});
                         } else {

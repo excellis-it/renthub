@@ -13,6 +13,7 @@ use App\Models\CategoryModel;
 use App\Models\User;
 use App\Models\Review;
 use App\Models\UserEnquiry;
+use App\Models\HomeContent;
 
 use App\Models\SubCategoryModel;
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +51,8 @@ class CmsController extends Controller
         $category = CategoryModel::select('category_slug')->get();
         // dd($category);
         // dd($subcategories);
-        return view('frontend.home', compact('property', 'machinery', 'electronics', 'vehicle', 'testimonial', 'slider', 'subcategories', 'category'));
+        $home = HomeContent::orderBy('id', 'desc')->first();
+        return view('frontend.home', compact('property', 'machinery', 'electronics', 'vehicle', 'testimonial', 'slider', 'subcategories', 'category','home'));
     }
     public function all_categories_subcategories($category_slug, $sub_category_slug)
     {
@@ -132,16 +134,16 @@ class CmsController extends Controller
             $products = ProductModel::where('product_name', 'LIKE', '%' . $request->search . '%')
                 ->orderBy('product_id', 'desc')
                 ->get();
-            
+
             // Return the rendered view
             $view = view('frontend.search-result', compact('products'))->render();
-    
+
             return response()->json(['view' => $view]);
         }
-    
+
         return response()->json(['error' => 'Invalid request'], 400);
     }
-    
+
 
     public function categories($category_slug)
     {
@@ -281,7 +283,7 @@ class CmsController extends Controller
             $vehicle = ProductModel::where('product_status', 1)
                 ->where('category_id', 4)
                 ->orderBy('product_id', 'desc')
-                ->paginate(10); 
+                ->paginate(10);
 
             return view('frontend.vehicle', compact('vehicle'))->render();
         }

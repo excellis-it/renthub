@@ -7,7 +7,7 @@
                 <a href="javascript:void(0);" class="wishlist_rent"><i class="fa-solid fa-heart"></i></a>
                 <div class="feature_img">
                     <a href="{{ url('vehicle-details/' . Crypt::encrypt($val->product_id)) }}"><img
-                            src="{{ asset('public/images/' . $val->product_thumbnail) }}" /></a>
+                            src="{{ asset('images/' . $val->product_thumbnail) }}" /></a>
                 </div>
                 <div class="feature_text">
                     <div class="d-block d-md-flex justify-content-between">
@@ -39,7 +39,7 @@
                                     src="{{ asset('frontend_assets/assets/images/kmpl.svg') }}"
                                     alt="" /></span>{{ $val->vehicle_km }} kmpl</div>
                     </div>
-                    <div class="d-flex"><span class="me-1"><img src="asset('public/images/' . $val->product_thumbnail)"
+                    <div class="d-flex"><span class="me-1"><img src="asset('images/' . $val->product_thumbnail)"
                                 alt="" /></span>{{ $val->location }}</div>
                     <div class="agent_text">{{ strtoupper($val->vendor_type) }}</div>
                 </div>

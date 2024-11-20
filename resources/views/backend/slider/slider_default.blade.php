@@ -46,12 +46,12 @@
                         <td>{{$key+1}}</td>
                         <td>{{ $slider->title }}</td>
                         <td>
-                            <img src="{{ asset('public/images/' . $slider->image) }}" alt="Image"
+                            <img src="{{ asset('images/' . $slider->image) }}" alt="Image"
                                 style="width: 100px; height: auto;">
                         </td>
-                        
+
                         <td>{{ $slider->description }}</td>
-                       
+
                         <td>
                             <form method="POST" action="" class="activate_form">
                                 @csrf
@@ -68,7 +68,7 @@
                             </form>
                         </td>
 
-                       
+
 
                         <td>
                             <div class="d-flex order-actions">
@@ -113,7 +113,7 @@
                                                                         class="form-control" type="file">
                                                                     <div>
                                                                         <img class="card-img-top"
-                                                                            src="{{ asset('public/images/' . $slider->image) }}"
+                                                                            src="{{ asset('images/' . $slider->image) }}"
                                                                             style="max-width: 250px; margin-top: 20px"
                                                                             id="show_image">
                                                                     </div>

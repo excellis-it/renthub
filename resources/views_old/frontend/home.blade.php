@@ -10,7 +10,7 @@
                     <div class="slide">
 
                         <div class="slide__img">
-                            <img src="{{ asset('public/images/' . $val->image) }}" alt="" data-lazy="" class="full-image" />
+                            <img src="{{ asset('images/' . $val->image) }}" alt="" data-lazy="" class="full-image" />
                         </div>
 
                         <div class="slide__content slide__content__left">
@@ -35,14 +35,14 @@
                         <h2>All Categories</h2>
                     </div>
                 </div>
-            
+
                 @if (isset($subcategories))
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="service_slid">
                                     @foreach ($subcategories as $subval)
                                         <div class="service_padding">
-                                            
+
                                             @if(isset($category))
                                                 @foreach($category as $val)
                                                     <a href="{{ url('/'.$val->category_slug.'/'.$subval->sub_category_slug) }}">
@@ -51,7 +51,7 @@
                                                         <div class="img_box_card">
                                                             <div class="img_servic">
                                                                 <span style="background: #FF4C37;">
-                                                                    <img src="{{ asset('public/uploads/images/sub_category/' . $subval->sub_category_image) }}" alt="{{ $subval->sub_category_name }}" />
+                                                                    <img src="{{ asset('uploads/images/sub_category/' . $subval->sub_category_image) }}" alt="{{ $subval->sub_category_name }}" />
                                                                 </span>
                                                             </div>
                                                             <div class="ser_line">
@@ -95,7 +95,7 @@
                                 <a href="javascript:void(0);" class="wishlist_rent"><i class="fa-solid fa-heart"></i></a>
                                 <div class="feature_img">
                                     <a href="{{ URL::to('property-details/' . $val->product_id) }}"><img
-                                            src="{{ asset('public/images/' . $val->product_thumbnail) }}" /></a>
+                                            src="{{ asset('images/' . $val->product_thumbnail) }}" /></a>
                                 </div>
                                 <div class="feature_text">
                                     <div class="d-block d-md-flex justify-content-between">
@@ -158,7 +158,7 @@
                                 <a href="javascript:void(0)" class="wishlist_rent"><i class="fa-solid fa-heart"></i></a>
                                 <div class="feature_img">
                                     <a href="{{ URL::to('equipment-and-machineries-details/' . $val->product_id) }}"><img
-                                            src="{{ asset('public/images/' . $val->product_thumbnail) }}" /></a>
+                                            src="{{ asset('images/' . $val->product_thumbnail) }}" /></a>
                                 </div>
                                 <div class="feature_text">
                                     <div class="d-block d-md-flex justify-content-between">
@@ -228,7 +228,7 @@
                                 <a href="javascript:void(0);" class="wishlist_rent"><i class="fa-solid fa-heart"></i></a>
                                 <div class="feature_img">
                                     <a href="{{ URL::to('vehicle-details/' . $val->product_id) }}"><img
-                                            src="{{ asset('public/images/' . $val->product_thumbnail) }}" /></a>
+                                            src="{{ asset('images/' . $val->product_thumbnail) }}" /></a>
                                 </div>
                                 <div class="feature_text">
                                     <div class="d-block d-md-flex justify-content-between">
@@ -297,7 +297,7 @@
                                 <a href="javascript:void(0)" class="wishlist_rent"><i class="fa-solid fa-heart"></i></a>
                                 <div class="feature_img">
                                     <a href="{{ URL::to('electronics-home-appliances-details/' . $val->product_id) }}"><img
-                                            src="{{ asset('public/images/' . $val->product_thumbnail) }}" /></a>
+                                            src="{{ asset('images/' . $val->product_thumbnail) }}" /></a>
                                 </div>
                                 <div class="feature_text">
                                     <div class="d-block d-md-flex justify-content-between">
@@ -360,7 +360,7 @@
                                                 <span>
                                                     <span class="quote_round"><i
                                                             class="fa-solid fa-quote-left"></i></span>
-                                                    <img src="{{ asset('public/images/' . $val->image) }}" alt="" />
+                                                    <img src="{{ asset('images/' . $val->image) }}" alt="" />
                                                 </span>
                                             </div>
                                             <div class="testi_text">

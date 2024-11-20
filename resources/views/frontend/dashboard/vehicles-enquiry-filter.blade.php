@@ -1,10 +1,10 @@
 @foreach($user_vehicles_enquries as $vehicle_enqury)
 <tr>
     <td>
-        <img alt="..." src="{{ asset('public/images/'.$vehicle_enqury->product->product_thumbnail) }}"
+        <img alt="..." src="{{ asset('images/'.$vehicle_enqury->product->product_thumbnail) }}"
         class="avatar avatar-xs rounded-circle me-2" width="30px"
             height="30px">
-    </td>  
+    </td>
     <!--<td></td>-->
     <td>{{ $vehicle_enqury->product->product_name ?? 'N/A' }}</td>
     <td>{{ $vehicle_enqury->product->product_type ?? 'N/A'}}</td>

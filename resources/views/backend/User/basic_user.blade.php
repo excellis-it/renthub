@@ -44,7 +44,7 @@
                         @foreach ($data as $index => $val)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td><img src="{{ asset('public/uploads/images/profile/' . $val->photo) }}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;"/></td>
+                                <td><img src="{{ asset('uploads/images/profile/' . $val->photo) }}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;"/></td>
                                 <td>{{ strtoupper($val->first_name) }} {{ strtoupper($val->last_name) }}</td>
                                 <td>{{ $val->email }}</td>
                                 <td>{{ strtoupper($val->username) }}</td>
@@ -70,12 +70,12 @@
 
                                 <td>
 
-                                    <a 
-                                    data-bs-toggle="modal" 
+                                    <a
+                                    data-bs-toggle="modal"
                                     data-bs-target="#exampleVerticallycenteredModal-{{ $val->id }}">
                                         <i class='fa fa-eye' style="color:#44c6a9"></i>
                                     </a>
-                        
+
                                     <a href="{{ route('admin-basic-user', $val->id) }}" class="ms-3" >
                                         <i class='fa fa-pen'></i>
                                     </a>
@@ -115,7 +115,7 @@
                                                         <table id="data_table" class="table table-striped table-bordered">
                                                             <tr>
                                                                 <th>Profile Picture</th>
-                                                                <td><img src="{{ asset('public/uploads/images/profile/' . $val->photo) }}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;"/></td>
+                                                                <td><img src="{{ asset('uploads/images/profile/' . $val->photo) }}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;"/></td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Name</th>
@@ -177,7 +177,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                                                        <button 
+                                                        <button
                                                             onclick="window.location.replace('{{ URL::to('admin/user/remove-basic-user/' . $val->id) }}');"
                                                             class="btn btn-dark">
                                                             Confirm

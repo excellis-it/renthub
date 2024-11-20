@@ -40,15 +40,15 @@
                     </thead>
 
                     <tbody>
-                    
+
                         @foreach ($data as $index => $val)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td><img src="{{ asset('public/uploads/images/profile/' . $val->photo) }}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;"/></td>
+                                <td><img src="{{ asset('uploads/images/profile/' . $val->photo) }}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;"/></td>
                                 <td>{{ strtoupper($val->first_name) }} {{ strtoupper($val->last_name) }}</td>
                                 <td>{{ $val->email }}</td>
                                 <td>{{ strtoupper($val->username) }}</td>
-                                
+
                                 <td>
                                     <form method="POST" action="" class="activate_form">
                                         @csrf
@@ -56,7 +56,7 @@
                                         <input name="current_status" value="{{ $val->status }}" hidden />
 
                                         <div class="form-check form-switch">
-                                            @if ($val->is_delete==0) 
+                                            @if ($val->is_delete==0)
                                                 <span style="color: red; font-weight: bold;">In-Active</span>
                                             @elseif ($val->status == 1)
                                                 <span style="color: green; font-weight: bold;">Active</span>
@@ -69,12 +69,12 @@
 
                                 <td>
 
-                                    <a 
-                                    data-bs-toggle="modal" 
+                                    <a
+                                    data-bs-toggle="modal"
                                     data-bs-target="#exampleVerticallycenteredModal-{{ $val->id }}">
                                         <i class='fa fa-eye' style="color:#44c6a9"></i>
                                     </a>
-                        
+
                                     <a href="{{ route('admin-edit-user', $val->id) }}" class="ms-3" >
                                         <i class='fa fa-pen'></i>
                                     </a>
@@ -89,12 +89,12 @@
 
 
 
-                                    {{-- <button type="button" class="btn btn-primary btn-sm" 
-                                            data-bs-toggle="modal" 
+                                    {{-- <button type="button" class="btn btn-primary btn-sm"
+                                            data-bs-toggle="modal"
                                             data-bs-target="#exampleVerticallycenteredModal-{{ $val->id }}">
                                         <i class="fa fa-eye"></i> View
                                     </button>
-                                    
+
                                     <a href="{{ route('admin-edit-user', $val->id) }}" class="btn btn-warning btn-sm">
                                         <i class="fa fa-edit "></i> Edit
                                     </a> --}}
@@ -115,10 +115,10 @@
                                                     <div class="card-body">
 
                                                         <table id="data_table" class="table table-striped table-bordered">
-                                                            
+
                                                             <tr>
                                                                 <th>Profile Picture</th>
-                                                                <td><img src="{{ asset('public/uploads/images/profile/' . $val->photo) }}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;"/></td>
+                                                                <td><img src="{{ asset('uploads/images/profile/' . $val->photo) }}" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;"/></td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Name</th>
@@ -159,7 +159,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <th>Govt File</th>
-                                                                <td><img src="{{ asset('public/images/' . $val->govt_id_file) }}"
+                                                                <td><img src="{{ asset('images/' . $val->govt_id_file) }}"
                                                                         alt="" height="100"></td>
                                                             </tr>
                                                             <tr>
@@ -202,7 +202,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                                                        <button 
+                                                        <button
                                                             onclick="window.location.replace('{{ URL::to('admin/user/remove-listing-user/' . $val->id) }}');"
                                                             class="btn btn-dark">
                                                             Confirm

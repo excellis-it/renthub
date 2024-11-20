@@ -85,7 +85,7 @@
                 <li><a href="{{ URL::to('/vendor/vehicle/list') }}" class="submenu-item"><i class="bx bx-right-arrow-alt"></i>Vehicles</a></li>
             </ul>
         </li>
-        
+
         <li>
             <a class="has-arrow" style="cursor: pointer">
                 <div class="parent-icon"><i class="lni lni-package"></i>
@@ -187,6 +187,20 @@
 
         <li>
             <a class="has-arrow" style="cursor: pointer">
+                <div class="parent-icon"><i class="lni lni-home"></i>
+                </div>
+                <div class="menu-title">Home</div>
+            </a>
+            <ul>
+                <li> <a href="{{ URL::to('admin/home/index') }}"><i class="bx bx-right-arrow-alt"></i>Update
+                        </a>
+                </li>
+            </ul>
+
+        </li>
+
+        <li>
+            <a class="has-arrow" style="cursor: pointer">
                 <div class="parent-icon"><i class="lni lni-comments-reply"></i>
                 </div>
                 <div class="menu-title">Testimonials</div>
@@ -234,6 +248,8 @@
             </ul>
 
         </li>
+
+
         @endif
 
         @endif

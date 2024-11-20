@@ -12,7 +12,7 @@
           <div class="col-lg-3">
 
             <div class="product_car">
-              <span><img src="{{asset('public/uploads/images/category/' . $property->category_image)}}" alt="" /></span>
+              <span><img src="{{asset('uploads/images/category/' . $property->category_image)}}" alt="" /></span>
               <h4>{{$property->category_name}}</h4>
               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
               <a href="{{URL::to('/property-for-rent')}}">Browse Properties</a>
@@ -22,7 +22,7 @@
 
           <div class="col-lg-3">
             <div class="product_car">
-              <span><img src="{{asset('public/uploads/images/category/' . $vehicle->category_image)}}" alt="" /></span>
+              <span><img src="{{asset('uploads/images/category/' . $vehicle->category_image)}}" alt="" /></span>
               <h4>{{$vehicle->category_name}}</h4>
               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
               <a href="{{URL::to('/vehicles')}}">Browse Car</a>
@@ -31,7 +31,7 @@
 
           <div class="col-lg-3">
             <div class="product_car">
-              <span><img src="{{asset('public/uploads/images/category/' . $machinery->category_image)}}" alt="" /></span>
+              <span><img src="{{asset('uploads/images/category/' . $machinery->category_image)}}" alt="" /></span>
               <h4>{{$machinery->category_name}}</h4>
               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
               <a href="{{URL::to('/equipment-and-machineries')}}">Browse Equipment</a>
@@ -39,7 +39,7 @@
           </div>
           <div class="col-lg-3">
             <div class="product_car">
-              <span><img src="{{asset('public/uploads/images/category/' . $electronics->category_image)}}" alt="" /></span>
+              <span><img src="{{asset('uploads/images/category/' . $electronics->category_image)}}" alt="" /></span>
               <h4>{{$electronics->category_name}}</h4>
               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
               <a href="{{URL::to('/electronics-home-appliances')}}">Browse Trucks</a>

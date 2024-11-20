@@ -27,9 +27,9 @@
                     <div class="row">
                         <div class="mb-3 col-lg-12">
                             <div class="property-img-main">
-                                <a href="{{ asset('public/images/' . $data->product_thumbnail) }}"
+                                <a href="{{ asset('images/' . $data->product_thumbnail) }}"
                                     data-lightbox="homePortfolio">
-                                    <img src="{{ asset('public/images/' . $data->product_thumbnail) }}" />
+                                    <img src="{{ asset('images/' . $data->product_thumbnail) }}" />
                                 </a>
                                 <!-- <img src="assets/images/feature_car.jpg" alt=""> -->
                             </div>
@@ -43,9 +43,9 @@
                                 @foreach ($images as $val)
                                 <div class="mb-3 col-lg-6">
                                     <div class="property-img-others">
-                                        <a href="{{ asset('public/images/' . $val->product_image) }}"
+                                        <a href="{{ asset('images/' . $val->product_image) }}"
                                             data-lightbox="homePortfolio">
-                                            <img src="{{ asset('public/images/' . $val->product_image) }}" />
+                                            <img src="{{ asset('images/' . $val->product_image) }}" />
                                         </a>
                                     </div>
                                 </div>
@@ -193,7 +193,7 @@
                 {{-- @if($enquiry == true)
                 <div class="col-lg-12">
                     <h2 class="title">Reviews</h2>
-    
+
                     <div class="card p-3 shadow border-0 updateprofile_sec mt-4">
                         <form id="reviewForm" action="{{ url('/user/review-store') }}" method="post">
                             <!-- Step 1 -->
@@ -201,7 +201,7 @@
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $data }}" />
                                 <div class="row">
-    
+
                                     <div class="rating-all d-flex align-items-center">
                                         <div class="rating-point me-3">
                                             <h4 class="mb-0">Customer Rating</h4>
@@ -229,11 +229,11 @@
                                                         class="sr-only" onclick="star(5)">
                                                 </label>
                                             </div>
-    
+
                                         </div>
-    
+
                                     </div>
-    
+
                                     <div class="col-md-12">
                                         <div class="form-group mb-3">
                                             <label>Review</label>
@@ -241,14 +241,14 @@
                                                 placeholder="Write Your Comment Here" class="form-control" id=""></textarea>
                                         </div>
                                     </div>
-    
-    
+
+
                                 </div>
-    
+
                                 <div class="d-flex justify-content-center">
                                     <button type="submit" name="submit" class="btn btn_green">Submit</button>
                                 </div>
-    
+
                             </div>
                         </form>
                     </div>
@@ -273,7 +273,7 @@
                         <a href="javascript:void(0);" class="wishlist_rent"><i class="fa-solid fa-heart"></i></a>
                         <div class="feature_img">
                             <a href="{{ URL::to('property-details/' . Crypt::encrypt($val->product_id)) }}"><img
-                                    src="{{ asset('public/images/' . $val->product_thumbnail) }}" /></a>
+                                    src="{{ asset('images/' . $val->product_thumbnail) }}" /></a>
                         </div>
                         <div class="feature_text">
                             <div class="d-block d-md-flex justify-content-between">

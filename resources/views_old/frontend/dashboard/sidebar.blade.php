@@ -1,7 +1,7 @@
 <div class="card border-0 shadow py-4">
     <div class="text-center">
 
-        <img src="{{ $user->photo ? asset('public/uploads/images/profile/'.$user->photo) : asset('frontend_assets/assets/images/admin-logo.jpg') }}"
+        <img src="{{ $user->photo ? asset('uploads/images/profile/'.$user->photo) : asset('frontend_assets/assets/images/admin-logo.jpg') }}"
             class="card-img-top rounded-circle w-50 shadow" alt="...">
 
         <div class="card-body">

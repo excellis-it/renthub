@@ -44,7 +44,7 @@
                             <tr>
                                 <td>{{ $testimonials->name }}</td>
                                 <td>
-                                    <img src="{{ asset('public/images/' . $testimonials->image) }}" alt="Image" style="width: 100px; height: auto;">
+                                    <img src="{{ asset('images/' . $testimonials->image) }}" alt="Image" style="width: 100px; height: auto;">
                                 </td>
                                 <td>{{ $testimonials->description }}</td>
 
@@ -66,12 +66,12 @@
                                 <td>
                                     <div class="d-flex order-actions">
                                      @if(Auth::user()->role == "admin")
-                                        {{-- <a href="{{url('admin/testimonial/edit/'.$testimonials->id)}}" class="ms-4" data-bs-toggle="modal"
+                                        <a href="{{url('admin/testimonial/edit/'.$testimonials->id)}}" class="ms-4" data-bs-toggle="modal"
                                             data-bs-target="#exampleFullScreenModal-{{ $testimonials->id }}">
                                             <i class='bx bxs-edit'></i>
 
 
-                                        </a> --}}
+                                        </a>
                                         <div class="modal fade" id="exampleFullScreenModal-{{ $testimonials->id }}"
                                             tabindex="-1" aria-hidden="true">
                                             <div class="modal-dialog">
@@ -107,7 +107,7 @@
                                                                                 class="form-control" type="file">
                                                                             <div>
                                                                                 <img class="card-img-top"
-                                                                                    src="{{ asset('public/images/' . $testimonials->image) }}"
+                                                                                    src="{{ asset('images/' . $testimonials->image) }}"
                                                                                     style="max-width: 250px; margin-top: 20px"
                                                                                     id="show_image">
                                                                             </div>
@@ -206,12 +206,12 @@
                                 </div>
                             </td>
                         </tr>
-                        
-    
+
+
                     </tbody>
 
                 </table>
-              
+
             </div>
         </div>
     </div>
@@ -237,7 +237,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-  
+
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -246,8 +246,8 @@
     <script src="assets/bootstrap-5.3.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="assets/js/custom.js"></script>
-    
-    
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -278,13 +278,13 @@
                                     closeButton: true,
                                     progressBar: true,
                                     positionClass: 'toast-top-right',
-                                    timeOut: '3000',                          
+                                    timeOut: '3000',
                                 });
 
-                             
+
                                 setTimeout(function() {
                                     location.reload();
-                                }, 2000); 
+                                }, 2000);
 
 
                             }
