@@ -47,7 +47,7 @@ class AuthController extends Controller
         $token= $request->token;
         $user = User::where(['status'=>1,'remember_token'=>$token])->first();
         //dd($user);
-        if($user) {      
+        if($user) {
             return view('auth.forgot.reset-password', ['token' => $token]);
         }else{
             return redirect('forgot-password')->with('error', 'Sorry, we are unable to find you!!');
@@ -68,8 +68,8 @@ class AuthController extends Controller
             'password' => $request->password,
         ];
 
-        $user = $isEmail 
-            ? User::where('email', $request->username)->first() 
+        $user = $isEmail
+            ? User::where('email', $request->username)->first()
             : User::where('username', $request->username)->first();
 
         if (!$user) {
@@ -106,6 +106,14 @@ class AuthController extends Controller
         $credentials = $request->only('username', 'password');
         $user = User::where('username', $request->username)->first();
 
+        if (!$user) {
+            return redirect()->back()->with('username_error', 'Username not found.')->withInput($request->except('password'));
+        }
+
+        if (!Auth::attempt($credentials)) {
+            return redirect()->back()->with('password_error', 'Incorrect password.')->withInput($request->except('password'));
+        }
+
         if ($user->role == 'admin') {
             Auth::login($user);
             return redirect('/admin/profile')->with('success', 'Welcome to ' .$user->first_name.' '.$user->last_name. ' profile!');
@@ -113,13 +121,6 @@ class AuthController extends Controller
             return redirect()->back()->with('username_error', 'Username not found.')->withInput($request->except('password'));
         }
 
-        if (!$user) {
-            return redirect()->back()->with('username_error', 'Username not found.')->withInput($request->except('password'));
-        }
-        
-        if ($user && !Auth::attempt($credentials)) {
-            return redirect()->back()->with('password_error', 'Incorrect password.')->withInput($request->except('password'));
-        }
     }
 
     public function destroy(Request $request)
@@ -147,33 +148,33 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|email',
         ]);
-        
-        $email = $request->email; 
+
+        $email = $request->email;
 
         $user = User::where(['email'=> $email,'status'=>1])->first();
         if($user){
-            $token = Str::random(60);    
-            $user->remember_token = $token;   
-            $user->password=null;         
+            $token = Str::random(60);
+            $user->remember_token = $token;
+            $user->password=null;
             $user->save();
         $name=$user->first_name." ".$user->last_name;
         $reset_link = url('reset-password/' . $token);
-       
+
         $template=EmailTemplate::where(['id'=>1,'status'=>1])->first();
         $template=$template->template;
         $template = str_replace("@NAME@", $name, $template);
         $template = str_replace("@RESET_LINK@", $reset_link, $template);
        // echo $template; die;
         $to=$email;
-        $subject="RentHub: Forget Password"; 
+        $subject="RentHub: Forget Password";
         Helper::smtp_send_email($to,$subject,$template);
-        
+
 
             return redirect()->back()->with('success', 'A reset link has been sent to your email address!');
         }else{
             return redirect()->back()->with('error', 'Unable to send reset link. Please try again.');
         }
-        
+
        return redirect()->route('password_update');
     }
 
@@ -186,23 +187,23 @@ class AuthController extends Controller
 
     public function updatePassword(Request $request)
     {
-       
+
         $request->validate([
             'new_password' => 'required|string|min:8',
             'confirm_password' => 'required|same:new_password',
             'token' => 'required',
         ]);
-       
+
         $user = User::where(['remember_token' => $request->token, 'status' => 1])->first();
 
         if ($user) {
-            $user->password = bcrypt($request->new_password); 
-            $user->remember_token = null; 
+            $user->password = bcrypt($request->new_password);
+            $user->remember_token = null;
             $user->save();
             return redirect()->route('login')->with('success', 'Password successfully been updated!');
         } else {
             return redirect()->back()->with('error', 'Invalid token or user not found.');
         }
     }
-    
+
 }

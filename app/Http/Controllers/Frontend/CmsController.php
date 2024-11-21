@@ -201,7 +201,7 @@ class CmsController extends Controller
         // Check if either category or subcategory is null
         if (is_null($category) || is_null($subcategory)) {
             // Optionally, you can redirect to a 404 page or return a custom error view
-            return redirect()->back()->with('error', 'Category or Subcategory not found');
+            return redirect()->back()->with('message', 'Category or Subcategory not found');
         }
 
         // List views for property, machinery, electronics, and vehicles

@@ -38,7 +38,7 @@ class UserController extends Controller
 
     public function updateImage(Request $request)
     {
-        
+
         // validate the image
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
@@ -75,7 +75,7 @@ class UserController extends Controller
             } catch (ModelNotFoundException $exception) {
                 return redirect()->back();
                 toastr()->error('failed to update the new image');
-                
+
             }
         }
     }
@@ -144,13 +144,14 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-       
+
         $request->validate([
             'username' => 'required|string|max:255',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'gender' => 'required',
-            'phone_number' => 'required|string|max:15',
+            'email' => 'nullable|email|unique:users,email',
+            'phone_number' => 'required|numeric|min:15',
             'address' => 'string|max:255',
             'country' => 'string|max:255',
             'state' => 'string|max:255',

@@ -96,33 +96,44 @@ class AdminController extends UserController
     //     $data = SubscriptionModel::all();
     //     return view('backend.admin.all_vendors', compact('data'));
     // }
+
     public function updatePassword(Request $request)
-{
-    // Validation
-    $validatedData = $request->validate([
-        'password' => [
-            'required',
-            function ($attribute, $value, $fail) {
+    {
+        // validation
+        $validatedData = $request->validate([
+            'password' => ['required', function ($attribute, $value, $fail) {
                 if (!Hash::check($value, Auth::user()->password)) {
                     $fail('The current password is incorrect.');
                 }
-            },
-        ],
-        'new_password' => ['required', Password::defaults(), 'different:password'],
-        'confirm_password' => ['required', 'same:new_password'],
+            }],
+            'new_password' => ['required', Password::defaults(), 'different:password'],
+            'confirm_password' => ['required', 'same:new_password']
+        ]);
+        // $data = $request->validate($rules);
+
+
+        // updating the password
+        User::find(Auth::id())->update([
+            'password' => bcrypt($validatedData['new_password'])
+        ]);
+        return response()->json([
+            'status' => 1,
+            'msg' => 'Password changed successfully.'
+        ]);
+    }
+    /*public function updatePassword(Request $request)
+{
+    $request->validate([
+
+        'new_password' => 'required|string|min:8',
+        'confirm_password' => 'required|same:new_password',
     ]);
 
-    // Updating the password
     $user = Auth::user();
-    dd($user);
-    $user->update([
-        'password' => bcrypt($validatedData['new_password']),
-    ]);
+    $user->password = bcrypt($request->new_password);
+    $user->save();
 
-    // Return a success response
-    return response()->json([
-        'status' => 1,
-        'success' => 'Password changed successfully.',
-    ]);
-}
+    return response()->json(['status' => true, 'msg' => 'Password updated successfully'], 200);
+    // return response(['msg' => "Password updated successfully"], 200);
+}*/
 }

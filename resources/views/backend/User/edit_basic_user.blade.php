@@ -107,7 +107,7 @@
                                 <option value="others" {{ $data->gender == 'others' ? 'selected' : '' }}>Other</option>
                             </select>
 
-                        <span style="color: #e20000" class="error" id="last_name-error"></span>
+                        <span style="color: #e20000" class="error" id="gender-error"></span>
                     </div>
                 </div>
 

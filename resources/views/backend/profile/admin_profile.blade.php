@@ -128,6 +128,7 @@
                                     <form id="password_form" action="{{route('admin-profile-password-update')}}"
                                           method="POST">
                                         @csrf
+
                                         <div class="row mb-3">
                                             <div class="col-sm-3">
                                                 <h6 class="mb-0">Current Password<span style="color:red;">*</span></h6>
@@ -207,11 +208,11 @@
                         $('#info_form *').filter('.error').each(function () {
                             this.innerHTML = '';
                         });
-                      
+
                         // toaster message show with toastr
                         window.location.reload();
                         toastr.success(response.msg, 'Success', {timeOut: 4000});
-                        
+
                     },
                     error: function (response) {
                         var res = $.parseJSON(response.responseText);
@@ -264,7 +265,7 @@
             });
         });
 
-     
+
     </script>
 @endsection
 
