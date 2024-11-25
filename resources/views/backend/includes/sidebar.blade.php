@@ -1,7 +1,7 @@
 @php
-    use Illuminate\Support\Facades\Auth;
-    $role = Auth::user()->role;
-    $status = Auth::user()->status;
+use Illuminate\Support\Facades\Auth;
+$role = Auth::user()->role;
+$status = Auth::user()->status;
 @endphp
 
 
@@ -89,29 +89,30 @@
 
         @endif
         @if ($role == 'vendor')
-        <li class="submenu {{ Request::is('vendor/*/list') || Request::is('vendor/property/list') || Request::is('vendor/machinery/list') || Request::is('vendor/electronics/list') || Request::is('vendor/vehicle/list') ? 'active' : '' }}">
+
+        <li class="submenu {{ Request::is('vendor/property/list') || Request::is('vendor/machinery/list') || Request::is('vendor/electronics/list') || Request::is('vendor/vehicle/list') ? 'active' : '' }}">
             <a class="has-arrow" style="cursor: pointer">
-                <div class="parent-icon"><i class='lni lni-graph'></i></div>
+                <div class="parent-icon"><i class="lni lni-graph"></i></div>
                 <div class="menu-title">Products</div>
             </a>
-            <ul style="display:none" class="submenu-list">
+            <ul style="display: {{ Request::is('vendor/property/list') || Request::is('vendor/machinery/list') || Request::is('vendor/electronics/list') || Request::is('vendor/vehicle/list') ? 'block' : 'none' }};">
                 <li class="{{ Request::is('vendor/property/list') ? 'active' : '' }}">
-                    <a href="{{ URL::to('/vendor/property/list') }}" class="submenu-item">
+                    <a href="{{ URL::to('/vendor/property/list') }}">
                         <i class="bx bx-right-arrow-alt"></i>Property
                     </a>
                 </li>
                 <li class="{{ Request::is('vendor/machinery/list') ? 'active' : '' }}">
-                    <a href="{{ URL::to('/vendor/machinery/list') }}" class="submenu-item">
+                    <a href="{{ URL::to('/vendor/machinery/list') }}">
                         <i class="bx bx-right-arrow-alt"></i>Equipment & Machineries
                     </a>
                 </li>
                 <li class="{{ Request::is('vendor/electronics/list') ? 'active' : '' }}">
-                    <a href="{{ URL::to('/vendor/electronics/list') }}" class="submenu-item">
+                    <a href="{{ URL::to('/vendor/electronics/list') }}">
                         <i class="bx bx-right-arrow-alt"></i>Electronics & Home Appliances
                     </a>
                 </li>
                 <li class="{{ Request::is('vendor/vehicle/list') ? 'active' : '' }}">
-                    <a href="{{ URL::to('/vendor/vehicle/list') }}" class="submenu-item">
+                    <a href="{{ URL::to('/vendor/vehicle/list') }}">
                         <i class="bx bx-right-arrow-alt"></i>Vehicles
                     </a>
                 </li>
@@ -119,31 +120,28 @@
         </li>
 
 
-
-
-
-        <li class="submenu {{ Request::is('vendor/*/inquiries') ? 'active' : '' }}">
+        <li class="submenu {{ Request::is('vendor/inquiries/*') ? 'active' : '' }}">
             <a class="has-arrow" style="cursor: pointer">
                 <div class="parent-icon"><i class="lni lni-package"></i></div>
                 <div class="menu-title">Inquiries</div>
             </a>
-            <ul style="display:none" class="submenu-list">
-                <li class="{{ Request::is('vendor/property/inquiries') ? 'active' : '' }}">
+            <ul style="display: {{ Request::is('vendor/inquiries/*') ? 'block' : 'none' }};">
+                <li class="{{ Request::is('vendor/inquiries/property-list') ? 'active' : '' }}">
                     <a href="{{ route('vendor-inquiries-property-list') }}">
                         <i class="bx bx-right-arrow-alt"></i>Properties
                     </a>
                 </li>
-                <li class="{{ Request::is('vendor/machinery/inquiries') ? 'active' : '' }}">
+                <li class="{{ Request::is('vendor/inquiries/machinery-list') ? 'active' : '' }}">
                     <a href="{{ route('vendor-inquiries-machinery-list') }}">
                         <i class="bx bx-right-arrow-alt"></i>Machinery
                     </a>
                 </li>
-                <li class="{{ Request::is('vendor/vehicle/inquiries') ? 'active' : '' }}">
+                <li class="{{ Request::is('vendor/inquiries/vehicle-list') ? 'active' : '' }}">
                     <a href="{{ route('vendor-inquiries-vehicle-list') }}">
                         <i class="bx bx-right-arrow-alt"></i>Vehicle
                     </a>
                 </li>
-                <li class="{{ Request::is('vendor/electronics/inquiries') ? 'active' : '' }}">
+                <li class="{{ Request::is('vendor/inquiries/electronics-list') ? 'active' : '' }}">
                     <a href="{{ route('vendor-inquiries-electronics-list') }}">
                         <i class="bx bx-right-arrow-alt"></i>Electronics
                     </a>
@@ -151,23 +149,23 @@
             </ul>
         </li>
 
-        <li class="submenu {{ Request::is('vendor/*/subscription*') ? 'active' : '' }}">
-            <a class="has-arrow" style="cursor: pointer">
-                <div class="parent-icon"><i class="lni lni-package"></i></div>
-                <div class="menu-title">Subscription</div>
-            </a>
-            <ul style="display: none;">
-                <li class="{{ Request::is('vendor/*/purchase-plan') ? 'active' : '' }}">
-                    <a href="{{ route('vendor-vendor-list') }}">
-                        <i class="bx bx-right-arrow-alt"></i>Purchase Plan
-                    </a>
-                </li>
-                <li class="{{ Request::is('vendor/*/subscription-history') ? 'active' : '' }}">
-                    <a href="{{ route('vendor-subscription-history') }}">
-                        <i class="bx bx-right-arrow-alt"></i>History
-                    </a>
-                </li>
-            </ul>
+        <li class="submenu {{ Request::is('vendor/subscription/*') ? 'active' : '' }}">
+        <a class="has-arrow" style="cursor: pointer">
+            <div class="parent-icon"><i class="lni lni-package"></i></div>
+            <div class="menu-title">Subscription</div>
+        </a>
+        <ul style="display: {{ Request::is('vendor/subscription/*') ? 'block' : 'none' }};">
+            <li class="{{ Request::is('vendor/purchase-plan') ? 'active' : '' }}">
+                <a href="{{ route('vendor-vendor-list') }}">
+                    <i class="bx bx-right-arrow-alt"></i>Purchase Plan
+                </a>
+            </li>
+            <li class="{{ Request::is('vendor/subscription-history/*') ? 'active' : '' }}">
+                <a href="{{ route('vendor-subscription-history') }}">
+                    <i class="bx bx-right-arrow-alt"></i>History
+                </a>
+            </li>
+        </ul>
         </li>
 
 
@@ -368,4 +366,3 @@
     </ul>
     <!--end navigation-->
 </div>
-

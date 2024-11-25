@@ -20,12 +20,6 @@
         </div>
     </div>
 
-    @if (session('message'))
-        <div class="alert alert-success">
-            {{ session('message') }}
-        </div>
-    @endif
-
     <!-- End Breadcrumb -->
     <div class="card">
         <div class="card-body">
@@ -167,7 +161,7 @@
                     <div class="col-sm-9 text-secondary">
                         <input name="zip_code" type="text" class="form-control"
                             placeholder="Enter Zipcode" value="{{ $data->zip_code ?? '' }}" />
-                        <span style="color: #e20000" class="error" id="zipcode-error"></span>
+                        <span style="color: #e20000" class="error" id="zip_code-error"></span>
                     </div>
                 </div>
 {{--

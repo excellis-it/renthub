@@ -124,25 +124,51 @@ class CmsController extends Controller
 
     //search result
 
-    public function searchProduct(){
-        return view('frontend.product-search');
+    public function searchProduct(Request $request){
+        $products=ProductModel::orderBy('id','desc')->where('product_name','LIKE','%'.$request->search_product.'%');
+        if($request->category_id){
+            $products=$products->where('category_id',$request->category_id);
+            }
+
+        return view('frontend.product-search',compact('products'));
     }
 
-    public function searchResult(Request $request)
+   /* public function searchResult(Request $request)
     {
         if ($request->ajax()) {
-            $products = ProductModel::where('product_name', 'LIKE', '%' . $request->search . '%')
+            $search = $request->input('search');
+            $search = str_replace(" ", "%", $search); // Replace spaces with % for LIKE queries
+
+            // Perform searches on different models
+            $vehicles = ProductModel::where('product_name', 'LIKE', "%{$search}%")->get();
+            $properties = ProductModel::where('product_name', 'LIKE', "%{$search}%")->get();
+            $electronics = ProductModel::where('product_name', 'LIKE', "%{$search}%")->get();
+            $machinery = ProductModel::where('product_name', 'LIKE', "%{$search}%")->get();
+
+            // Example search logic for ProductModel
+            $products = ProductModel::where('category_id', $request->category_id)
+                ->where(function ($queryBuilder) use ($search) {
+                    $queryBuilder->where('product_id', 'like', '%' . $search . '%')
+                        ->orWhere('product_name', 'like', '%' . $search . '%')
+                        ->orWhere('location', 'like', '%' . $search . '%')
+                        ->orWhere('product_price', 'like', '%' . $search . '%');
+                })
                 ->orderBy('product_id', 'desc')
-                ->get();
+                ->paginate(10); // You can adjust pagination as needed
 
-            // Return the rendered view
-            $view = view('frontend.search-result', compact('products'))->render();
+            // Count the total results
+            $resultsCount = $vehicles->count() + $properties->count() + $electronics->count() + $machinery->count() + $products->total();
 
-            return response()->json(['view' => $view]);
+            return response()->json([
+                'vehicleList' => view('frontend.vehicle', compact('vehicles'))->render(),
+                'propertyList' => view('frontend.property-for-rent', compact('properties'))->render(),
+                'electronicList' => view('frontend.electronics-home-appliances', compact('electronics'))->render(),
+                'machineList' => view('frontend.equipment-and-machineries', compact('machinery'))->render(),
+                // 'productList' => view('backend.product.property_filter', compact('products'))->render(), // Render the product view
+                'count' => $resultsCount,
+            ]);
         }
-
-        return response()->json(['error' => 'Invalid request'], 400);
-    }
+    }*/
 
 
     public function categories($category_slug)
@@ -588,5 +614,9 @@ class CmsController extends Controller
             ->get();
         $review = Review::with('user')->where('product_id', $id)->get();
         return view('frontend.equipment-and-machineries_details', compact('data', 'images', 'machinery', 'review'));
+    }
+
+    public function disclaimer(){
+        return view('frontend.disclaimer');
     }
 }

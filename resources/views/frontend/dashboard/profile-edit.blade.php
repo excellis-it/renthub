@@ -39,8 +39,7 @@
                         </div>
                         <div class="card p-3 shadow border-0">
                             @if(isset($user))
-                            <form id="profile_update" action="{{ route('user-update') }}" method="post"
-                                enctype="multipart/form-data">
+                            <form id="profile_update" action="{{ route('user-update') }}" method="post" enctype="multipart/form-data">
 
                                 @csrf
 
@@ -51,15 +50,13 @@
                                         <div class="form-group mb-3">
                                             <label>Upload Image</label>
                                             <div class="mt-1">
-                                                <input type="file" name="profile_image" class="form-control"
-                                                    id="profile_image_input">
+                                                <input type="file" name="profile_image" class="form-control" id="profile_image_input">
+                                                <span id="profile_image-error" style="color: red;"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-auto">
-                                        <img src="{{ $user->photo ? asset('uploads/images/profile/'.$user->photo) : asset('frontend_assets/assets/images/admin-logo.jpg') }}"
-                                            alt="Profile Image" class="rounded-circle" width="120" height="120"
-                                            id="profile_image_preview">
+                                        <img src="{{ $user->photo ? asset('uploads/images/profile/'.$user->photo) : asset('frontend_assets/assets/images/admin-logo.jpg') }}" alt="Profile Image" class="rounded-circle" width="120" height="120" id="profile_image_preview">
                                     </div>
                                 </div>
 
@@ -71,10 +68,13 @@
                                         <div class="col-md-3">
                                             <div class="form-group mb-3">
                                                 <label>First Name<span style="color:red;">*</span></label>
-                                                <input type="text" name="first_name" class="form-control"
-                                                    id="first_name" placeholder="First Name"
-                                                    value="{{old('first_name', $user->first_name)}}" />
-                                                    <span id="first_name-error" style="color: red;"></span>
+                                                <input type="text" name="first_name" class="form-control" id="first_name" placeholder="First Name" value="{{old('first_name', $user->first_name)}}" />
+                                                <span id="first_name-error" style="color: red;"></span>
+                                                {{-- @if($errors->has('first_name'))
+                                                <span id="first_name-error" style="color: red;">
+                                                    {{ $errors->first('first_name') }}
+                                                </span>
+                                                @endif --}}
                                             </div>
 
                                         </div>
@@ -82,18 +82,20 @@
                                         <div class="col-md-3">
                                             <div class="form-group mb-3">
                                                 <label>Last Name<span style="color:red;">*</span></label>
-                                                <input type="text" name="last_name" class="form-control" id="last_name"
-                                                    placeholder="Last Name"
-                                                    value="{{old ('last_name',$user->last_name)}}" />
-                                                    <span id="last_name-error" style="color: red;"></span>
+                                                <input type="text" name="last_name" class="form-control" id="last_name" placeholder="Last Name" value="{{old ('last_name',$user->last_name)}}" />
+                                                <span id="last_name-error" style="color: red;"></span>
+                                                {{-- @if($errors->has('last_name'))
+                                                <span id="last_name-error" style="color: red;">
+                                                    {{ $errors->first('last_name') }}
+                                                </span>
+                                            @endif --}}
                                             </div>
 
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group mb-3">
-                                                <label>Gender<span style="color:red;">*</span></label>
-                                                <select class="form-control" id="gender" name="gender"
-                                                    aria-label="Default select example">
+                                                <label>Gender</label>
+                                                <select class="form-control" id="gender" name="gender" aria-label="Default select example">
                                                     <option value="" selected>Choose</option>
                                                     <option value="male" {{ $user->gender == 'male' ? 'selected' : ''
                                                         }}>Male</option>
@@ -102,17 +104,20 @@
                                                     <option value="others" {{ $user->gender == 'others' ? 'selected' :
                                                         '' }}>Others</option>
                                                 </select>
-                                                <span id="gender-error" style="color: red;"></span>
+                                                {{-- <span id="gender-error" style="color: red;"></span> --}}
                                             </div>
 
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group mb-3">
                                                 <label>Phone No<span style="color:red;">*</span></label>
-                                                <input type="text" name="phone_number" class="form-control"
-                                                    id="phone_number" placeholder="Phone No"
-                                                    value="{{old ('phone_number',$user->phone_number)}}" />
-                                                    <span id="phone_number-error" style="color: red;"></span>
+                                                <input type="text" name="phone_number" class="form-control" id="phone_number" placeholder="Phone No" value="{{old ('phone_number',$user->phone_number)}}" />
+                                                <span id="phone_number-error" style="color: red;"></span>
+                                                {{-- @if($errors->has('phone_number'))
+                                                <span id="phone_number-error" style="color: red;">
+                                                    {{ $errors->first('phone_number') }}
+                                                </span>
+                                                @endif --}}
                                             </div>
 
                                         </div>
@@ -123,58 +128,67 @@
                                         <div class="col-md-3">
                                             <div class="form-group mb-3">
                                                 <label>Username<span style="color:red;">*</span></label>
-                                                <input type="text" name="username" class="form-control" id="username"
-                                                    placeholder="User Name"
-                                                    value="{{old ('username', $user->username)}}" />
-                                                    <span id="username-error" style="color: red;"></span>
+                                                <input type="text" name="username" class="form-control" id="username" placeholder="User Name" value="{{old ('username', $user->username)}}" />
+                                                <span id="username-error" style="color: red;"></span>
+                                                {{-- @if($errors->has('username'))
+                                                <span id="username-error" style="color: red;">
+                                                    {{ $errors->first('username') }}
+                                                </span>
+                                                @endif --}}
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group mb-3">
-                                                <label>Email ID</label>
-                                                <input type="text" name="email" class="form-control" id="email"
-                                                    placeholder="Email ID" value="{{ old('email', $user->email) }}" />
-                                                    <span id="email-error" style="color: red;"></span>
+                                                <label>Email ID<span style="color:red;">*</span></label>
+                                                <input type="text" name="email" class="form-control" id="email" placeholder="Email ID" value="{{ old('email', $user->email) }}" />
+                                                <span id="email-error" style="color: red;"></span>
+                                                {{-- @if($errors->has('email'))
+                                                <span id="email-error" style="color: red;">
+                                                    {{ $errors->first('email') }}
+                                                </span>
+                                                @endif --}}
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group mb-3">
-                                                <label>Country</label>
-                                                <input type="text" name="country" class="form-control" id="country"
-                                                    placeholder="Country" value="{{ old('country', $user->country)}}" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group mb-3">
-                                                <label>State / Province</label>
-                                                <input type="text" name="state" class="form-control" id="state"
-                                                    placeholder="State" value="{{ old('state', $user->state)}}" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group mb-3">
-                                                <label>City</label>
-                                                <input type="text" name="city" class="form-control" id="city"
-                                                    placeholder="City" value="{{ old('city', $user->city)}}" />
-
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group mb-3">
-                                                <label>ZIP Code</label>
-                                                <input type="text" class="form-control" id="zip_code" name="zip_code"
-                                                    placeholder="ZIP Code"
-                                                    value="{{ old('zip_code', $user->zip_code)}}" />
+                                                <label>Country<span style="color:red;">*</span></label>
+                                                <input type="text" name="country" class="form-control" id="country" placeholder="Country" value="{{ old('country', $user->country)}}" />
+                                                <span id="country-error" style="color: red;"></span>
+                                                {{-- @if($errors->has('country'))
+                                                <span id="country-error" style="color: red;">
+                                                    {{ $errors->first('country') }}
+                                                </span>
+                                                @endif --}}
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-group mb-3">
-                                                <label>Street Address</label>
-                                                <input type="text" name="address" class="form-control" id="address"
-                                                    placeholder="Street Address"
-                                                    value="{{ old('address', $user->address)}}" />
+                                                <label>State / Province<span style="color:red;">*</span></label>
+                                                <input type="text" name="state" class="form-control" id="state" placeholder="State" value="{{ old('state', $user->state)}}" />
+                                                <span id="state-error" style="color: red;"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group mb-3">
+                                                <label>City<span style="color:red;">*</span></label>
+                                                <input type="text" name="city" class="form-control" id="city" placeholder="City" value="{{ old('city', $user->city)}}" />
+                                                <span id="city-error" style="color: red;"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group mb-3">
+                                                <label>ZIP Code<span style="color:red;">*</span></label>
+                                                <input type="text" class="form-control" id="zip_code" name="zip_code" placeholder="ZIP Code" value="{{ old('zip_code', $user->zip_code)}}" />
+                                                <span id="zip_code-error" style="color: red;"></span>
+                                        </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group mb-3">
+                                                <label>Street Address<span style="color:red;">*</span></label>
+                                                <input type="text" name="address" class="form-control" id="address" placeholder="Street Address" value="{{ old('address', $user->address)}}" />
+                                                <span id="address-error" style="color: red;"></span>
                                             </div>
                                         </div>
 
@@ -186,29 +200,29 @@
                                                     <option value="" selected>Real Estate</option>
                                                     <option value="Car" {{ $user->industry == 'Car' ? 'selected' : ''
                                                         }}>Car</option>
-                                                    <option value="Equipments" {{ $user->industry == 'Equipments' ?
+                                        <option value="Equipments" {{ $user->industry == 'Equipments' ?
                                                         'selected' : '' }}>Equipments</option>
 
-                                                </select>
-                                            </div>
-                                        </div> --}}
-
-
-
+                                        </select>
                                     </div>
+                                </div> --}}
 
-                                    <div class="d-flex justify-content-center">
-                                        <button type="submit" name="submit" class="btn btn_green">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
-                            @endif
+
 
                         </div>
+
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" name="submit" class="btn btn_green">Submit</button>
+                        </div>
                     </div>
+                    </form>
+                    @endif
+
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     </div>
     </div>
 </section>
@@ -227,42 +241,45 @@
             document.getElementById('profile_image_preview').src = URL.createObjectURL(file);
         }
     });
+
 </script>
 <script>
     $(document).ready(function() {
         $('#profile_update').on('submit', function(e) {
-        e.preventDefault();
+            e.preventDefault();
 
-        var formData = new FormData(this);
-        var url = $(this).attr('action');
+            var formData = new FormData(this);
+            var url = $(this).attr('action');
 
             $.ajax({
-                type: "POST",
-                url: url,
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(resp) {
+                type: "POST"
+                , url: url
+                , data: formData
+                , contentType: false
+                , processData: false
+                , success: function(resp) {
                     toastr.success('Profile updated successfully!', 'Success', {
-                        closeButton: true,
-                        progressBar: true
+                        closeButton: true
+                        , progressBar: true
                     });
                     setTimeout(function() {
                         window.location.reload();
                     }, 1000);
                     $("#profile_update")[0].reset();
 
-                },
-                error: function (response) {
+                }
+                , error: function(response) {
                     let errors = response.responseJSON.errors;
                     // Loop through the errors and display them
-                    $.each(errors, function (key, value) {
-                        $('#' + key + '-error').text(value[0]);
+                    $.each(errors, function(key, value) {
+                        $('#' + key.replace('.', '_') + '-error').text(value[0]);
                     });
+
                 }
             });
         });
     });
+
 </script>
 
 

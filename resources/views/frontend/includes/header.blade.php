@@ -18,7 +18,7 @@ function initializeMap() {
     //console.log(map);
     geocoder = new google.maps.Geocoder();
    // console.log(geocoder);
-    
+
 }
 
 function searchLocation() {
@@ -54,29 +54,34 @@ function searchLocation() {
 
 
 <script>
-    $(document).ready(function () {
+ /*$(document).ready(function () {
     $('#search_text').on('keydown', function () {
-        var search = $(this).val();
-        var route = $(this).data('route');
-        
-            if (search.length > 2) { // Optional: Only trigger search if input has more than 2 characters
-                $.ajax({
-                    url: route,
-                    method: "POST",
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        "search": search
-                    },
-                    success: function (response) {
-                        $('#search-result').html(response.view);
-                    },
-                    error: function (xhr) {
-                        console.log(xhr.responseText);
-                    }
-                });
-            }
-        });
+        var search = $(this).val(); // Get the value of the input field
+        var route = $(this).data('route'); // Route is stored in the input's data-route attribute
+
+        if (search.length > 2) { // Trigger search only if input has more than 2 characters
+            $.ajax({
+                url: route,
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') // Use meta tag for CSRF
+                },
+                data: { search: search },
+                success: function (response) {
+                    // Assuming the response is already JSON
+                    $('#vehicleList').html(response.vehicleList || '');
+                    $('#propertyList').html(response.propertyList || '');
+                    $('#electronicList').html(response.electronicList || '');
+                    $('#machineList').html(response.machineList || '');
+                    $('#resultCount').text(`Results found: ${response.count || 0}`);
+                },
+                error: function (xhr) {
+                    console.error('Error:', xhr.responseText);
+                }
+            });
+        }
     });
+});*/
 
     /*function search_view() {
             var search = $('#search_text').val();
@@ -91,7 +96,7 @@ function searchLocation() {
                 },
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function(res) {
-                    
+
                     var res = JSON.parse(res);
                    // console.log(res);
                     console.log(res.result);
@@ -179,7 +184,7 @@ function searchLocation() {
                                                     <li><div id="map" style="height: 400px; width: 100%;"></div></li>
                                                 </ul>
                                         </div>
-                                        
+
                                     </div>
                                     {{-- <form action="javascript:void(0);">
                                         <input type="text" placeholder="search here" name="search" id="search-blog" data-route="{{ route('blogs.search') }}" />
@@ -188,16 +193,16 @@ function searchLocation() {
                                         </button>
                                     </form> --}}
                                    <div class="d-flex align-items-center">
-                                        <form action="javascript:void(0);">
-                                            <input type="text" class="form-control" id="search_text" name="search" 
-                                                placeholder="Find property, cars, and more..." data-route="{{ route('product.search') }}">
+                                        <form action="{{route('search.product')}}" method="GET">
+                                            <input type="text" class="form-control" id="search_text" name="search_product"
+                                                placeholder="Find property, cars, and more..." >
                                             <a href="javascript:void(0);" class="btn btn_magnifing">
                                                 <i class="fa-solid fa-magnifying-glass"></i>
                                             </a>
                                         </form>
-                                    
-                                
-                                    
+
+
+
                                     </div>
                                      {{-- <button type="button" class="btn btn_magnifing" onclick="search_data()">
                                             <i class="fa-solid fa-magnifying-glass"></i>
@@ -209,9 +214,9 @@ function searchLocation() {
                         <div class="right_login">
                             <div class="d-flex align-items-center justify-content-end">
                                 <div class="login d-flex align-items-center justify-content-between">
-                                    <span><a href="" class="me-2"><i class="fa-solid fa-phone"></i> +1 (201)
+                                    <span><a href="tel:+12013241353" class="me-2"><i class="fa-solid fa-phone"></i> +1 (201)
                                             324-1353</a></span>
-                                    <span><a href="" class="me-2"><i class="fa-solid fa-envelope"></i>
+                                    <span><a href="mailto:info@rentishhub.com" class="me-2"><i class="fa-solid fa-envelope"></i>
                                             info@rentishhub.com</a></span>
                                 </div>
                                 <div class="ms-2">
@@ -294,16 +299,16 @@ function searchLocation() {
     </div>
 </div>
 @section('scripts')
- 
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
 <script>
        /* function search_data() {
             var search = $('#search').val();
-        
+
             console.log("Search Value:", search);
         }*/
-      
+
 
     // Determine which URL to use based on conditions (example conditions provided)
    // var url = determineURL(search);

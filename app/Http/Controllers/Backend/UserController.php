@@ -39,19 +39,19 @@ class UserController extends Controller
             'new_password' => 'required|string|min:8',
             'confirm_password' => 'required|same:new_password',
         ]);
-    
+
             // Retrieve the user by ID
             $user = User::find($request->id);
-        
+
             $user->password = bcrypt($request->new_password);
             $user->save();
-    
+
             // Redirect with success message
             toastr()->success('Listing User password updated successfully');
             return response()->json(['status' => true, 'message' => 'Listing User password updated successfully']);
-        
+
         }
-    
+
 
 
     /*******************************/
@@ -140,17 +140,17 @@ class UserController extends Controller
             'new_password' => 'required|string|min:8',
             'confirm_password' => 'required|same:new_password',
         ]);
-    
+
             // Retrieve the user by ID
             $user = User::find($request->id);
-        
+
             $user->password = bcrypt($request->new_password);
             $user->save();
-    
+
             // Redirect with success message
             toastr()->success('Basic User password updated successfully');
             return response()->json(['status' => true, 'message' => 'Basic User password updated successfully']);
-        
+
         }
 
     /*******************************/
@@ -165,7 +165,13 @@ class UserController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'username' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
+            'phone_number'=>'required|numeric',
+            'address' => 'required',
+            'city' => 'required',
+            'country' => 'required',
+            'zip_code' => 'required|numeric',
+            'state' =>'required',
         ]);
 
         // update
@@ -210,7 +216,7 @@ class UserController extends Controller
         User::where('id', $request->id)->update($data);
 
         toastr()->success('Listing User updated successfully');
-        return response()->json(['status' => true, 'message' => 'Listing User updated successfully']);
+        return response()->json(['status' => true, 'success' => 'Listing User updated successfully']);
     }
 
     /*******************************/
@@ -226,7 +232,15 @@ class UserController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'username' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
+            'phone_number'=>'required|numeric',
+            'address' => 'required',
+            'city' => 'required',
+            'country' => 'required',
+            'zip_code' => 'required|numeric',
+            'state'=>'required',
+
+
         ]);
 
         // update
@@ -269,6 +283,6 @@ class UserController extends Controller
         // Update the user record with both the form data and the uploaded file path
         User::where('id', $request->id)->update($data);
         toastr()->success('Basic User updated successfully');
-        return response()->json(['status' => true, 'message' => 'Basic User updated successfully']);
+        return response()->json(['status' => true, 'success' => 'Basic User updated successfully']);
     }
 }

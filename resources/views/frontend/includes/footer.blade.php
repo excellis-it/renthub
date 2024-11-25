@@ -61,13 +61,13 @@
                 <ul>
                   <li><a href="">Help</a></li>
                   <li><a href="">Sitemap</a></li>
-                  <li><a href="">Terms of use</a></li>
-                  <li><a href="">Privacy Policy</a></li>
+                  <li><a href="{{URL::to('disclaimer')}}">Disclaimer</a></li>
+                  <li><a href="{{URL::to('privacy-policy')}}">Privacy Policy</a></li>
                 </ul>
               </div>
             </div>
           </div>
-          <p class="copy_right">Copyright © 2024. All rights reserved. designed & developed by <a href="">Excellis
+          <p class="copy_right">Copyright © {{ date('Y') }}. All rights reserved. designed & developed by <a href="">Excellis
               IT.</a></p>
         </div>
       </div>

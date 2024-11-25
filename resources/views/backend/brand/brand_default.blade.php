@@ -109,7 +109,7 @@
                                                                         <input name="brand_name" type="text"
                                                                                class="form-control"
                                                                                value="{{$item->brand_name}}"
-                                                                               required autofocus/>
+                                                                                autofocus/>
                                                                         <small style="color: #e20000" class="error"
                                                                                id="brand_name-error"></small>
                                                                     </div>
@@ -119,7 +119,7 @@
                                                                         <h6 class="mb-0">Brand Image</h6>
                                                                     </div>
                                                                     <div class="col-sm-9 text-secondary">
-                                                                        <input name="brand_image" 
+                                                                        <input name="brand_image"
                                                                                class="form-control" type="file">
                                                                         <small style="color: #e20000" class="error"
                                                                                id="brand_image-error"></small>
