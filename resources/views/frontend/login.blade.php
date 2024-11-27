@@ -2,7 +2,7 @@
 <link href="{{ asset('frontend_assets/assets/css/signup.css') }}" rel="stylesheet">
 @section('content')
     @include('frontend.includes.header')
-   
+
         <style>
             .input-field {
                 position: relative;
@@ -11,15 +11,15 @@
             }
 
             .input-field input {
-                padding-right: 40px; 
+                padding-right: 40px;
             }
 
             .input-group-text {
                 position: absolute;
-                right: 10px; 
+                right: 10px;
                 top: 50%;
                 transform: translateY(-50%);
-                background: transparent; 
+                background: transparent;
                 border: none;
                 cursor: pointer;
             }
@@ -37,7 +37,7 @@
                         <div class="input-field">
                             <i class="fas fa-user"></i>
                             <input type="text" id="username" name="username" placeholder="Username"/>
-                           
+
                         </div>
                         @if ($errors->has('username'))
                         <div class="error" style="color:red;">
@@ -46,7 +46,7 @@
 
                         <div class="input-field">
                             <i class="fas fa-lock"></i>
-                            
+
                             <input type="password" id="password" name="password" placeholder="Password" />
                                 <span id="toggle-password" class="input-group-text" style="cursor: pointer;">
                                     <i id="eye-icon" class="fa fa-eye"></i>
@@ -68,8 +68,8 @@
                             <a href="#" class="social-icon">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                           
-                            <a href="#" class="social-icon">
+
+                            <a href="{{route('google-redirect')}}" class="social-icon">
                                 <i class="fab fa-google"></i>
                             </a>
                             <a href="#" class="social-icon">

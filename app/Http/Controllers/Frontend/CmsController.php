@@ -133,6 +133,40 @@ class CmsController extends Controller
         return view('frontend.product-search',compact('products'));
     }
 
+    // public function storeLocation(Request $request)
+    // {
+    //      dd($request->all());
+    //     $request->validate([
+    //         'latitude' => 'required',
+    //         'longitude' => 'required',
+    //     ]);
+
+    //     $location = new Location();
+    //     /*if(auth()->check()) {
+    //         $location->user_id = auth()->user()->id;
+    //         $location->session_id = null;
+    //     } else {
+    //         $session_id = Session::getId();
+    //         $location->user_id = null;
+    //         $location->session_id = $session_id;
+    //         $request->session()->put('session_id', $session_id);
+    //     }*/
+    //     $location->ip_address = $request->ip_address;
+    //     $location->address = $request->address;
+    //     $location->latitude = $request->latitude;
+    //     $location->longitude = $request->longitude;
+    //     $location->save();
+
+
+    //     $request->session()->put('latitude', $request->latitude);
+    //     $request->session()->put('longitude', $request->longitude);
+    //     $request->session()->put('address', $request->address);
+
+    //     session()->flash('message', 'Location saved successfully');
+    //     return response()->json(['success' => true]);
+    //     // return response()->json(['session' => $request->session()->all()]);
+    // }
+
    /* public function searchResult(Request $request)
     {
         if ($request->ajax()) {

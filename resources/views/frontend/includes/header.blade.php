@@ -1,7 +1,8 @@
+@push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3a4RB6BBJ_KKKH7ITpffyZ1raQnIPn8M&callback=initializeMap"
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initializeMap"
   type="text/javascript"></script>
 
 {{-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places"></script> --}}
@@ -129,6 +130,7 @@ function searchLocation() {
 }
 */
 </script>
+@endpush
 
 <div class="float_filter">
     <ul>

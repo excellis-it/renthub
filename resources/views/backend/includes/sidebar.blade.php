@@ -151,7 +151,7 @@ $status = Auth::user()->status;
 
         <li class="submenu {{ Request::is('vendor/subscription/*') ? 'active' : '' }}">
         <a class="has-arrow" style="cursor: pointer">
-            <div class="parent-icon"><i class="lni lni-package"></i></div>
+            <div class="parent-icon"><i class="lni lni-dollar"></i></div>
             <div class="menu-title">Subscription</div>
         </a>
         <ul style="display: {{ Request::is('vendor/subscription/*') ? 'block' : 'none' }};">
@@ -217,7 +217,7 @@ $status = Auth::user()->status;
 
         <li class="submenu {{ Request::is('admin/subscription/*') ? 'active' : '' }}">
             <a class="has-arrow" style="cursor: pointer">
-                <div class="parent-icon"><i class="lni lni-package"></i></div>
+                <div class="parent-icon"><i class="lni lni-dollar"></i></div>
                 <div class="menu-title">Subscription Plan</div>
             </a>
             <ul style="display: {{ Request::is('admin/subscription/*') ? 'block' : 'none' }};">
