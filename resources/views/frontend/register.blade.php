@@ -177,9 +177,9 @@
                                     @error('password')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
-                                   
+
                                         <input type="password" class="form-control" name="password" id="password" placeholder="Password" />
-                                
+
                                     <span id="password-error" style="color:red;"></span>
                                 </div>
                             </div>
@@ -301,7 +301,7 @@
                                 <input type="text" name="first_name"
                                     class="form-control @error('first_name') is-invalid @enderror"
                                     placeholder="First Name" />
-                                <span class="first_name-error" style="color:red;"></span>    
+                                <span class="first_name-error" style="color:red;"></span>
                             </div>
                         </div>
 
@@ -311,7 +311,7 @@
                                 <input type="text" name="last_name"
                                     class="form-control @error('last_name') is-invalid @enderror"
                                     placeholder="Last Name" />
-                                <span class="last_name-error" style="color:red;"></span>        
+                                <span class="last_name-error" style="color:red;"></span>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -324,7 +324,7 @@
                                     <option value="female">Female</option>
                                     <option value="others">Others</option>
                                 </select>
-                                <span class="gender-error" style="color:red;"></span>        
+                                <span class="gender-error" style="color:red;"></span>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -337,7 +337,7 @@
                                 <input type="tel" name="phone_number" id="phone_number"
                                     class="form-control @error('phone_number') is-invalid @enderror"
                                     placeholder="Phone No" />
-                                <span class="phone_number-error" style="color:red;"></span>        
+                                <span class="phone_number-error" style="color:red;"></span>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -379,7 +379,7 @@
                                 <input type="text" name="address"
                                     class="form-control @error('address') is-invalid @enderror"
                                     placeholder="Street Address" />
-                                
+
                             </div>
                         </div>
                     </div>
@@ -396,7 +396,7 @@
                                 <input type="text" name="username"
                                     class="form-control @error('username') is-invalid @enderror" placeholder="User Name"
                                      />
-                                <span class="username-error" style="color:red;"></span>        
+                                <span class="username-error" style="color:red;"></span>
                             </div>
                         </div>
 
@@ -409,7 +409,7 @@
                                 <input type="text" name="email"
                                     class="form-control @error('email') is-invalid @enderror" placeholder="Email ID"
                                      />
-                                <span class="email-error" style="color:red;"></span>            
+                                <span class="email-error" style="color:red;"></span>
                             </div>
                         </div>
                     </div>
@@ -420,7 +420,7 @@
                                 <label>Password<span style="color:red;">*</span></label>
                                 <input type="password" class="form-control @error('password') is-invalid @enderror"
                                     name="password" placeholder="Password" />
-                                <span class="password-error" style="color:red;"></span>                
+                                <span class="password-error" style="color:red;"></span>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -428,7 +428,7 @@
                                 <label>Confirm Password<span style="color:red;">*</span></label>
                                 <input type="password" class="form-control" name="confirm_password"
                                     placeholder="Confirm Password" />
-                                    <span class="confirm_password-error" style="color:red;"></span>                     
+                                    <span class="confirm_password-error" style="color:red;"></span>
                             </div>
                         </div>
                     </div>
@@ -464,7 +464,7 @@
             <a href="#" class="social-icon">
                 <i class="fab fa-apple"></i>
             </a>
-            <a href="#" class="social-icon">
+            <a href="{{route('google-redirect')}}" class="social-icon">
                 <i class="fab fa-google"></i>
             </a>
             <a href="#" class="social-icon">
@@ -506,7 +506,7 @@
                 btn1.prop('disabled', !checkbox1);
 
                 btn2.prop('disabled', !checkbox2);
-    
+
             }
 
 
@@ -551,7 +551,7 @@
                         $.each(errors, function (key, value) {
                             $('#' + key + '-error').text(value[0]);
                         });
-                        
+
                     }
                 });
             });
@@ -594,7 +594,7 @@
                         $.each(errors, function (key, value) {
                             $('.' + key + '-error').text(value[0]);
                         });
-                        
+
                     }
                 });
             });

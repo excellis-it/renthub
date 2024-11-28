@@ -11,7 +11,7 @@ $status = Auth::user()->status;
             <img src="{{ asset('backend_assets') }}/images/logo-img.png" class="logo-icon" alt="logo icon">
         </div>
         <div>
-            <h4 class="logo-text">RENT HUB</h4>
+            <a href="{{URL::to('/')}}"><h4 class="logo-text">RENT HUB</h4></a>
         </div>
         <div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
         </div>

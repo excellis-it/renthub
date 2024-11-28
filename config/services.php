@@ -35,6 +35,25 @@ return [
         'client_id' => '478545761829-1td57no99sd0ejatqu29lbvngk210vd7.apps.googleusercontent.com',
         'client_secret' => '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',
         'redirect' => 'http://127.0.0.1:8000/social_auth/google/callback'
-    ]
+    ],
+
+    'facebook' => [
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+        'redirect' => 'http://127.0.0.1:8000/social_auth/facebook/callback',
+    ],
+
+    'youtube' => [
+        'client_id' => env('YOUTUBE_CLIENT_ID'),
+        'client_secret' => env('YOUTUBE_CLIENT_SECRET'),
+        'redirect' => 'http://127.0.0.1:8000/social_auth/youtube/callback',
+    ],
+
+    'yahoo' => [
+        'client_id' => env('YAHOO_CLIENT_ID'),
+        'client_secret' => env('YAHOO_CLIENT_SECRET'),
+        'redirect' => 'http://127.0.0.1:8000/social_auth/yahoo/callback'
+    ],
+
 
 ];

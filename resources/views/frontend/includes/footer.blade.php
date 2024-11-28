@@ -10,9 +10,12 @@
             </div>
             <span>Follow us</span>
             <ul>
-              <li><a href=""><i class="fa-brands fa-facebook-f"></i></a></li>
+                <li><a href="{{route('google-redirect')}}">
+                    <i class="fab fa-google"></i>
+                </a></li>
+              <li><a href="{{route('facebook-redirect')}}"><i class="fa-brands fa-facebook-f"></i></a></li>
               <li><a href=""><i class="fa-brands fa-twitter"></i></a></li>
-              <li><a href=""><i class="fa-brands fa-youtube"></i></a></li>
+              <li><a href="{{route('youtube-redirect')}}"><i class="fa-brands fa-youtube"></i></a></li>
             </ul>
           </div>
         </div>

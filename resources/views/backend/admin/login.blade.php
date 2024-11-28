@@ -2,7 +2,7 @@
 <link href="{{ asset('frontend_assets/assets/css/signup.css') }}" rel="stylesheet">
 @section('content')
     @include('frontend.includes.header')
-   
+
         <style>
             .input-field {
                 position: relative;
@@ -11,15 +11,15 @@
             }
 
             .input-field input {
-                padding-right: 40px; 
+                padding-right: 40px;
             }
 
             .input-group-text {
                 position: absolute;
-                right: 10px; 
+                right: 10px;
                 top: 50%;
                 transform: translateY(-50%);
-                background: transparent; 
+                background: transparent;
                 border: none;
                 cursor: pointer;
             }
@@ -42,7 +42,7 @@
 
                         <div class="input-field">
                             <i class="fas fa-lock"></i>
-                            
+
                             <input type="password" id="password" name="password" placeholder="Password" />
                                 <span id="toggle-password" class="input-group-text" style="cursor: pointer;">
                                     <i id="eye-icon" class="fa fa-eye"></i>
@@ -55,19 +55,8 @@
                         <input type="submit" name="submit" value="Login" class="btn solid" />
                         <p class="mb-1 social-text">Don't' have an account <a href="{{ URL::to('/signup') }}">Sign Up</a>
                         </p>
-                        <p class="social-text">Or Sign in with social platforms</p>
-                        <div class="social-media">
-                            <a href="#" class="social-icon">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                           
-                            <a href="#" class="social-icon">
-                                <i class="fab fa-google"></i>
-                            </a>
-                            <a href="#" class="social-icon">
-                                <i class="fab fa-yahoo"></i>
-                            </a>
-                        </div>
+                      
+
                     </form>
                 </div>
             </div>

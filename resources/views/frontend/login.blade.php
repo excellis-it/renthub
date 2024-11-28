@@ -65,14 +65,14 @@
                         </p>
                         <p class="social-text">Or Sign in with social platforms</p>
                         <div class="social-media">
-                            <a href="#" class="social-icon">
+                            <a href="{{route('facebook-redirect')}}" class="social-icon">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
 
                             <a href="{{route('google-redirect')}}" class="social-icon">
                                 <i class="fab fa-google"></i>
                             </a>
-                            <a href="#" class="social-icon">
+                            <a href="{{route('yahoo-redirect')}}" class="social-icon">
                                 <i class="fab fa-yahoo"></i>
                             </a>
                         </div>

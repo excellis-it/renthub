@@ -1,135 +1,140 @@
 @push('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initializeMap"
-  type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initializeMap"
+        type="text/javascript"></script>
 
-{{-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places"></script> --}}
+    {{-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places"></script> --}}
 
-<script type="text/javascript">
+    <script type="text/javascript">
         let map, geocoder;
 
-function initializeMap() {
-    const mapOptions = {
-        center: { lat: 51.508742, lng: -0.120850 },
-        zoom: 5,
-    };
-    map = new google.maps.Map(document.getElementById("map"), mapOptions);
-    //console.log(map);
-    geocoder = new google.maps.Geocoder();
-   // console.log(geocoder);
+        function initializeMap() {
+            const mapOptions = {
+                center: {
+                    lat: 51.508742,
+                    lng: -0.120850
+                },
+                zoom: 5,
+            };
+            map = new google.maps.Map(document.getElementById("map"), mapOptions);
+            //console.log(map);
+            geocoder = new google.maps.Geocoder();
+            // console.log(geocoder);
 
-}
-
-function searchLocation() {
-    const input = document.getElementById("search-input").value.trim();
-    console.log(input);
-
-    if (!input) {
-        alert("Please enter a location.");
-        return;
-    }
-
-    geocoder.geocode({ address: input }, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            const location = results[0].geometry.location;
-
-            map.setCenter(location);
-            map.setZoom(10);
-
-            new google.maps.Marker({
-                position: location,
-                map: map,
-                title: results[0].formatted_address,
-            });
-        } else {
-            alert("Could not find the location. Please try again.");
-            console.error("Geocode error: ", status);
         }
-    });
-}
 
-</script>
+        function searchLocation() {
+            const input = document.getElementById("search-input").value.trim();
+            console.log(input);
 
+            if (!input) {
+                alert("Please enter a location.");
+                return;
+            }
 
+            geocoder.geocode({
+                address: input
+            }, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    const location = results[0].geometry.location;
 
-<script>
- /*$(document).ready(function () {
-    $('#search_text').on('keydown', function () {
-        var search = $(this).val(); // Get the value of the input field
-        var route = $(this).data('route'); // Route is stored in the input's data-route attribute
+                    map.setCenter(location);
+                    map.setZoom(10);
 
-        if (search.length > 2) { // Trigger search only if input has more than 2 characters
-            $.ajax({
-                url: route,
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') // Use meta tag for CSRF
-                },
-                data: { search: search },
-                success: function (response) {
-                    // Assuming the response is already JSON
-                    $('#vehicleList').html(response.vehicleList || '');
-                    $('#propertyList').html(response.propertyList || '');
-                    $('#electronicList').html(response.electronicList || '');
-                    $('#machineList').html(response.machineList || '');
-                    $('#resultCount').text(`Results found: ${response.count || 0}`);
-                },
-                error: function (xhr) {
-                    console.error('Error:', xhr.responseText);
+                    new google.maps.Marker({
+                        position: location,
+                        map: map,
+                        title: results[0].formatted_address,
+                    });
+                } else {
+                    alert("Could not find the location. Please try again.");
+                    console.error("Geocode error: ", status);
                 }
             });
         }
-    });
-});*/
+    </script>
 
-    /*function search_view() {
-            var search = $('#search_text').val();
-            var url=determineURL(search);
-            console.log(url);
-            $.ajax({
-                url: url,
-                type: 'GET',
-                dataType: 'text',
-                data: {
-                    search: search,
-                },
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                success: function(res) {
 
-                    var res = JSON.parse(res);
-                   // console.log(res);
-                    console.log(res.result);
-                     $('#vehicleList').html(res.result);
-                     $('#propertyList').html(res.result);
-                     $('#electronicList').html(res.result);
-                     $('#machineList').html(res.result);
-                    $('#resultCount').text(`Results found: ${res.count}`);
-                }
-            });
+
+    <script>
+        /*$(document).ready(function () {
+        $('#search_text').on('keydown', function () {
+            var search = $(this).val(); // Get the value of the input field
+            var route = $(this).data('route'); // Route is stored in the input's data-route attribute
+
+            if (search.length > 2) { // Trigger search only if input has more than 2 characters
+                $.ajax({
+                    url: route,
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content') // Use meta tag for CSRF
+                    },
+                    data: { search: search },
+                    success: function (response) {
+                        // Assuming the response is already JSON
+                        $('#vehicleList').html(response.vehicleList || '');
+                        $('#propertyList').html(response.propertyList || '');
+                        $('#electronicList').html(response.electronicList || '');
+                        $('#machineList').html(response.machineList || '');
+                        $('#resultCount').text(`Results found: ${response.count || 0}`);
+                    },
+                    error: function (xhr) {
+                        console.error('Error:', xhr.responseText);
+                    }
+                });
+            }
+        });
+    });*/
+
+        /*function search_view() {
+                var search = $('#search_text').val();
+                var url=determineURL(search);
+                console.log(url);
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'text',
+                    data: {
+                        search: search,
+                    },
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    success: function(res) {
+
+                        var res = JSON.parse(res);
+                       // console.log(res);
+                        console.log(res.result);
+                         $('#vehicleList').html(res.result);
+                         $('#propertyList').html(res.result);
+                         $('#electronicList').html(res.result);
+                         $('#machineList').html(res.result);
+                        $('#resultCount').text(`Results found: ${res.count}`);
+                    }
+                });
+            }
+
+
+
+     function determineURL(search) {
+        const urlMap = {
+            'frontend.property-for-rent': "{{ URL::to('/property-for-rent') }}",
+            'frontend.property-for-sell': "{{ URL::to('/property-for-sell') }}",
+            'frontend.equipment-and-machineries': "{{ URL::to('/equipment-and-machineries') }}",
+            'frontend.electronics-home-appliances': "{{ URL::to('/electronics-home-appliances') }}",
+            'frontend.vehicle': "{{ URL::to('/vehicle') }}"
+        };
+
+        for (const key in urlMap) {
+            if (search.includes(key)) {
+                return urlMap[key];
+            }
         }
-
-
-
- function determineURL(search) {
-    const urlMap = {
-        'frontend.property-for-rent': "{{ URL::to('/property-for-rent') }}",
-        'frontend.property-for-sell': "{{ URL::to('/property-for-sell') }}",
-        'frontend.equipment-and-machineries': "{{ URL::to('/equipment-and-machineries') }}",
-        'frontend.electronics-home-appliances': "{{ URL::to('/electronics-home-appliances') }}",
-        'frontend.vehicle': "{{ URL::to('/vehicle') }}"
-    };
-
-    for (const key in urlMap) {
-        if (search.includes(key)) {
-            return urlMap[key];
-        }
+        return "{{ URL::to('/') }}"; // Default or fallback URL
     }
-    return "{{ URL::to('/') }}"; // Default or fallback URL
-}
-*/
-</script>
+    */
+    </script>
 @endpush
 
 <div class="float_filter">
@@ -178,13 +183,19 @@ function searchLocation() {
                                             <ul class="dropdown-menu" id="suggestions"></ul>
                                         </div> --}}
                                         <div class="dropdown">
-                                                <a class="btn new_york_city dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <img src="{{ asset('frontend_assets/assets/images/map.svg') }}" alt=""/>
-                                                </a>
-                                                <ul class="dropdown-menu">
-                                                    <li><input id="search-input" class="form-control" type="text" placeholder="Search location..." onkeyup="searchLocation()"/></li>
-                                                    <li><div id="map" style="height: 400px; width: 100%;"></div></li>
-                                                </ul>
+                                            <a class="btn new_york_city dropdown-toggle" href="#" role="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="{{ asset('frontend_assets/assets/images/map.svg') }}"
+                                                    alt="" />
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><input id="search-input" class="form-control" type="text"
+                                                        placeholder="Search location..." onkeyup="searchLocation()" />
+                                                </li>
+                                                <li>
+                                                    <div id="map" style="height: 400px; width: 100%;"></div>
+                                                </li>
+                                            </ul>
                                         </div>
 
                                     </div>
@@ -194,10 +205,10 @@ function searchLocation() {
                                             <i class="fa fa-search"></i>
                                         </button>
                                     </form> --}}
-                                   <div class="d-flex align-items-center">
-                                        <form action="{{route('search.product')}}" method="GET">
-                                            <input type="text" class="form-control" id="search_text" name="search_product"
-                                                placeholder="Find property, cars, and more..." >
+                                    <div class="d-flex align-items-center">
+                                        <form action="{{ route('search.product') }}" method="GET">
+                                            <input type="text" class="form-control" id="search_text"
+                                                name="search_product" placeholder="Find property, cars, and more...">
                                             <a href="javascript:void(0);" class="btn btn_magnifing">
                                                 <i class="fa-solid fa-magnifying-glass"></i>
                                             </a>
@@ -206,7 +217,7 @@ function searchLocation() {
 
 
                                     </div>
-                                     {{-- <button type="button" class="btn btn_magnifing" onclick="search_data()">
+                                    {{-- <button type="button" class="btn btn_magnifing" onclick="search_data()">
                                             <i class="fa-solid fa-magnifying-glass"></i>
                                         </button> --}}
 
@@ -216,9 +227,11 @@ function searchLocation() {
                         <div class="right_login">
                             <div class="d-flex align-items-center justify-content-end">
                                 <div class="login d-flex align-items-center justify-content-between">
-                                    <span><a href="tel:+12013241353" class="me-2"><i class="fa-solid fa-phone"></i> +1 (201)
+                                    <span><a href="tel:+12013241353" class="me-2"><i class="fa-solid fa-phone"></i> +1
+                                            (201)
                                             324-1353</a></span>
-                                    <span><a href="mailto:info@rentishhub.com" class="me-2"><i class="fa-solid fa-envelope"></i>
+                                    <span><a href="mailto:info@rentishhub.com" class="me-2"><i
+                                                class="fa-solid fa-envelope"></i>
                                             info@rentishhub.com</a></span>
                                 </div>
                                 <div class="ms-2">
@@ -245,10 +258,14 @@ function searchLocation() {
                     <div class="right_btm">
                         <div id="cssmenu">
                             <ul>
-                                @if(Auth::check())
-                                <li><a href="{{ URL::to('/user/profile') }}">Dashboard</a></li>
-                                @else
+                                @if (Auth::check())
+                                    @if (Auth::user()->role == 'vendor')
+                                        <li><a href="{{ URL::to('/vendor/profile') }}">Vendor Dashboard</a></li>
+                                    @else
+                                        <li><a href="{{ URL::to('/user/profile') }}">Dashboard</a></li>
+                                    @endif
                                 @endif
+
 
                                 <li class="active">
                                     <a href="{{ URL::to('/all-categories') }}">ALL CATEGORIES</a>
@@ -301,51 +318,48 @@ function searchLocation() {
     </div>
 </div>
 @section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+    <script>
+        /* function search_data() {
+                var search = $('#search').val();
+
+                console.log("Search Value:", search);
+            }*/
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
-<script>
-       /* function search_data() {
-            var search = $('#search').val();
+        // Determine which URL to use based on conditions (example conditions provided)
+        // var url = determineURL(search);
 
-            console.log("Search Value:", search);
+        /*$.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                search: search,
+            },
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            success: function(res) {
+                var res = JSON.parse(res);
+                console.log(res);
+                $('#propertyList').html(res.result);
+                $('#resultCount').text(`Results found: ${res.count}`);
+            }
+        });*/
+
+
+        // Example function to determine URL based on some conditions
+        /*function determineURL(search) {
+            if (search) {
+                return "{{ URL::to('/property-for-rent-search') }}";
+            } else if (search) {
+                return "{{ URL::to('/property-for-sell-search') }}";
+            } else if (search) {
+                return "{{ URL::to('/equipment-and-machineries-search') }}";
+            } else if (search) {
+                return "{{ URL::to('/electronics-home-appliances-search') }}";
+            } else {
+                return "{{ URL::to('/vehicle-search') }}";
+            }
         }*/
-
-
-    // Determine which URL to use based on conditions (example conditions provided)
-   // var url = determineURL(search);
-
-    /*$.ajax({
-        url: url,
-        type: 'GET',
-        dataType: 'json',
-        data: {
-            search: search,
-        },
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        success: function(res) {
-            var res = JSON.parse(res);
-            console.log(res);
-            $('#propertyList').html(res.result);
-            $('#resultCount').text(`Results found: ${res.count}`);
-        }
-    });*/
-
-
-// Example function to determine URL based on some conditions
-/*function determineURL(search) {
-    if (search) {
-        return "{{ URL::to('/property-for-rent-search') }}";
-    } else if (search) {
-        return "{{ URL::to('/property-for-sell-search') }}";
-    } else if (search) {
-        return "{{ URL::to('/equipment-and-machineries-search') }}";
-    } else if (search) {
-        return "{{ URL::to('/electronics-home-appliances-search') }}";
-    } else {
-        return "{{ URL::to('/vehicle-search') }}";
-    }
-}*/
-
-</script>
+    </script>
 @endsection
