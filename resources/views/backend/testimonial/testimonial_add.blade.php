@@ -4,7 +4,7 @@
 @endphp
 @extends('backend.layouts.app')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
-@section('PageTitle', 'Add new Comment')
+@section('PageTitle', 'Add new Testimonial')
 
 @section('content')
 
@@ -22,11 +22,11 @@
             </nav>
         </div>
     </div>
-    @if (session('message'))
+    {{-- @if (session('message'))
         <div class="alert alert-success">
             {{ session('message') }}
         </div>
-    @endif
+    @endif --}}
 
     <!--end breadcrumb -->
     <div class="card">
@@ -41,9 +41,9 @@
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input name="name" type="text"
-                            class="form-control @error('name') is-invalid @enderror"
-                            placeholder="Enter Testimonials Name" value="{{ old('name') }}" />
-                        <small style="color: #e20000" class="error" id="name-error"></small>
+                            class="form-control"
+                            placeholder="Enter Name" value="{{ old('name') }}" />
+                            <span style="color: #e20000" class="error" id="name-error"></span>
 
                     </div>
                 </div>
@@ -54,9 +54,9 @@
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input name="image" id="image"
-                            class="form-control @error('image') is-invalid @enderror" type="file">
-                        <small style="color: #e20000" class="error" id="image-error"></small>
-                      
+                            class="form-control" type="file">
+                            <span style="color: #e20000" class="error" id="image-error"></span>
+
 
                         <div>
                             <img class="card-img-top" style="max-width: 250px; margin-top: 20px" id="show_image">
@@ -72,7 +72,7 @@
                         <textarea name="description" type="text"
                             class="form-control @error('description') is-invalid @enderror" placeholder="Enter Description"
                             value="{{ old('description') }}" rows="3"></textarea>
-                        <small style="color: #e20000" class="error" id="description-error"></small>
+                            <span style="color: #e20000" class="error" id="description-error"></span>
 
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                             <input class="form-check-input @error('status') is-invalid @enderror" type="radio" name="status"  value="inactive" {{ old('status') == 'inactive' ? 'checked' : '' }}>
                             <label class="form-check-label">Inactive</label>
                         </div>
-                        <small style="color: #e20000" class="error" id="status-error"></small>
+                        <span style="color: #e20000" class="error" id="status-error"></span>
                     </div>
                 </div>
 
@@ -119,17 +119,17 @@
     <script src="assets/bootstrap-5.3.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="assets/js/custom.js"></script>
-  
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    
+
 
     <script type="text/javascript">
         $(document).ready(function() {
             $('#testimonial_form').on('submit', function(e) {
                 e.preventDefault();
-        
+
                 var form = $(this);
                 var data = new FormData(form[0]);
                 var url = form.attr('action');
@@ -144,23 +144,22 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(resp) {
-        
+
                         toastr.success('Testimonial added successfully.', 'Success', {
                             closeButton: true,
                             progressBar: true,
                             positionClass: 'toast-top-right',
                             timeOut: '3000'
                         });
-        
+
                         form[0].reset();
                         $('#show_image').attr('src', '');
                     },
-                    error: function(xhr) {
-                        toastr.error('There was an issue submitting the form.', 'Error', {
-                            closeButton: true,
-                            progressBar: true,
-                            positionClass: 'toast-top-right',
-                            timeOut: '3000'
+                    error: function (response) {
+                        let errors = response.responseJSON.errors;
+                        // Loop through the errors and display them
+                        $.each(errors, function (key, value) {
+                            $('#' + key + '-error').text(value[0]);
                         });
                     }
                 });

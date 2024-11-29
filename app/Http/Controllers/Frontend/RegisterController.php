@@ -21,7 +21,7 @@ class RegisterController extends Controller
     }
     public function listing_user_register(Request $request)
     {
-       
+
         $request->validate([
             'email' => 'required|email|unique:users,email',
             'username' => [
@@ -39,7 +39,7 @@ class RegisterController extends Controller
             'last_name' => 'required|string|max:255',
             'gender' => 'required',
             'phone_number' => 'required|numeric|digits:10|regex:/^[0-9\-\(\)\/\+\s]+$/',
-          
+
             'email' => 'required|string|regex:/^[a-z][\w\-\.]*@([\w\-]+\.)+[\w\-]{2,4}$/|max:255|unique:users,email',
 
             'address' => 'required|string|max:255'
@@ -85,15 +85,15 @@ class RegisterController extends Controller
 
         /***********************************/
 
-        $name=$request->first_name." ".$request->last_name;
-       
+        /*$name=$request->first_name." ".$request->last_name;
+
         $template=EmailTemplate::where(['id'=>2,'status'=>1])->first();
         $template=$template->template;
         $template = str_replace("@NAME@", $name, $template);
         // echo $template; die;
         $to=$email;
         $subject="RentHub: Confirm Your Registration";
-        Helper::smtp_register_email($to,$subject,$template);
+        Helper::smtp_register_email($to,$subject,$template);*/
 
 
         return response()->json([
@@ -155,16 +155,16 @@ class RegisterController extends Controller
 
         /***********************************/
 
-        $email=$request->email;
+      /*  $email=$request->email;
         $name=$request->first_name." ".$request->last_name;
-       
+
         $template=EmailTemplate::where(['id'=>3,'status'=>1])->first();
         $template=$template->template;
         $template = str_replace("@NAME@", $name, $template);
         //echo $template; die;
         $to=$email;
         $subject="RentHub: Confirm Your Registration";
-        //Helper::smtp_register_email($to,$subject,$template);
+        //Helper::smtp_register_email($to,$subject,$template);*/
 
         return response()->json([
             'message' => 'Basic user registration successfully.'

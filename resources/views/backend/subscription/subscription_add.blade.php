@@ -20,11 +20,11 @@
         </div>
     </div>
 
-    @if (session('message'))
+    {{-- @if (session('message'))
         <div class="alert alert-success">
             {{ session('message') }}
         </div>
-    @endif
+    @endif --}}
 
     <!-- End Breadcrumb -->
     <div class="card">
@@ -39,7 +39,7 @@
                     <div class="col-sm-9 text-secondary">
                         <input name="title" type="text" class="form-control @error('title') is-invalid @enderror"
                             placeholder="Enter Title" value="{{ old('title') }}" />
-                       
+                            <span style="color: #e20000" class="error" id="title-error"></span>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -49,7 +49,7 @@
                     <div class="col-sm-9 text-secondary">
                         <input name="subtitle" type="text" class="form-control @error('subtitle') is-invalid @enderror"
                             placeholder="Enter Subtitle" value="{{ old('subtitle') }}" />
-                       
+                            <span style="color: #e20000" class="error" id="subtitle-error"></span>
                     </div>
                 </div>
 
@@ -60,8 +60,8 @@
                     <div class="col-sm-9 text-secondary">
                         <textarea name="description" type="text"
                             class="form-control @error('description') is-invalid @enderror" placeholder="Enter Description" rows="3" value="{{ old('description') }}"></textarea>
-                           
-                        
+                            <span style="color: #e20000" class="error" id="description-error"></span>
+
                     </div>
                 </div>
 
@@ -72,7 +72,7 @@
                     <div class="col-sm-9 text-secondary">
                         <input name="days" type="number" class="form-control @error('days') is-invalid @enderror"
                             placeholder="Enter Days" value="{{ old('days') }}" />
-                       
+                            <span style="color: #e20000" class="error" id="days-error"></span>
                     </div>
                 </div>
 
@@ -83,7 +83,7 @@
                     <div class="col-sm-9 text-secondary">
                         <input name="price" type="number" class="form-control @error('price') is-invalid @enderror"
                             placeholder="Enter price" value="{{ old('price') }}" />
-                       
+                            <span style="color: #e20000" class="error" id="price-error"></span>
                     </div>
                 </div>
 
@@ -94,7 +94,7 @@
                     <div class="col-sm-9 text-secondary">
                         <input name="no_of_product" type="number" class="form-control @error('no_of_product') is-invalid @enderror"
                             placeholder="Enter Products" value="{{ old('no_of_product') }}" />
-                       
+                            <span style="color: #e20000" class="error" id="no_of_product-error"></span>
                     </div>
                 </div>
 
@@ -164,26 +164,14 @@
                             positionClass: 'toast-top-right',
                             timeOut: '3000'
                         });
-                    
-                        // Swal.fire({
-                        //     title: 'Success',
-                        //     text: "Subscription added successfully.",
-                        //     icon: 'success',
-                        //     showCancelButton: false,
-                        //     showConfirmButton: false,
-                        //     timer: 1500
-                        // });
-
                         form[0].reset();
                     },
-                    error: function(resp) {
-                            toastr.error('There was an issue submitting the form.', 'Error', {
-                                closeButton: true,
-                                progressBar: true,
-                                positionClass: 'toast-top-right',
-                                timeOut: '3000'
-                            });
-
+                    error: function (response) {
+                        let errors = response.responseJSON.errors;
+                        // Loop through the errors and display them
+                        $.each(errors, function (key, value) {
+                            $('#' + key + '-error').text(value[0]);
+                        });
                     }
                 });
             });

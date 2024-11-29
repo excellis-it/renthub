@@ -17,40 +17,40 @@ class SubscriptionController extends Controller
 
     public function purchase()
     {
-        
+
     }
 
-    
+
     public function history(Request $request)
     {
-   
+
         $vendorId = auth()->id();
-    
+
     if (auth()->user()->hasRole('admin')) {
-        
+
         $subscriptions = SubscriptionHistoryModel::with(['subscription', 'vendor'])
             ->orderBy('id', 'desc')
             ->paginate(10);
-           
+
     } else {
-        
+
         $subscriptions = SubscriptionHistoryModel::where('vendor_id', $vendorId)
             ->with('subscription')
             ->orderBy('id', 'desc')
             ->paginate(10);
     }
-    
-    
+
+
     return view('backend.subscription.subscription_history', compact('subscriptions'));
     }
 
     public function ajaxHistory(Request $request)
     {
-        
+
         if ($request->ajax()) {
             $query = $request->get('query');
             $query = str_replace(" ", "%", $query);
-            
+
             $subscriptions = SubscriptionHistoryModel::where(function ($queryBuilder) use ($query) {
                 $queryBuilder->whereHas('subscription', function ($queryBuilder) use ($query) {
                     $queryBuilder->where('title', 'like', '%' . $query . '%')
@@ -62,7 +62,7 @@ class SubscriptionController extends Controller
                     ->orWhere('price', 'like', '%' . $query . '%');
             })
             ->paginate(10);
-    
+
             return response()->json(['data' => view('backend.subscription.subscription_filter', compact('subscriptions'))->render()]);
         }
     }
@@ -78,12 +78,16 @@ class SubscriptionController extends Controller
             'title' => 'required',
             'subtitle' => 'required',
             'description' => 'required',
+            'price' => 'required',
+            'no_of_product' => 'required',
             'days' => 'required'
         ], [
             'title.required' => 'Title required',
             'subtitle.required' => 'Subtitle required',
             'description.required' => 'Description required',
-            'days.required' => 'Days required'
+            'days.required' => 'Days required',
+            'price.required' => 'Price required',
+            'no_of_product.required' => 'Product required',
         ]);
 
         $data = new SubscriptionModel();
@@ -97,11 +101,11 @@ class SubscriptionController extends Controller
         // dd($data);
         $data->save();
         // dd($pages);
-      
+
         return redirect()->back()->with('success', 'Subscription added successfully.');
     }
 
- 
+
     public function edit($id)
     {
         $data = SubscriptionModel::find($id);
@@ -117,12 +121,16 @@ class SubscriptionController extends Controller
             'title' => 'required',
             'subtitle' => 'required',
             'description' => 'required',
-            'days' => 'required'
+            'days' => 'required',
+            'price' => 'required',
+            'no_of_product' => 'required',
         ], [
-            'title' => 'title required',
-            'subtitle' => 'subtitle required',
+            'title' => 'Title required',
+            'subtitle' => 'SubTitle required',
             'description' => 'Description required',
-            'days' => 'Days required'
+            'days' => 'Days required',
+            'price' => 'Price required',
+            'no_of_product' => 'Product required'
 
         ]);
 

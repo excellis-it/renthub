@@ -59,7 +59,7 @@ class SliderController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required',
         ], [
             'title.required' => 'Title required',
@@ -86,7 +86,6 @@ class SliderController extends Controller
         $slider->description = $request->description;
         $slider->status = $request->status;
         $slider->save();
-        toastr()->success('Slider Updated successfully', ['timeout' => 3000]);
         return redirect()->back()->with(['success', 'Slider updated successfully.']);
     }
     public function sliderRemove($id)

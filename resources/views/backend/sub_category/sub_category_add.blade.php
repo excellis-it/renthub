@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input name="sub_category_name" type="text" class="form-control"
-                               required autofocus/>
+                                autofocus/>
                         <small style="color: #e20000" class="error" id="sub_category_name-error"></small>
                     </div>
                 </div>

@@ -36,7 +36,7 @@ class PagesController extends Controller
         $pages->status = 1;
         // dd($pages);
         $pages->save();
-        
+
         toastr()->success('Pages Added successfully', ['timeout' => 1000]);
         return redirect()->back()->with(['success', 'Pages added successfully.']);
     }
@@ -67,7 +67,7 @@ class PagesController extends Controller
         $pages->description = $request->description;
         $pages->status = $request->status;
         $pages->save();
-        toastr()->success('Pages Updated successfully', ['timeout' => 1000]);
+       
         return redirect()->back()->with(['success', 'Pages updated successfully.']);
     }
     public function pagesRemove($id)

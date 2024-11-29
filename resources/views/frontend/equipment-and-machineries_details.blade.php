@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="inner-banner-text">
-                        <h1>Machine</h1>
+                        <h1>{{ $data->product_name }}</h1>
                     </div>
                 </div>
             </div>

@@ -11,7 +11,8 @@
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
-                    <li class="breadcrumb-item"><a href="{{route($role . '-profile')}}"><i class="bx
+                    <li class="breadcrumb-item"><a href="{{ route($role . '-profile') }}"><i
+                                class="bx
                     bx-home-alt"></i></a></li>
                     <li class="breadcrumb-item active" aria-current="page">Testimonials List</li>
                 </ol>
@@ -31,9 +32,8 @@
                 <table id="data_table" class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>Name</th>
                             <th>Image</th>
-                            <th>Description</th>
+                            <th>Name</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -42,20 +42,19 @@
                     <tbody>
                         @foreach ($data as $testimonials)
                             <tr>
-                                <td>{{ $testimonials->name }}</td>
                                 <td>
-                                    <img src="{{ asset('images/' . $testimonials->image) }}" alt="Image" style="width: 100px; height: auto;">
+                                    <img src="{{ asset('images/' . $testimonials->image) }}" alt="Image"
+                                    class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
                                 </td>
-                                <td>{{ $testimonials->description }}</td>
-
+                                <td>{{ $testimonials->name }}</td>
                                 <td>
                                     <form method="POST" action="" class="activate_form">
                                         @csrf
-                                        <input name="product_id" value="{{ $testimonials->id }}" hidden/>
-                                        <input name="current_status" value="{{ $testimonials->status }}" hidden/>
+                                        <input name="product_id" value="{{ $testimonials->id }}" hidden />
+                                        <input name="current_status" value="{{ $testimonials->status }}" hidden />
 
                                         <div class="form-check form-switch">
-                                           @if ($testimonials->status == 1)
+                                            @if ($testimonials->status == 1)
                                                 <span style="color: green;font-weight: bold;">Active</span>
                                             @else
                                                 <span style="color: red;font-weight: bold;">In-Active</span>
@@ -65,134 +64,150 @@
                                 </td>
                                 <td>
                                     <div class="d-flex order-actions">
-                                     @if(Auth::user()->role == "admin")
-                                        <a href="{{url('admin/testimonial/edit/'.$testimonials->id)}}" class="ms-4" data-bs-toggle="modal"
-                                            data-bs-target="#exampleFullScreenModal-{{ $testimonials->id }}">
-                                            <i class='bx bxs-edit'></i>
+                                        @if (Auth::user()->role == 'admin')
+                                            <a href="{{ url('admin/testimonial/edit/' . $testimonials->id) }}" class="ms-4"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#exampleFullScreenModal-{{ $testimonials->id }}">
+                                                <i class='bx bxs-edit'></i>
 
 
-                                        </a>
-                                        <div class="modal fade" id="exampleFullScreenModal-{{ $testimonials->id }}"
-                                            tabindex="-1" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Edit Testimonials</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="card">
+                                            </a>
+                                            <div class="modal fade" id="exampleFullScreenModal-{{ $testimonials->id }}"
+                                                tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Edit Testimonials</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="card">
 
-                                                            <div class="card-body">
-                                                                <form id="testimonial_form" action="{{url('admin/testimonial/update')}}" method="POST" enctype="multipart/form-data">
-                                                                    @csrf
-                                                                    <input name="id" value="{{ $testimonials->id }}" hidden />
-                                                                    <div class="row mb-3">
-                                                                        <div class="col-sm-3">
-                                                                            <h6 class="mb-0">Name</h6>
-                                                                        </div>
-                                                                        <div class="col-sm-9 text-secondary">
-                                                                            <input name="name" type="text"
-                                                                                class="form-control"
-                                                                                value="{{ $testimonials->name }}" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row mb-3">
-                                                                        <div class="col-sm-3">
-                                                                            <h6 class="mb-0">Image</h6>
-                                                                        </div>
-                                                                        <div class="col-sm-9 text-secondary">
-                                                                            <input name="image" id="image"
-                                                                                class="form-control" type="file">
-                                                                            <div>
-                                                                                <img class="card-img-top"
-                                                                                    src="{{ asset('images/' . $testimonials->image) }}"
-                                                                                    style="max-width: 250px; margin-top: 20px"
-                                                                                    id="show_image">
+                                                                <div class="card-body">
+                                                                    <form id="testimonial_form"
+                                                                        action="{{ url('admin/testimonial/update') }}"
+                                                                        method="POST" enctype="multipart/form-data">
+                                                                        @csrf
+                                                                        <input name="id"
+                                                                            value="{{ $testimonials->id }}" hidden />
+                                                                        <div class="row mb-3">
+                                                                            <div class="col-sm-3">
+                                                                                <h6 class="mb-0">Name</h6>
+                                                                            </div>
+                                                                            <div class="col-sm-9 text-secondary">
+                                                                                <input name="name" type="text"
+                                                                                    class="form-control"
+                                                                                    value="{{ $testimonials->name }}" />
+                                                                                    <span style="color: #e20000" class="error" id="name-error"></span>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="row mb-3">
-                                                                        <div class="col-sm-3">
-                                                                            <h6 class="mb-0">Description</h6>
-                                                                        </div>
-                                                                        <div class="col-sm-9 text-secondary">
-                                                                            <input name="description" type="text"
-                                                                                class="form-control @error('description') is-invalid @enderror"
-                                                                                value="{{ $testimonials->description }}" />
-
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row mb-3">
-                                                                        <div class="col-sm-3">
-                                                                            <h6 class="mb-0">Status</h6>
-                                                                        </div>
-                                                                        <div class="col-sm-9 text-secondary">
-                                                                            <div class="d-flex align-items-center">
-                                                                                <div class="form-check me-4">
-                                                                                    <input class="form-check-input" type="radio" name="status" id="status-active" value="1"
-                                                                                           @if($testimonials->status == 1) checked @endif>
-                                                                                    <label class="form-check-label" for="status-active">
-                                                                                         Active
-                                                                                    </label>
-                                                                                </div>
-                                                                                <div class="form-check">
-                                                                                    <input class="form-check-input" type="radio" name="status" id="status-inactive" value="0"
-                                                                                           @if($testimonials->status == 0) checked @endif>
-                                                                                    <label class="form-check-label" for="status-inactive">
-                                                                                         Inactive
-                                                                                    </label>
+                                                                        <div class="row mb-3">
+                                                                            <div class="col-sm-3">
+                                                                                <h6 class="mb-0">Image</h6>
+                                                                            </div>
+                                                                            <div class="col-sm-9 text-secondary">
+                                                                                <input name="image" id="image"
+                                                                                    class="form-control" type="file">
+                                                                                <div>
+                                                                                    <img class="card-img-top"
+                                                                                        src="{{ asset('images/' . $testimonials->image) }}"
+                                                                                        style="max-width: 250px; margin-top: 20px"
+                                                                                        id="show_image">
+                                                                                        <span style="color: #e20000" class="error" id="image-error"></span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
+                                                                        <div class="row mb-3">
+                                                                            <div class="col-sm-3">
+                                                                                <h6 class="mb-0">Description</h6>
+                                                                            </div>
+                                                                            <div class="col-sm-9 text-secondary">
+                                                                                <input name="description" type="text"
+                                                                                    class="form-control @error('description') is-invalid @enderror"
+                                                                                    value="{{ $testimonials->description }}" />
+                                                                                    <span style="color: #e20000" class="error" id="description-error"></span>
 
-                                                                    <div class="row">
-                                                                        <div class="col-sm-3"></div>
-                                                                        <div class="col-sm-9 text-secondary">
-                                                                            <input type="submit"
-                                                                                class="btn btn-primary px-4"
-                                                                                value="Save Changes" />
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                </form>
+                                                                        <div class="row mb-3">
+                                                                            <div class="col-sm-3">
+                                                                                <h6 class="mb-0">Status</h6>
+                                                                            </div>
+                                                                            <div class="col-sm-9 text-secondary">
+                                                                                <div class="d-flex align-items-center">
+                                                                                    <div class="form-check me-4">
+                                                                                        <input class="form-check-input"
+                                                                                            type="radio" name="status"
+                                                                                            id="status-active"
+                                                                                            value="1"
+                                                                                            @if ($testimonials->status == 1) checked @endif>
+                                                                                        <label class="form-check-label"
+                                                                                            for="status-active">
+                                                                                            Active
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <div class="form-check">
+                                                                                        <input class="form-check-input"
+                                                                                            type="radio" name="status"
+                                                                                            id="status-inactive"
+                                                                                            value="0"
+                                                                                            @if ($testimonials->status == 0) checked @endif>
+                                                                                        <label class="form-check-label"
+                                                                                            for="status-inactive">
+                                                                                            Inactive
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="col-sm-3"></div>
+                                                                            <div class="col-sm-9 text-secondary">
+                                                                                <input type="submit"
+                                                                                    class="btn btn-primary px-4"
+                                                                                    value="Save Changes" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
                                             <div class="d-flex justify-content-center">
-                                                    <a href="{{url('admin/testimonial/remove/'.$testimonials->id)}}" class="ms-3" data-bs-toggle="modal"
-                                                        data-bs-target="#exampleDangerModal-{{ $testimonials->id }}">
-                                                        <i class='bx bxs-trash'></i>
-                                                    </a>
+                                                <a href="{{ url('admin/testimonial/remove/' . $testimonials->id) }}"
+                                                    class="ms-3" data-bs-toggle="modal"
+                                                    data-bs-target="#exampleDangerModal-{{ $testimonials->id }}">
+                                                    <i class='bx bxs-trash'></i>
+                                                </a>
                                             </div>
 
-                                        <div class="modal fade" id="exampleDangerModal-{{ $testimonials->id }}"
-                                            tabindex="-1" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content bg-danger">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title text-white">Are you sure?</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-light"
-                                                            data-bs-dismiss="modal">Cancel</button>
-                                                        <button
-                                                            onclick="window.location.replace('{{URL::to('admin/testimonial/remove/'. $testimonials->id)}}');"
-                                                            class="btn btn-dark">Confirm</button>
+                                            <div class="modal fade" id="exampleDangerModal-{{ $testimonials->id }}"
+                                                tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content bg-danger">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title text-white">Are you sure?</h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-light"
+                                                                data-bs-dismiss="modal">Cancel</button>
+                                                            <button
+                                                                onclick="window.location.replace('{{ URL::to('admin/testimonial/remove/' . $testimonials->id) }}');"
+                                                                class="btn btn-dark">Confirm</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         @endif
                                     </div>
                                 </td>
@@ -202,7 +217,8 @@
                             <td colspan="8">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>{!! $data->links('vendor.pagination.bootstrap-4') !!}</div>
-                                    <div>(Showing {{ $data->firstItem() }} – {{ $data->lastItem() }} of {{ $data->total() }} results)</div>
+                                    <div>(Showing {{ $data->firstItem() }} – {{ $data->lastItem() }} of
+                                        {{ $data->total() }} results)</div>
                                 </div>
                             </td>
                         </tr>
@@ -255,42 +271,49 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 
-         <script type="text/javascript">
-                $(document).ready(function() {
-                    $('#testimonial_form').on('submit', function(e) {
-                        e.preventDefault();
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#testimonial_form').on('submit', function(e) {
+                e.preventDefault();
 
-                        var form = $(this);
-                        var data = new FormData(this);
-                        var url = form.attr('action');
+                var form = $(this);
+                var data = new FormData(this);
+                var url = form.attr('action');
 
-                        $.ajax({
-                            type: "POST",
-                            url: url,
-                            data: data,
-                            processData: false,
-                            contentType: false,
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            success: function(resp) {
-                                toastr.success('Testimonial Updated successfully.', 'Success', {
-                                    closeButton: true,
-                                    progressBar: true,
-                                    positionClass: 'toast-top-right',
-                                    timeOut: '3000',
-                                });
-
-
-                                setTimeout(function() {
-                                    location.reload();
-                                }, 2000);
-
-
-                            }
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(resp) {
+                        toastr.success('Testimonial Updated successfully.', 'Success', {
+                            closeButton: true,
+                            progressBar: true,
+                            positionClass: 'toast-top-right',
+                            timeOut: '3000',
                         });
-                    });
+
+
+                        setTimeout(function() {
+                            location.reload();
+                        }, 2000);
+
+
+                    },
+                    error: function(response) {
+                        let errors = response.responseJSON.errors;
+                        // Loop through the errors and display them
+                        $.each(errors, function(key, value) {
+                            $('#' + key + '-error').text(value[0]);
+                        });
+                    }
                 });
+            });
+        });
     </script>
 
     <!-- Image Preview Script -->

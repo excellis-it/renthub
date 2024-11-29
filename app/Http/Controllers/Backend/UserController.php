@@ -193,7 +193,7 @@ class UserController extends Controller
             'corporate_id' => $request->corporate_id,
             'tax_id' => $request->tax_id,
             'status' => $request->status,
-            'is_delete' => $request->is_delete,
+            'is_delete' => 1,
         ];
 
         if ($request->hasFile('photo')) {
@@ -262,6 +262,7 @@ class UserController extends Controller
             'corporate_id' => $request->corporate_id,
             'tax_id' => $request->tax_id,
             'status' => $request->status,
+            'is_delete' => 1,
         ];
         if ($request->hasFile('photo')) {
             $imageName = time() . '.' . $request->photo->extension();

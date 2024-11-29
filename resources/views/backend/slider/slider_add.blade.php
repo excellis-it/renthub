@@ -36,7 +36,7 @@
                     <div class="col-sm-9 text-secondary">
                         <input name="title" type="text" class="form-control @error('title') is-invalid @enderror"
                             placeholder="Enter Slider Name" value="{{ old('title') }}" />
-                        <small style="color: #e20000" class="error" id="title-error"></small>
+                        <span style="color: #e20000" class="error" id="title-error"></span>
 
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                     <div class="col-sm-9 text-secondary">
                         <input name="image" id="image" class="form-control @error('image') is-invalid @enderror"
                             type="file">
-                        <small style="color: #e20000" class="error" id="image-error"></small>
+                        <span style="color: #e20000" class="error" id="image-error"></span>
                         <div>
                             <img class="card-img-top" style="max-width: 250px; margin-top: 20px" id="show_image">
                         </div>
@@ -63,7 +63,7 @@
                         <textarea name="description" type="text"
                             class="form-control @error('description') is-invalid @enderror" placeholder="Enter Description" id="description"
                             value="{{ old('description') }}" rows="3"></textarea>
-                        <small style="color: #e20000" class="error" id="description-error"></small>
+                        <span style="color: #e20000" class="error" id="description-error"></span>
                     </div>
                 </div>
 
@@ -74,18 +74,18 @@
                     <div class="col-sm-9 text-secondary">
                         <!-- Inline Radio Buttons -->
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input @error('status') is-invalid @enderror" type="radio" name="status" id="status_active" value="active" {{ old('status') == 'active' ? 'checked' : '' }}>
+                            <input class="form-check-input @error('status') is-invalid @enderror" type="radio" name="status" id="status" value="active" {{ old('status') == 'active' ? 'checked' : '' }}>
                             <label class="form-check-label" for="status_active">Active</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input @error('status') is-invalid @enderror" type="radio" name="status" id="status_inactive" value="inactive" {{ old('status') == 'inactive' ? 'checked' : '' }}>
+                            <input class="form-check-input @error('status') is-invalid @enderror" type="radio" name="status" id="status" value="inactive" {{ old('status') == 'inactive' ? 'checked' : '' }}>
                             <label class="form-check-label" for="status_inactive">Inactive</label>
                         </div>
-                        <small style="color: #e20000" class="error" id="status-error"></small>
+                        <span style="color: #e20000" class="error" id="status-error"></span>
                     </div>
                 </div>
 
-                
+
 
                 <div class="row">
                     <div class="col-sm-3"></div>
@@ -116,22 +116,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>   
-
-        <script>
-            ClassicEditor
-                .create(document.querySelector('#description'))
-                .catch(error => {
-                    console.error(error);
-                });
-        </script>
+    
 
 
     <script>
         $(document).ready(function() {
             $('#slider_form').on('submit', function(e) {
                 e.preventDefault();
-        
+
                 var form = $(this);
                 var data = new FormData(form[0]);
                 var url = form.attr('action');
@@ -146,30 +138,29 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(resp) {
-        
+
                         toastr.success('Slider added successfully.', 'Success', {
                             closeButton: true,
                             progressBar: true,
                             positionClass: 'toast-top-right',
                             timeOut: '3000'
                         });
-        
+
                         form[0].reset();
                         $('#show_image').attr('src', '');
                     },
-                    error: function(xhr) {
-                        toastr.error('There was an issue submitting the form.', 'Error', {
-                            closeButton: true,
-                            progressBar: true,
-                            positionClass: 'toast-top-right',
-                            timeOut: '3000'
+                    error: function (response) {
+                        let errors = response.responseJSON.errors;
+                        // Loop through the errors and display them
+                        $.each(errors, function (key, value) {
+                            $('#' + key + '-error').text(value[0]);
                         });
                     }
                 });
             });
         });
     </script>
-    
+
 @endsection
 
 @section('js')

@@ -40,7 +40,7 @@
                     <div class="col-sm-9 text-secondary">
                         <input name="title" type="text" class="form-control @error('title') is-invalid @enderror"
                             placeholder="Enter Page Name" value="{{ old('title') }}" />
-                       
+                            <span style="color: #e20000" class="error" id="title-error"></span>
                     </div>
                 </div>
 
@@ -51,8 +51,8 @@
                     <div class="col-sm-9 text-secondary">
                         <textarea name="description"  id="description" rows="5" class="form-control" placeholder="Enter Description"
                             value="{{ old('description') }}"></textarea>
-                              <span class="text-danger"></span>
-                        
+                            <span style="color: #e20000" class="error" id="description-error"></span>
+
                     </div>
                 </div>
 
@@ -90,63 +90,54 @@
 @section('AjaxScript')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-   
+
     <script src="assets/js/custom.js"></script>
 
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-       <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
-
-        <script>
-            ClassicEditor
-                .create(document.querySelector('#description'))
-                .catch(error => {
-                    console.error(error);
-                });
-        </script>
-
 
         <script type="text/javascript">
             $(document).ready(function() {
-                $('#page_form').on('submit', function(e) {
-                    e.preventDefault();
-        
-                    var form = $(this);
-                    var data = new FormData(form[0]);
-                    var url = form.attr('action');
-        
-                    $.ajax({
-                        type: "POST",
-                        url: {{url('admin/pages/create')}},
-                        data: data,
-                        processData: false,
-                        contentType: false,
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function(resp) {
-                            toastr.success('Pages added successfully.', 'Success', {
-                                closeButton: true,
-                                progressBar: true,
-                                positionClass: 'toast-top-right',
-                                timeOut: '3000'
-                            });
-        
-                            form[0].reset();
-                        },
-                        error: function(xhr) {
-                            toastr.error('There was an issue submitting the form.', 'Error', {
-                                closeButton: true,
-                                progressBar: true,
-                                positionClass: 'toast-top-right',
-                                timeOut: '3000'
-                            });
-                        }
-                    });
+            $('#page_form').on('submit', function(e) {
+                e.preventDefault();
+
+                var form = $(this);
+                var data = new FormData(form[0]);
+                var url = form.attr('action');
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(resp) {
+
+                        toastr.success('Page added successfully.', 'Success', {
+                            closeButton: true,
+                            progressBar: true,
+                            positionClass: 'toast-top-right',
+                            timeOut: '3000'
+                        });
+
+                        form[0].reset();
+                        // $('#show_image').attr('src', '');
+                    },
+                    error: function (response) {
+                        let errors = response.responseJSON.errors;
+                        // Loop through the errors and display them
+                        $.each(errors, function (key, value) {
+                            $('#' + key + '-error').text(value[0]);
+                        });
+                    }
                 });
             });
+        });
         </script>
-        
+
 @endsection

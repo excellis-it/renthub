@@ -58,7 +58,7 @@
                                             $categoryName = $category->category_name;
                                         @endphp
                                     @endif
-                                    
+
                                 @endforeach
                             @endif
                             <td>
@@ -119,7 +119,7 @@
                                                         <div class="modal-body">
                                                             <div class="card">
                                                                 <div class="card-body">
-                                                                    <form action="{{ route('sub-category-update') }}" method="POST" enctype="multipart/form-data">
+                                                                    <form id="sub_category_form" action="{{ route('sub-category-update') }}" method="POST" enctype="multipart/form-data">
                                                                         @csrf
                                                                         <input name="sub_category_id"
                                                                             value="{{$item->sub_category_id}}"
@@ -132,7 +132,7 @@
                                                                                 <input name="sub_category_name" type="text"
                                                                                     class="form-control"
                                                                                     value="{{$item->sub_category_name}}"
-                                                                                    required autofocus/>
+                                                                                     autofocus/>
                                                                                 <small style="color: #e20000" class="error"
                                                                                     id="sub_category_name-error"></small>
                                                                             </div>
@@ -191,14 +191,14 @@
                                                                                         <input class="form-check-input" type="radio" name="status" id="status-active" value="1"
                                                                                                @if($item->status == 1) checked @endif>
                                                                                         <label class="form-check-label" for="status-active">
-                                                                                            <i class="fa fa-check-circle" aria-hidden="true"></i> Active
+                                                                                             Active
                                                                                         </label>
                                                                                     </div>
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input" type="radio" name="status" id="status-inactive" value="0"
                                                                                                @if($item->status == 0) checked @endif>
                                                                                         <label class="form-check-label" for="status-inactive">
-                                                                                            <i class="fa fa-times-circle" aria-hidden="true"></i> Inactive
+                                                                                             Inactive
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>
