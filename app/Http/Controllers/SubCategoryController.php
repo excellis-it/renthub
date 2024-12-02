@@ -30,7 +30,6 @@ class SubCategoryController extends Controller
      */
     public function subCategoryCreate(SubCategoryRequest $request){
         // validate
-        
         $data = $request->validated();
         $data['status'] = 1;
 
@@ -70,12 +69,29 @@ class SubCategoryController extends Controller
         }
     }
 
+    public function subCategoryEdit($id)
+    {
+        $categories = CategoryModel::all();
+        $item = SubCategoryModel::findOrFail($id);
+
+        return response()->json([
+            'status' => 200,
+            'categories' => $categories,
+            'item' => $item,
+        ]);
+    }
+
     /**
+     * Update the specified sub-category.
+     *
      * @param SubCategoryRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function subCategoryUpdate(SubCategoryRequest $request){
+
+
+    public function subCategoryUpdate(SubCategoryRequest $request)
+    {
         // validation
-        
         $request->get('sub_category_id');
         $data = $request->validated();
         $data['status'] = $request->status;
@@ -93,14 +109,15 @@ class SubCategoryController extends Controller
         {
 
             $data['sub_category_image'] = $this->handleRequestImage($newImage, 'uploads/images/sub_category');
-            // MyHelpers::deleteImageFromStorage($sub_category->sub_category_image, 'uploads/images/sub_category/');
+            Helper::deleteImageFromStorage($sub_category->sub_category_image, 'uploads/images/sub_category/');
         }
 
         // update
         $data['sub_category_slug'] = $this->getCategorySlug($data['sub_category_name']);
         if ($sub_category->update($data))
-            return redirect()->route('sub-category')->with('success', 'Sub category updated successfully.');
+            return response(['msg' => 'Sub-category is updated successfully.'], 200);
         else
             return redirect()->route('sub-category')->with('error', 'Something went wrong, try again.');
     }
+
 }

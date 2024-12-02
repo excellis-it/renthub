@@ -19,6 +19,7 @@ Route::middleware(['auth'])
             ['categories' => CategoryModel::all()])->name('sub-category-add');
         Route::post('create_sub_category', 'subCategoryCreate')->name('sub-category-create');
         Route::get('remove_sub_category/{id}', 'subCategoryRemove')->name('sub-category-remove')->whereNumber('id');
+        Route::get('edit_sub_category/{id}', 'subCategoryEdit')->name('sub-category-edit');
         Route::post('update_sub_category', 'subCategoryUpdate')->name('sub-category-update');
 
 

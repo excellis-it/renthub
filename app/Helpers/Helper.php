@@ -6,6 +6,7 @@ use App\Models\UserEnquiry;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SmtpEmail;
+use Illuminate\Support\Facades\File;
 
 
 class Helper {
@@ -21,8 +22,8 @@ class Helper {
         // echo "Hello World"; die;
         // Create a Mailable
         $data = ['body' => $body];
-        
-        
+
+
         Mail::send([], $data, function ($message) use ($to, $subject, $body) {
             $message->to($to)
                     ->subject($subject)
@@ -35,8 +36,8 @@ class Helper {
     //    echo "Hello World"; die;
         // Create a Mailable
         $data = ['body' => $body];
-        
-        
+
+
         Mail::send([], $data, function ($message) use ($to, $subject, $body) {
             $message->to($to)
                     ->subject($subject)
@@ -49,7 +50,7 @@ class Helper {
       //echo "Hello World"; die;
         // Create a Mailable
         $data = ['body' => $body];
-        
+
         Mail::send([], $data, function ($message) use ($to, $subject, $body) {
             $message->to($to)
                     ->subject($subject)
@@ -62,7 +63,7 @@ class Helper {
       //echo "Hello World"; die;
         // Create a Mailable
         $data = ['body' => $body];
-        
+
         Mail::send([], $data, function ($message) use ($to, $subject, $body) {
             $message->to($to)
                     ->subject($subject)
@@ -70,4 +71,13 @@ class Helper {
         });
     }
 
+    public static function deleteImageFromStorage($imageName, $folder)
+    {
+        // Check if the image file exists
+        $imagePath = public_path($folder . $imageName);
+        if (File::exists($imagePath)) {
+            // Delete the file if it exists
+            File::delete($imagePath);
+        }
+    }
 }
