@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Laravel\Socialite\Facades\Socialite;
 use PHPUnit\Exception;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 class SocialiteController extends Controller
@@ -31,14 +33,15 @@ class SocialiteController extends Controller
     {
         try {
             $user = Socialite::driver('google')->user();
-
+            // dd($user);
             // Check if the user already exists based on social_id or email
             $oldUser = User::where('social_id', $user->id)
                 ->orWhere('email', $user->email)
                 ->first();
             // dd($oldUser);
 
-            if ($oldUser->role ? 'vendor' : 'user') {
+
+            if ($oldUser) {
                 // User exists, log them in
                 Auth::login($oldUser);
 
@@ -51,17 +54,61 @@ class SocialiteController extends Controller
                 ]);
                 // dd($oldUser->role);
 
+
                 // Redirect based on their role
                 return redirect($oldUser->role . '/profile')->with('success', 'Welcome, ' . $oldUser->first_name. ' '. $oldUser->last_name . '!');
             } else {
+                $newUser = User::create([
+                    'first_name' => $user->given_name ?? null,
+                    'username'=>$user->name ?? null,
+                    'last_name' => $user->family_name ?? null,
+                    'email' => $user->email,
+                    'social_id' => $user->id,
+                    'photo' => $this->storeUserPhoto($user->avatar),
+                    'social_type' => 'google',
+                    'password' => bcrypt('12345678'),
+                    'role' => 'user',
+
+                ]);
+
+                dd($newUser);
+
+                Auth::login($newUser);
                 // If the user doesn't exist, handle the case accordingly
-                return redirect()->route('login')->with('error', 'No user found with this social account.');
+                return redirect('user/profile')
+                ->with('success', 'Welcome, ' . $newUser->first_name . ' ' . $newUser->last_name . '!');
             }
         } catch (\Exception $e) {
             // Handle errors gracefully
-            return redirect()->route('login')->with('error', 'Something went wrong! Please try again.');
+            return redirect()->route('login')->with('error', $e->getMessage());
         }
     }
+    private function storeUserPhoto($photoUrl)
+{
+    try {
+        // Fetch the image from the URL
+        $response = Http::get($photoUrl);
+
+        // Check if the response is successful
+        if ($response->successful()) {
+            $imageContents = $response->body();
+
+            // Generate a unique filename
+            $filename = 'user_photos/' . uniqid() . '.jpg';
+
+            // Store the image in the 'public' disk
+            Storage::disk('public')->put($filename, $imageContents);
+
+            // Return the path to be saved in the database
+            return $filename;
+        }
+    } catch (\Exception $e) {
+        // Handle errors gracefully
+        report($e);
+        return null; // Return null if the image couldn't be stored
+    }
+    return null;
+}
 
     public function redirectToFacebook(){
         return Socialite::driver('facebook')->redirect();
