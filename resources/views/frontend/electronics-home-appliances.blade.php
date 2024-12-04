@@ -5,10 +5,10 @@
       <div class="row align-items-center m-0 gx-2">
         <div class="col-xxl-2 col-xl-3">
           <div class="filter_search">
-            
+
                 <input type="text" id="search" class="form-control"  placeholder="Search for electronics" />
                 <a href="javascript:void(0);" onclick="search_data()"><i class="fa-solid fa-magnifying-glass"></i></a>
-        
+
           </div>
         </div>
         <div class="col-xxl-9 col-xl-9">
@@ -23,14 +23,14 @@
                       <label for="forsale" class="form__radio-label">
                         <span class="form__radio-button"></span>
                         <span class="form__radio-label-text">New<span></label>
-                    </div>                  
+                    </div>
                     <div class="form__radio-group">
                       <input id="forrent" type="radio" class="form__radio-input" name="size" value="used"/>
                       <label for="forrent" class="form__radio-label">
                         <span class="form__radio-button"></span>
                         Used</label>
                     </div>
-                  </div>  
+                  </div>
                   <a class="filter_aplly" href="javascript:void(0);" onclick="search_data()">Apply</a>
                 </div>
               </div>
@@ -58,12 +58,12 @@
                       </select>
                     </div>
                    </div>
-                  </div>  
+                  </div>
                 </div>
               </div>
             </div>
-            
-           
+
+
           </div>
         </div>
       </div>
@@ -96,8 +96,8 @@
 
             <div class="row" id="electronicList">
                 @include('frontend.electronics-home-appliances-search')
-              
-          
+
+
             </div>
           </div>
         </div>
@@ -127,8 +127,8 @@
             var search = $('#search').val();
            // alert(search);
             var size = $('input[name="size"]:checked').val();
-            var min = $('#min').val(); 
-            var max = $('#max').val(); 
+            var min = $('#min').val();
+            var max = $('#max').val();
 
             $.ajax({
                 url: "{{URL::to('/electronics-home-appliances-search')}}",
@@ -146,15 +146,15 @@
                         $('#electronicList').html(res.result);
                         $('#resultCount').text(`Results found: ${res.count}`);
                       }
-                
+
             });
         }
-  
-    </script>  
-    
-    @endsection
-    
-    
 
-    
+    </script>
+
+    @endsection
+
+
+
+
 

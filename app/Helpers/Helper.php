@@ -72,12 +72,11 @@ class Helper {
     }
 
     public static function deleteImageFromStorage($imageName, $folder)
-    {
-        // Check if the image file exists
-        $imagePath = public_path($folder . $imageName);
-        if (File::exists($imagePath)) {
-            // Delete the file if it exists
-            File::delete($imagePath);
-        }
+{
+    $imagePath = public_path($folder . '/' . $imageName);
+    if (File::exists($imagePath)) {
+        File::delete($imagePath);
     }
+}
+
 }

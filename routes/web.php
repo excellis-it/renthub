@@ -13,6 +13,7 @@ use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\CronJobController;
 
 Route::get('/', [CmsController::class, 'home'])->name('home');
+Route::get('/search', [CmsController::class, 'searchProduct'])->name('search.product');
 
 Route::get('vehicles', [CmsController::class, 'vehicle']);
 Route::get('vehicle-search', [CmsController::class, 'vehicle_search']);
@@ -69,5 +70,5 @@ require_once __DIR__ . '/socialite.php';
 Route::get('/{category_slug}', [CmsController::class, 'categories']);
 Route::get('/{category_slug}/{sub_category_slug}', [CmsController::class, 'subcategories']);
 
-Route::get('/product-search', [CmsController::class, 'searchProduct'])->name('search.product');
-Route::post('/search-result', [CmsController::class, 'searchResult'])->name('product.search');
+
+// Route::post('/search-result', [CmsController::class, 'searchResult'])->name('product.search');

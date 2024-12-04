@@ -52,7 +52,7 @@
 
                                 <div class="img_box_card">
                                     <div class="img_servic">
-                                        <span style="background: #FF4C37;">
+                                        <span style="background:{{ $subval->color ?? '#FF4C37' }};">
                                             <img src="{{ asset('uploads/images/sub_category/' . $subval->sub_category_image) }}" alt="{{ $subval->sub_category_name }}" />
                                         </span>
                                     </div>

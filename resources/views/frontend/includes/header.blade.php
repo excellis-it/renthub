@@ -89,9 +89,9 @@
         });
     });*/
 
-        /*function search_view() {
+      /*  function product_search() {
                 var search = $('#search_text').val();
-                var url=determineURL(search);
+                var url=url;
                 console.log(url);
                 $.ajax({
                     url: url,
@@ -104,7 +104,7 @@
                     success: function(res) {
 
                         var res = JSON.parse(res);
-                       // console.log(res);
+                       console.log(res);
                         console.log(res.result);
                          $('#vehicleList').html(res.result);
                          $('#propertyList').html(res.result);
@@ -114,10 +114,10 @@
                     }
                 });
             }
+*/
 
 
-
-     function determineURL(search) {
+     /*function determineURL(search) {
         const urlMap = {
             'frontend.property-for-rent': "{{ URL::to('/property-for-rent') }}",
             'frontend.property-for-sell': "{{ URL::to('/property-for-sell') }}",
@@ -132,8 +132,8 @@
             }
         }
         return "{{ URL::to('/') }}"; // Default or fallback URL
-    }
-    */
+    }*/
+
     </script>
 @endpush
 
@@ -199,27 +199,18 @@
                                         </div>
 
                                     </div>
-                                    {{-- <form action="javascript:void(0);">
-                                        <input type="text" placeholder="search here" name="search" id="search-blog" data-route="{{ route('blogs.search') }}" />
-                                        <button type="submit">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </form> --}}
+
                                     <div class="d-flex align-items-center">
-                                        <form action="{{ route('search.product') }}" method="GET">
-                                            <input type="text" class="form-control" id="search_text"
-                                                name="search_product" placeholder="Find property, cars, and more...">
-                                            <a href="javascript:void(0);" class="btn btn_magnifing">
+                                        <form action="{{URL::to('search')}}" method="GET" role="search">
+
+                                            <input type="search" class="form-control" id="search_text"
+                                                name="search_product" value="{{Request::get('search_product')}}" placeholder="Find property, cars, and more...">
+                                            <button type="submit" class="btn btn_magnifing">
                                                 <i class="fa-solid fa-magnifying-glass"></i>
-                                            </a>
+                                            </button>
                                         </form>
-
-
-
                                     </div>
-                                    {{-- <button type="button" class="btn btn_magnifing" onclick="search_data()">
-                                            <i class="fa-solid fa-magnifying-glass"></i>
-                                        </button> --}}
+
 
                                 </div>
                             </form>

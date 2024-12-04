@@ -329,11 +329,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group mb-3">
-                                <label>Phone No
-                                @error ('phone_number')
-                                    <span style="color:red;">*</span>
-                                @enderror
-                                </label>
+                                <label>Phone No<span style="color:red;">*</span></label>
                                 <input type="tel" name="phone_number" id="phone_number"
                                     class="form-control @error('phone_number') is-invalid @enderror"
                                     placeholder="Phone No" />
@@ -458,18 +454,11 @@
         </div>
         <p class="social-text text-center">Or Sign up with social platforms</p>
         <div class="social-media">
-            <a href="#" class="social-icon">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="#" class="social-icon">
-                <i class="fab fa-apple"></i>
-            </a>
+
             <a href="{{route('google-redirect')}}" class="social-icon">
                 <i class="fab fa-google"></i>
             </a>
-            <a href="#" class="social-icon">
-                <i class="fab fa-yahoo"></i>
-            </a>
+           
         </div>
     </div>
 </div>
