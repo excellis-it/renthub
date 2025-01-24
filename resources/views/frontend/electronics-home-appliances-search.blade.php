@@ -1,4 +1,6 @@
-@if (isset($electronics))
+@if ($electronics->isEmpty())
+    <div class="mt-4 text-center">No data found</div>
+@else
     @foreach ($electronics as $val)
         <div class="mb-3 col-lg-3">
             <div class="feature_box">

@@ -32,7 +32,7 @@
                             <div class="property-img-main">
                                 <a href="{{ URL::to('electronics-home-appliances-details/' . $data->product_id) }}"
                                     data-lightbox="homePortfolio">
-                                    <img src="{{ asset('public/images/' . $data->product_thumbnail) }}" />
+                                    <img src="{{ asset('images/' . $data->product_thumbnail) }}" />
                                 </a>
                                 <!-- <img src="assets/images/feature_car.jpg" alt=""> -->
                             </div>
@@ -49,7 +49,7 @@
                                 <div class="property-img-others">
                                     <a href="{{ URL::to('electronics-home-appliances-details/' . $data->product_id) }}"
                                         data-lightbox="homePortfolio">
-                                        <img src="{{ asset('public/images/' . $val->product_image) }}" />
+                                        <img src="{{ asset('images/' . $val->product_image) }}" />
                                     </a>
                                 </div>
                             </div>
@@ -183,7 +183,7 @@
                         <a href="javascript:void(0);" class="wishlist_rent"><i class="fa-solid fa-heart"></i></a>
                         <div class="feature_img">
                             <a href="{{ URL::to('electronics-home-appliances-details/' . $val->product_id) }}"><img
-                                    src="{{ asset('public/images/' . $val->product_thumbnail) }}" /></a>
+                                    src="{{ asset('images/' . $val->product_thumbnail) }}" /></a>
                         </div>
                         <div class="feature_text">
                             <div class="d-block d-md-flex justify-content-between">

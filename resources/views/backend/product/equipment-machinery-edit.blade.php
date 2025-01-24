@@ -41,7 +41,7 @@ $role = Auth::user()->role;
                                 <label for="inputProductTitle" class="form-label">Tag Name<span
                                         style="color:red;">*</span></label>
                                 <input name="tag_line" type="text" class="form-control" id="inputProductTitle"
-                                    placeholder="Enter tag title" 
+                                    placeholder="Enter tag title"
                                     value="{{ old('tag_line', $item->tag_line) }}">
                                 <span style="color: #e20000" class="error" id="tag_line-error"></span>
                             </div>
@@ -49,7 +49,7 @@ $role = Auth::user()->role;
                                 <label for="inputProductTitle" class="form-label">Product Name/Title<span
                                         style="color:red;">*</span></label>
                                 <input name="product_name" type="text" class="form-control" id="inputProductTitle"
-                                    placeholder="Enter product title" 
+                                    placeholder="Enter product title"
                                     value="{{ old('product_name', $item->product_name) }}">
                                 <span style="color: #e20000" class="error" id="product_name-error"></span>
                             </div>
@@ -275,7 +275,7 @@ $role = Auth::user()->role;
                 e.preventDefault();
                 $('.error').text('');
                 let formData = new FormData(this);
-    
+
                 $.ajax({
                     type: "POST",
                     url: "{{ url('vendor/machinery/update') }}",  // Laravel route URL
@@ -284,9 +284,9 @@ $role = Auth::user()->role;
                     processData: false,
                     success: function (response) {
                         console.log(response); // Log the response for debugging
-    
+
                         if(response.status == true){
-                           
+
                             window.location.replace("{{ URL::to('/vendor/machinery/list') }}");
                             toastr.success(response.message, {timeout: 1000});
                         } else {

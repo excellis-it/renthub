@@ -4,7 +4,7 @@
         <img alt="..." src="{{ asset('public/images/'.$electronics_enquries->product->product_thumbnail) }}"
         class="avatar avatar-xs rounded-circle me-2" width="30px"
             height="30px">
-    </td>  
+    </td>
     <!--<td></td>-->
     <td>{{ $electronics_enquries->product->product_name ?? 'N/A' }}</td>
     <td>{{ $electronics_enquries->product->product_type ?? 'N/A'}}</td>

@@ -67,24 +67,24 @@
 
                                 <td>
 
-                                    <a 
-                                    data-bs-toggle="modal" 
+                                    <a
+                                    data-bs-toggle="modal"
                                     data-bs-target="#exampleVerticallycenteredModal-{{ $val->id }}">
                                         <i class='fa fa-eye' style="color:#44c6a9"></i>
                                     </a>
-                        
+
                                     <a href="{{ route('admin-edit-user', $val->id) }}" class="ms-3" >
                                         <i class='fa fa-pen'></i>
                                     </a>
 
 
 
-                                    {{-- <button type="button" class="btn btn-primary btn-sm" 
-                                            data-bs-toggle="modal" 
+                                    {{-- <button type="button" class="btn btn-primary btn-sm"
+                                            data-bs-toggle="modal"
                                             data-bs-target="#exampleVerticallycenteredModal-{{ $val->id }}">
                                         <i class="fa fa-eye"></i> View
                                     </button>
-                                    
+
                                     <a href="{{ route('admin-edit-user', $val->id) }}" class="btn btn-warning btn-sm">
                                         <i class="fa fa-edit "></i> Edit
                                     </a> --}}
@@ -145,7 +145,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <th>Govt File</th>
-                                                                <td><img src="{{ asset('public/images/' . $val->govt_id_file) }}"
+                                                                <td><img src="{{ asset('images/' . $val->govt_id_file) }}"
                                                                         alt="" height="100"></td>
                                                             </tr>
                                                             <tr>

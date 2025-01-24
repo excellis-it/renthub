@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="inner-banner-text">
-                    <h1>Electronics</h1>
+                    <h1>{{ $data->product_name }}</h1>
                 </div>
             </div>
         </div>
@@ -166,7 +166,7 @@
 
                 {{-- <div class="col-lg-12">
                     <h2 class="title">Reviews</h2>
-    
+
                     <div class="card p-3 shadow border-0 updateprofile_sec mt-4">
                         <form id="reviewForm" action="{{ url('/user/review-store') }}" method="post">
                             <!-- Step 1 -->
@@ -174,7 +174,7 @@
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $data }}" />
                                 <div class="row">
-    
+
                                     <div class="rating-all d-flex align-items-center">
                                         <div class="rating-point me-3">
                                             <h4 class="mb-0">Customer Rating</h4>
@@ -202,11 +202,11 @@
                                                         class="sr-only" onclick="star(5)">
                                                 </label>
                                             </div>
-    
+
                                         </div>
-    
+
                                     </div>
-    
+
                                     <div class="col-md-12">
                                         <div class="form-group mb-3">
                                             <label>Review</label>
@@ -214,14 +214,14 @@
                                                 placeholder="Write Your Comment Here" class="form-control" id=""></textarea>
                                         </div>
                                     </div>
-    
-    
+
+
                                 </div>
-    
+
                                 <div class="d-flex justify-content-center">
                                     <button type="submit" name="submit" class="btn btn_green">Submit</button>
                                 </div>
-    
+
                             </div>
                         </form>
                     </div>

@@ -1,8 +1,9 @@
 <div class="card border-0 shadow py-4">
     <div class="text-center">
 
-        <img src="{{ $user->photo ? asset('public/uploads/images/profile/'.$user->photo) : asset('frontend_assets/assets/images/admin-logo.jpg') }}"
-            class="card-img-top rounded-circle w-50 shadow" alt="...">
+        <img src="{{ filter_var($user->photo, FILTER_VALIDATE_URL)
+        ? $user->photo
+        : asset('public/uploads/images/profile/' . $user->photo) }}" class="card-img-top rounded-circle w-50 shadow" alt="User Photo">
 
         <div class="card-body">
             <h5 class="card-title"> <b>{{ $user->first_name }} {{ $user->last_name }}</b></h5>

@@ -30,7 +30,7 @@
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input name="coupon_code" type="text" class="form-control"
-                               required autofocus/>
+                                autofocus/>
                         <small style="color: #e20000" class="error" id="coupon_code-error"></small>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input name="discount_amount" type="text" class="form-control"
-                               required autofocus/>
+                                autofocus/>
                         <small style="color: #e20000" class="error" id="discount_amount-error"></small>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                         <h6 class="mb-0">Expiration Date</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                        <input type="datetime-local" class="form-control" name="expiration_date" required>
+                        <input type="datetime-local" class="form-control" name="expiration_date">
                         <small style="color: #e20000" class="error" id="expiration_date-error"></small>
                     </div>
                 </div>

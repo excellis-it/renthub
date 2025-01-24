@@ -301,7 +301,7 @@ $role = Auth::user()->role;
                     console.log(response); // Log the response for debugging
 
                     if(response.status == true){
-                       
+
                         window.location.replace("{{ URL::to('/vendor/property/list') }}");
                         toastr.success(response.message, {timeout: 1000});
                     } else {

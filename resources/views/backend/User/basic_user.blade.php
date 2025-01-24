@@ -70,12 +70,12 @@
 
                                 <td>
 
-                                    <a 
-                                    data-bs-toggle="modal" 
+                                    <a
+                                    data-bs-toggle="modal"
                                     data-bs-target="#exampleVerticallycenteredModal-{{ $val->id }}">
                                         <i class='fa fa-eye' style="color:#44c6a9"></i>
                                     </a>
-                        
+
                                     <a href="{{ route('admin-basic-user', $val->id) }}" class="ms-3" >
                                         <i class='fa fa-pen'></i>
                                     </a>
@@ -177,7 +177,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                                                        <button 
+                                                        <button
                                                             onclick="window.location.replace('{{ URL::to('admin/user/remove-basic-user/' . $val->id) }}');"
                                                             class="btn btn-dark">
                                                             Confirm

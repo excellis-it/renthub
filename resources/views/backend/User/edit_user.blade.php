@@ -20,12 +20,6 @@
         </div>
     </div>
 
-    @if (session('message'))
-        <div class="alert alert-success">
-            {{ session('message') }}
-        </div>
-    @endif
-
     <!-- End Breadcrumb -->
     <div class="card">
         <div class="card-body">
@@ -66,7 +60,7 @@
                     </div>
                 </div>
 
-               
+
                 <div class="row mb-3">
                     <div class="col-sm-3">
                         <h6 class="mb-0">First Name<span style="color:red;">*</span></h6>
@@ -77,11 +71,11 @@
                         <span style="color: #e20000" class="error" id="first_name-error"></span>
                     </div>
                 </div>
-               
+
                  {{-- last name --}}
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">Last Name<span style="color:red;">*</span></h6> 
+                        <h6 class="mb-0">Last Name<span style="color:red;">*</span></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input name="last_name" type="text" class="form-control "
@@ -93,7 +87,7 @@
                 {{-- gender --}}
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">Gender</h6> 
+                        <h6 class="mb-0">Gender</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         {{-- <input name="last_name" type="text" class="form-control"
@@ -113,7 +107,7 @@
                 {{-- phone --}}
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">Phone</h6> 
+                        <h6 class="mb-0">Phone</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input name="phone_number" type="text" class="form-control"
@@ -125,7 +119,7 @@
                 {{-- country --}}
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">Country</h6> 
+                        <h6 class="mb-0">Country</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input name="country" type="text" class="form-control"
@@ -137,7 +131,7 @@
                 {{-- state --}}
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">State</h6> 
+                        <h6 class="mb-0">State</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input name="state" type="text" class="form-control"
@@ -167,10 +161,10 @@
                     <div class="col-sm-9 text-secondary">
                         <input name="zip_code" type="text" class="form-control"
                             placeholder="Enter Zipcode" value="{{ $data->zip_code ?? '' }}" />
-                        <span style="color: #e20000" class="error" id="zipcode-error"></span>
+                        <span style="color: #e20000" class="error" id="zip_code-error"></span>
                     </div>
                 </div>
-{{-- 
+{{--
                 street address --}}
                 <div class="row mb-3">
                     <div class="col-sm-3">
@@ -326,17 +320,17 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-       
+
             // Prevent form submission on submit
             $('form').on('submit', function (e) {
                 e.preventDefault();
-    
+
                 // Clear previous error messages
                 $('.error').text('');
-    
+
                 // Create a FormData object for file uploads and other inputs
                 let formData = new FormData(this);
-    
+
                 $.ajax({
                     type: "POST",
                     url: "{{ route('admin-update-user') }}",  // Laravel route URL
@@ -345,9 +339,9 @@
                     processData: false,
                     success: function (response) {
                         console.log(response); // Log the response for debugging
-                        
+
                         if(response.status == true){
-                           
+
                             window.location.replace("{{ URL::to('admin/user/listing_user') }}");
                             toastr.success(response.message, {timeout: 1000});
                         } else {

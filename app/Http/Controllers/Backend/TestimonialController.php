@@ -60,7 +60,7 @@ class TestimonialController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required',
         ], [
             'name.required' => 'Testimonials Name required',
@@ -87,7 +87,7 @@ class TestimonialController extends Controller
         $testimonial->description = $request->description;
         $testimonial->status = $request->status;
         $testimonial->save();
-        toastr()->success('Testimonial Updated successfully', ['timeout' => 1000]);
+
         return redirect()->back()->with(['success', 'Testimonial updated successfully.']);
     }
     public function testimonialRemove($id)

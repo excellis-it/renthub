@@ -83,7 +83,7 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="page_form" action="{{url('admin/subscription/update')}}" method="POST">
+                                                <form id="subscription_form" action="{{url('admin/subscription/update')}}" method="POST">
                                                     @csrf
                                                     <input name="id" value="{{ $val->id }}" hidden />
                                                     <div class="row mb-3">
@@ -93,6 +93,7 @@
                                                         <div class="col-sm-9 text-secondary">
                                                             <input name="title" type="text" class="form-control"
                                                                 value="{{ $val->title }}" />
+                                                                <span style="color: #e20000" class="error" id="title-error"></span>
                                                         </div>
                                                     </div>
 
@@ -103,6 +104,7 @@
                                                         <div class="col-sm-9 text-secondary">
                                                             <input name="subtitle" type="text" class="form-control"
                                                                 value="{{ $val->subtitle }}" />
+                                                                <span style="color: #e20000" class="error" id="subtitle-error"></span>
                                                         </div>
                                                     </div>
 
@@ -114,6 +116,7 @@
                                                             <input name="description" type="text"
                                                                 class="form-control @error('description') is-invalid @enderror"
                                                                 value="{{ $val->description }}" />
+                                                                <span style="color: #e20000" class="error" id="description-error"></span>
                                                         </div>
                                                     </div>
 
@@ -124,6 +127,7 @@
                                                         <div class="col-sm-9 text-secondary">
                                                             <input name="days" type="number" class="form-control"
                                                                 value="{{ $val->days }}" />
+                                                                <span style="color: #e20000" class="error" id="days-error"></span>
                                                         </div>
                                                     </div>
 
@@ -134,16 +138,18 @@
                                                         <div class="col-sm-9 text-secondary">
                                                             <input name="price" type="number" class="form-control"
                                                                 value="{{ $val->price }}" />
+                                                                <span style="color: #e20000" class="error" id="price-error"></span>
                                                         </div>
                                                     </div>
 
                                                      <div class="row mb-3">
                                                         <div class="col-sm-3">
-                                                            <h6 class="mb-0">Number of Product</h6>
+                                                            <h6 class="mb-0">Product</h6>
                                                         </div>
                                                         <div class="col-sm-9 text-secondary">
                                                             <input name="no_of_product" type="number" class="form-control"
                                                                 value="{{ $val->no_of_product }}" />
+                                                                <span style="color: #e20000" class="error" id="no_of_product-error"></span>
                                                         </div>
                                                     </div>
 
@@ -157,14 +163,14 @@
                                                                     <input class="form-check-input" type="radio" name="status" id="status-active" value="1"
                                                                            @if($val->status == 1) checked @endif>
                                                                     <label class="form-check-label" for="status-active">
-                                                                        <i class="fa fa-check-circle" aria-hidden="true"></i> Active
+                                                                         Active
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="status" id="status-inactive" value="0"
                                                                            @if($val->status == 0) checked @endif>
                                                                     <label class="form-check-label" for="status-inactive">
-                                                                        <i class="fa fa-times-circle" aria-hidden="true"></i> Inactive
+                                                                        Inactive
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -234,4 +240,50 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#subscription_form').on('submit', function(e) {
+                    e.preventDefault();
+
+                    var form = $(this);
+                    var data = new FormData(this);
+                    var url = form.attr('action');
+
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: data,
+                        processData: false,
+                        contentType: false,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(resp) {
+                            toastr.success('Subscription Updated successfully.', 'Success', {
+                                closeButton: true,
+                                progressBar: true,
+                                positionClass: 'toast-top-right',
+                                timeOut: '3000',
+                            });
+
+
+                            setTimeout(function() {
+                                location.reload();
+                            }, 2000);
+
+
+                        },
+                        error: function(response) {
+                            let errors = response.responseJSON.errors;
+                            // Loop through the errors and display them
+                            $.each(errors, function(key, value) {
+                                $('#' + key + '-error').text(value[0]);
+                            });
+                        }
+                    });
+                });
+            });
+        </script>
 @endsection

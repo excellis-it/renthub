@@ -34,11 +34,9 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
 
-
-        /*
         $request->validate([
             'email' => 'required|email|unique:users,email',
-            'username' => [
+           /* 'username' => [
                 'required',
                 'unique:users,username',
                 function ($attribute, $value, $fail) {
@@ -46,17 +44,17 @@ class ProfileController extends Controller
                         $fail('The ' . $attribute . ' may only contain letters, numbers, and underscores.');
                     }
                 },
-            ],
+            ],*/
 
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'gender' => 'required',
-            'phone_number' => 'required|string|max:15',
+            'phone_number' => 'required|numeric|regex:/^\+?[0-9]{10,15}$/',
             'username' => 'required|string|max:255|unique:users,username',
             'email' => 'required|string|email|max:255|unique:users,email',
             'address' => 'required|string|max:255',
 
-        ]);*/
+        ]);
         $data = [
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -86,10 +84,10 @@ class ProfileController extends Controller
         $user = auth()->user()->find($id);
         return view('frontend.dashboard.change-password', compact('user'));
     }
-    public function update_password(Request $request)
+    /*public function update_password(Request $request)
     {
         $data = [
-            
+
 
 
         ];
@@ -99,7 +97,7 @@ class ProfileController extends Controller
         $user->update($data);
         toastr()->success('Change password successfully.', ['timeout' => 1000]);
         return redirect('/user-profile');
-    }
+    }*/
     public function payment_history(Request $request)
     {
         $data = PaymentModel::all();

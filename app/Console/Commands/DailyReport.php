@@ -8,6 +8,7 @@ use App\Models\SubscriptionHistoryModel;
 use App\Models\product\ProductModel;
 use Illuminate\Http\Request;
 use App\Models\EmailTemplate;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -38,16 +39,20 @@ class DailyReport extends Command
      */
     public function handle(Request $request)
     {
-       
+
         $data = SubscriptionHistoryModel::where(['status'=>1])->get();
         $today = date('Y-m-d');
 
 
         foreach ($data as $val) {
-            
-            if ($val->end_date == $today) {                
+
+            if ($val->end_date == $today) {
                 SubscriptionHistoryModel::where(['id'=>$val->id])->update(['status'=>0]);
-               
+                // $vendor = User::find($val->vendor_id);
+                // if ($vendor) {
+                //     \Log::info('Vendor subscription expired: ' . $vendor->first_name . ' ' . $vendor->last_name);
+                // }
+
             }
         }
 
@@ -56,32 +61,34 @@ class DailyReport extends Command
         foreach ($activeProd as $product) {
 
             $count = SubscriptionHistoryModel::where('vendor_id', $product->vendor_id)
-                ->where('status', 1) 
+                ->where('status', 1)
                 ->count();
-    
-            
+
+
             if ($count == 0) {
                 ProductModel::where('vendor_id', $product->vendor_id)
                     ->update(['product_status' => 0]);
             }
         }
 
-        $product = ProductModel::with('user')->first(); 
-        $name = $product->user->first_name." ".$product->user->last_name;
-        $email=$request->email;
+        $product=ProductModel::with('user')->first();
+        $user = $product->user;
+        $name = $user->first_name . " " . $user->last_name;
+        $email = $user->email;
         $template=EmailTemplate::where(['id'=>7,'status'=>1])->first();
         $template=$template->template;
         $template = str_replace("@NAME@", $name, $template);
-     
+
          //echo $template; die;
-        
+
         $to=$email;
         $subject="RentHub: Subscription Expiry";
-        //Helper::smtp_subscription_expiry($to,$subject,$template);
+
+        // Helper::smtp_subscription_expiry($to,$subject,$template);
         \Log::info('Subscriptions expire'.$template);
 
-    
+
         return;
     }
-    
+
 }

@@ -15,7 +15,7 @@
                         @if(isset($data))
 
                             <div class="star-div mb-div">
-                            
+
                                 <a href="{{ URL::to('/user/review/'.Crypt::encrypt($data->product_id)) }}">
                                 <ul class="star_ul ">
                                   <li><i class="fa-solid fa-star"></i></li>
@@ -54,8 +54,8 @@
                 </div>
 
                   @endforeach
-                 
+
               @endif
-              
-      
-             
+
+
+

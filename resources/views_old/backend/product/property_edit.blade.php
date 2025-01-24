@@ -118,7 +118,7 @@ $role = Auth::user()->role;
 
                                     <div>
                                         <img class="card-img-top" style="max-width: 250px; margin-top: 20px"
-                                            id="show_image" src="{{ asset('public/images/' . $item->product_thumbnail) }}">
+                                            id="show_image" src="{{ asset('images/' . $item->product_thumbnail) }}">
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +133,7 @@ $role = Auth::user()->role;
                                     @if($images)
                                     @foreach($images as $val)
                                     <div class="col-md-2">
-                                        <img class="thumb" src="{{asset('public/images/'.$val->product_image)}}"
+                                        <img class="thumb" src="{{asset('images/'.$val->product_image)}}"
                                             style="width: 130px; height: 120px;" />
                                         <i class="bx bxs-trash"></i>
                                     </div>
@@ -301,7 +301,7 @@ $role = Auth::user()->role;
                     console.log(response); // Log the response for debugging
 
                     if(response.status == true){
-                       
+
                         window.location.replace("{{ URL::to('/vendor/property/list') }}");
                         toastr.success(response.message, {timeout: 1000});
                     } else {

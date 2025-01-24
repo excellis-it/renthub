@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use App\Models\SubscriptionModel;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
+
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends UserController
 {
@@ -18,7 +22,7 @@ class AdminController extends UserController
      * Update the info of the admin
      * @param AdminInfoRequest $request
      */
-   
+
     public function vendors()
     {
         $data = User::where('role', '=', 'vendor')->get();
@@ -38,7 +42,7 @@ class AdminController extends UserController
         $user_detail->update();
 
         return response(['msg' => "Info is updated successfully"], 200);
-        
+
     }
 
     public function userRemove(Request $request)
@@ -92,4 +96,44 @@ class AdminController extends UserController
     //     $data = SubscriptionModel::all();
     //     return view('backend.admin.all_vendors', compact('data'));
     // }
+
+    public function updatePassword(Request $request)
+    {
+        // validation
+        $validatedData = $request->validate([
+            'password' => ['required', function ($attribute, $value, $fail) {
+                if (!Hash::check($value, Auth::user()->password)) {
+                    $fail('The current password is incorrect.');
+                }
+            }],
+            'new_password' => ['required', Password::defaults(), 'different:password'],
+            'confirm_password' => ['required', 'same:new_password']
+        ]);
+        // $data = $request->validate($rules);
+
+
+        // updating the password
+        User::find(Auth::id())->update([
+            'password' => bcrypt($validatedData['new_password'])
+        ]);
+        return response()->json([
+            'status' => 1,
+            'msg' => 'Password changed successfully.'
+        ]);
+    }
+    /*public function updatePassword(Request $request)
+{
+    $request->validate([
+
+        'new_password' => 'required|string|min:8',
+        'confirm_password' => 'required|same:new_password',
+    ]);
+
+    $user = Auth::user();
+    $user->password = bcrypt($request->new_password);
+    $user->save();
+
+    return response()->json(['status' => true, 'msg' => 'Password updated successfully'], 200);
+    // return response(['msg' => "Password updated successfully"], 200);
+}*/
 }

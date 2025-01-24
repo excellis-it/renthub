@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="inner-banner-text">
-                        <h1>Cars</h1>
+                        <h1>{{ $data->product_name }}</h1>
                     </div>
                 </div>
             </div>
@@ -267,13 +267,13 @@
                                             <img src="{{ asset('frontend_assets/assets/images/logo.png') }}"
                                                  class="pt-2 img-fluid rounded-start" alt="...">
                                         </div>
-            
+
                                         <div class="col-md-9">
                                             <div class="card-body">
                                                 <h5 class="mb-0 card-title">
                                                     {{ $val->user->first_name }} {{ $val->user->last_name }}
                                                 </h5>
-            
+
                                                 @php
                                                     $rating_point = $val->rating_point;
                                                 @endphp
@@ -309,6 +309,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
- 
+
 
 @endsection

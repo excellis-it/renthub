@@ -112,6 +112,7 @@ class VehicleController extends Controller
         if ($request->hasFile('product_images')) {
             $this->handleProductMultiImages($request->file('product_images'), $productId);
         }
+        toastr()->success('Vehicle Added successfully');
         return response()->json(['status' => true, 'message' => 'Vehicle Added successfully']);
     }
 
@@ -191,7 +192,7 @@ class VehicleController extends Controller
         if ($request->hasFile('product_images')) {
             $this->handleProductMultiImages($request->file('product_images'), $id);
         }
-
+        toastr()->success('Vehicle Updated successfully');
         return response()->json(['status' => true, 'message' => 'Vehicle Updated successfully']);
     }
     public function delete(Request $request)

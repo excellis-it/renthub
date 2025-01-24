@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="inner-banner-text">
-                        <h1>Machine</h1>
+                        <h1>{{ $data->product_name ?? '' }}</h1>
                     </div>
                 </div>
             </div>
@@ -63,13 +63,13 @@
                         <div class="property-details">
                             <div class="">
                                         <div class="d-block d-md-flex justify-content-between">
-                                            
+
                                                 <div class="propety-title mb-div">
                                                     @if (isset($data->tag_line))
                                                         {{ $data->tag_line }}
                                                     @endif
                                                 </div>
-                                            
+
 
                                             @if (isset($data))
                                                 <div class="star-div mb-div">
@@ -266,7 +266,7 @@
             <div class="mb-3 col-12">
                 <h2 class="mb-0 title">Reviews</h2>
             </div>
-           
+
             <div class="col-lg-12">
                 @if ($review && $review->isNotEmpty())
                     <div class="row">
@@ -278,13 +278,13 @@
                                             <img src="{{ asset('frontend_assets/assets/images/logo.png') }}"
                                                  class="pt-2 img-fluid rounded-start" alt="...">
                                         </div>
-            
+
                                         <div class="col-md-9">
                                             <div class="card-body">
                                                 <h5 class="mb-0 card-title">
                                                     {{ $val->user->first_name }} {{ $val->user->last_name }}
                                                 </h5>
-            
+
                                                 @php
                                                     $rating_point = $val->rating_point;
                                                 @endphp

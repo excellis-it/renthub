@@ -13,6 +13,7 @@ use App\Models\CategoryModel;
 use App\Models\User;
 use App\Models\Review;
 use App\Models\UserEnquiry;
+use App\Models\HomeContent;
 
 use App\Models\SubCategoryModel;
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +51,8 @@ class CmsController extends Controller
         $category = CategoryModel::select('category_slug')->get();
         // dd($category);
         // dd($subcategories);
-        return view('frontend.home', compact('property', 'machinery', 'electronics', 'vehicle', 'testimonial', 'slider', 'subcategories', 'category'));
+        $home = HomeContent::orderBy('id', 'desc')->first();
+        return view('frontend.home', compact('property', 'machinery', 'electronics', 'vehicle', 'testimonial', 'slider', 'subcategories', 'category','home'));
     }
     public function all_categories_subcategories($category_slug, $sub_category_slug)
     {
@@ -122,26 +124,86 @@ class CmsController extends Controller
 
     //search result
 
-    public function searchProduct(){
-        return view('frontend.product-search');
+    public function searchProduct(Request $request){
+        $products=ProductModel::orderBy('id','desc')->where('product_name','LIKE','%'.$request->search_product.'%');
+        if($request->category_id){
+            $products=$products->where('category_id',$request->category_id);
+            }
+
+        return view('frontend.product-search',compact('products'));
     }
 
-    public function searchResult(Request $request)
+    // public function storeLocation(Request $request)
+    // {
+    //      dd($request->all());
+    //     $request->validate([
+    //         'latitude' => 'required',
+    //         'longitude' => 'required',
+    //     ]);
+
+    //     $location = new Location();
+    //     /*if(auth()->check()) {
+    //         $location->user_id = auth()->user()->id;
+    //         $location->session_id = null;
+    //     } else {
+    //         $session_id = Session::getId();
+    //         $location->user_id = null;
+    //         $location->session_id = $session_id;
+    //         $request->session()->put('session_id', $session_id);
+    //     }*/
+    //     $location->ip_address = $request->ip_address;
+    //     $location->address = $request->address;
+    //     $location->latitude = $request->latitude;
+    //     $location->longitude = $request->longitude;
+    //     $location->save();
+
+
+    //     $request->session()->put('latitude', $request->latitude);
+    //     $request->session()->put('longitude', $request->longitude);
+    //     $request->session()->put('address', $request->address);
+
+    //     session()->flash('message', 'Location saved successfully');
+    //     return response()->json(['success' => true]);
+    //     // return response()->json(['session' => $request->session()->all()]);
+    // }
+
+   /* public function searchResult(Request $request)
     {
         if ($request->ajax()) {
-            $products = ProductModel::where('product_name', 'LIKE', '%' . $request->search . '%')
+            $search = $request->input('search');
+            $search = str_replace(" ", "%", $search); // Replace spaces with % for LIKE queries
+
+            // Perform searches on different models
+            $vehicles = ProductModel::where('product_name', 'LIKE', "%{$search}%")->get();
+            $properties = ProductModel::where('product_name', 'LIKE', "%{$search}%")->get();
+            $electronics = ProductModel::where('product_name', 'LIKE', "%{$search}%")->get();
+            $machinery = ProductModel::where('product_name', 'LIKE', "%{$search}%")->get();
+
+            // Example search logic for ProductModel
+            $products = ProductModel::where('category_id', $request->category_id)
+                ->where(function ($queryBuilder) use ($search) {
+                    $queryBuilder->where('product_id', 'like', '%' . $search . '%')
+                        ->orWhere('product_name', 'like', '%' . $search . '%')
+                        ->orWhere('location', 'like', '%' . $search . '%')
+                        ->orWhere('product_price', 'like', '%' . $search . '%');
+                })
                 ->orderBy('product_id', 'desc')
-                ->get();
-            
-            // Return the rendered view
-            $view = view('frontend.search-result', compact('products'))->render();
-    
-            return response()->json(['view' => $view]);
+                ->paginate(10); // You can adjust pagination as needed
+
+            // Count the total results
+            $resultsCount = $vehicles->count() + $properties->count() + $electronics->count() + $machinery->count() + $products->total();
+
+            return response()->json([
+                'vehicleList' => view('frontend.vehicle', compact('vehicles'))->render(),
+                'propertyList' => view('frontend.property-for-rent', compact('properties'))->render(),
+                'electronicList' => view('frontend.electronics-home-appliances', compact('electronics'))->render(),
+                'machineList' => view('frontend.equipment-and-machineries', compact('machinery'))->render(),
+                // 'productList' => view('backend.product.property_filter', compact('products'))->render(), // Render the product view
+                'count' => $resultsCount,
+            ]);
         }
-    
-        return response()->json(['error' => 'Invalid request'], 400);
-    }
-    
+    }*/
+
 
     public function categories($category_slug)
     {
@@ -199,27 +261,27 @@ class CmsController extends Controller
         // Check if either category or subcategory is null
         if (is_null($category) || is_null($subcategory)) {
             // Optionally, you can redirect to a 404 page or return a custom error view
-            return redirect()->back()->with('error', 'Category or Subcategory not found');
+            return redirect()->back()->with('message', 'Category or Subcategory not found');
         }
 
         // List views for property, machinery, electronics, and vehicles
         $views = [
-            'property' => ProductModel::where('category_id', $category->category_id)
-                ->where('product_type', ['sell', 'rent']) // Replace 'property' with your specific product_type values
+            'property' => ProductModel::where('category_id', 1)
+                ->where('product_type', ['sell', 'rent'])
                 ->pluck('sub_category_id')
                 ->toArray(),
 
-            'machinery' => ProductModel::where('category_id', $category->category_id)
+            'machinery' => ProductModel::where('category_id', 2)
                 ->where('product_type', ['new', 'used'])
                 ->pluck('sub_category_id')
                 ->toArray(),
 
-            'electronics' => ProductModel::where('category_id', $category->category_id)
+            'electronics' => ProductModel::where('category_id', 3)
                 ->where('product_type', ['new', 'used'])
                 ->pluck('sub_category_id')
                 ->toArray(),
 
-            'vehicle' => ProductModel::where('category_id', $category->category_id)
+            'vehicle' => ProductModel::where('category_id', 4)
                 ->where('product_type', ['new', 'used'])
                 ->pluck('sub_category_id')
                 ->toArray(),
@@ -242,7 +304,7 @@ class CmsController extends Controller
         }
 
         // Check for machinery
-        if (in_array($subcategory->sub_category_slug, $views['machinery'])) {
+        elseif (in_array($subcategory->sub_category_slug, $views['machinery'])) {
             $machinery = ProductModel::where([
                 'product_status' => 1,
                 'category_id' => $category->category_id,
@@ -252,7 +314,7 @@ class CmsController extends Controller
         }
 
         // Check for electronics
-        if (in_array($subcategory->sub_category_slug, $views['electronics'])) {
+        elseif (in_array($subcategory->sub_category_slug, $views['electronics'])) {
             $electronics = ProductModel::where([
                 'product_status' => 1,
                 'category_id' => $category->category_id,
@@ -262,7 +324,7 @@ class CmsController extends Controller
         }
 
         // Check for vehicles
-        if (in_array($subcategory->sub_category_slug, $views['vehicle'])) {
+        elseif (in_array($subcategory->sub_category_slug, $views['vehicle'])) {
             $vehicle = ProductModel::where([
                 'product_status' => 1,
                 'category_id' => $category->category_id,
@@ -270,27 +332,21 @@ class CmsController extends Controller
             ])->orderBy('product_id', 'desc')->get();
             return view('frontend.vehicle', compact('vehicle'));
         }
-
+        else{
         return redirect()->back()->with('error', 'Invalid subcategory');
+        }
     }
 
 
     public function vehicle(Request $request)
     {
-        if ($request->ajax()) {
-            $vehicle = ProductModel::where('product_status', 1)
-                ->where('category_id', 4)
-                ->orderBy('product_id', 'desc')
-                ->paginate(10); 
 
-            return view('frontend.vehicle', compact('vehicle'))->render();
-        }
-        $vehicle = ProductModel::where('product_status', 1)
-            ->where('category_id', 4)
+        $vehicle = ProductModel::where(['product_status' => 1, 'category_id' => 4])
             ->orderBy('product_id', 'desc')
-            ->paginate(10);
+            ->get();
 
-        return view('frontend.vehicle', compact('vehicle'));
+        $total = $vehicle->count();
+        return view('frontend.vehicle', compact('vehicle', 'total'));
     }
 
     public function vehicle_search(Request $request)
@@ -586,5 +642,9 @@ class CmsController extends Controller
             ->get();
         $review = Review::with('user')->where('product_id', $id)->get();
         return view('frontend.equipment-and-machineries_details', compact('data', 'images', 'machinery', 'review'));
+    }
+
+    public function disclaimer(){
+        return view('frontend.disclaimer');
     }
 }

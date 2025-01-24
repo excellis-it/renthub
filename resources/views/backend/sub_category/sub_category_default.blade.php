@@ -58,7 +58,7 @@
                                             $categoryName = $category->category_name;
                                         @endphp
                                     @endif
-                                    
+
                                 @endforeach
                             @endif
                             <td>
@@ -100,10 +100,11 @@
                                 </div>
                             </td>
 
-                            @if($role == 'admin')
+
                                     <td>
                                         <div class="d-flex order-actions">
-                                            <a href="" class="" data-bs-toggle="modal"
+                                            @if (Auth::user()->role == 'admin')
+                                            <a href="{{route('sub-category-edit',$item->sub_category_id)}}" class="" data-bs-toggle="modal"
                                             data-bs-target="#exampleFullScreenModal-{{$item->sub_category_id}}"><i class='bx
                                             bxs-edit'></i></a>
 
@@ -119,7 +120,7 @@
                                                         <div class="modal-body">
                                                             <div class="card">
                                                                 <div class="card-body">
-                                                                    <form action="{{ route('sub-category-update') }}" method="POST" enctype="multipart/form-data">
+                                                                    <form class="sub_category_form" action="{{ route('sub-category-update') }}" method="POST" enctype="multipart/form-data">
                                                                         @csrf
                                                                         <input name="sub_category_id"
                                                                             value="{{$item->sub_category_id}}"
@@ -132,9 +133,9 @@
                                                                                 <input name="sub_category_name" type="text"
                                                                                     class="form-control"
                                                                                     value="{{$item->sub_category_name}}"
-                                                                                    required autofocus/>
-                                                                                <small style="color: #e20000" class="error"
-                                                                                    id="sub_category_name-error"></small>
+                                                                                     autofocus/>
+                                                                                <span style="color: #e20000" class="error"
+                                                                                    id="sub_category_name-error"></span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row mb-3">
@@ -144,12 +145,12 @@
                                                                             <div class="col-sm-9 text-secondary">
 
                                                                                 <select name="category_id" class="form-select" id="inputProductType">
-                                                                                    <option>Choose Category</option>
+                                                                                    <option value="">Choose Category</option>
                                                                                     @foreach($categories as $category)
                                                                                         <option
                                                                                             value="{{$category->category_id}}"
                                                                                             @if($category->category_id ==
-                                                                                            $item->selected_category_id)
+                                                                                            $item->category_id)
                                                                                                 selected
                                                                                             @endif
                                                                                         >
@@ -158,8 +159,8 @@
                                                                                     @endforeach
                                                                                 </select>
 
-                                                                                <small style="color: #e20000" class="error"
-                                                                                    id="category_id-error"></small>
+                                                                                <span style="color: #e20000" class="error"
+                                                                                    id="category_id-error"></span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row mb-3">
@@ -170,10 +171,10 @@
                                                                                 <input name="sub_category_image"
                                                                                     id="sub_category_image"
                                                                                     class="form-control" type="file" >
-                                                                                <small style="color: #e20000" class="error"
-                                                                                    id="sub_category_image-error"></small>
+                                                                                <span style="color: #e20000" class="error"
+                                                                                    id="sub_category_image-error"></span>
                                                                                 <div>
-                                                                                    <img class="card-img-top" src="{{url
+                                                                                    <img class="card-img-top" src="{{asset
                                                                                 ('public/uploads/images/sub_category/' .
                                                                                 $item->sub_category_image)}}"
                                                                                         style="max-width: 250px; margin-top: 20px" id="show_image">
@@ -191,14 +192,14 @@
                                                                                         <input class="form-check-input" type="radio" name="status" id="status-active" value="1"
                                                                                                @if($item->status == 1) checked @endif>
                                                                                         <label class="form-check-label" for="status-active">
-                                                                                            <i class="fa fa-check-circle" aria-hidden="true"></i> Active
+                                                                                             Active
                                                                                         </label>
                                                                                     </div>
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input" type="radio" name="status" id="status-inactive" value="0"
                                                                                                @if($item->status == 0) checked @endif>
                                                                                         <label class="form-check-label" for="status-inactive">
-                                                                                            <i class="fa fa-times-circle" aria-hidden="true"></i> Inactive
+                                                                                             Inactive
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>
@@ -248,11 +249,11 @@
                                                 </div>
                                             </a>
 
-
+                                        @endif
                                         </div>
                                     </td>
 
-                            @endif
+
 
                         </tr>
 

@@ -27,44 +27,173 @@ class SocialiteController extends Controller
     /**
      * Logic function for Google callback
      */
-    public function googleCallback(){
-        try {
-            $user = Socialite::driver('google')->user();
-            $oldUser = User::where('social_id', $user->id)->first();
+    public function googleCallback()
+{
+    try {
+        $user = Socialite::driver('google')->user();
 
-            // if the user is already registered, then login
-            if ($oldUser){
+        // Check if the user already exists based on social_id or email
+        $oldUser = User::where('social_id', $user->id)
+            ->orWhere('email', $user->email)
+            ->first();
+
+        if ($oldUser) {
+            // User exists, log them in
+            Auth::login($oldUser);
+
+            // Update user data (if needed)
+            $oldUser->update([
+                'role' => $user->role ? 'vendor' : 'user',
+                'social_type' => 'google',
+                'social_id' => $user->id,
+            ]);
+
+            // Redirect based on their role
+            return redirect($oldUser->role . '/profile')
+                ->with('success', 'Welcome, ' . $oldUser->first_name . ' ' . $oldUser->last_name . '!');
+        } else {
+            // Create new user
+            $newUser = User::create([
+                'first_name' => $user->user['given_name'] ?? explode(' ', $user->name)[0],
+                'last_name' => $user->user['family_name'] ?? explode(' ', $user->name)[1] ?? null,
+                'username' => $user->name ?? null,
+                'email' => $user->email,
+                'social_id' => $user->id,
+                'photo' => $user->avatar,
+                'role' => 'user',
+                'social_type' => 'google',
+                'password' => bcrypt('12345678'),
+                'status' => 1,
+                'is_delete' => 1,
+            ]);
+
+            // Log the new user in
+            Auth::login($newUser);
+
+            // Redirect to the user profile
+            return redirect('user/profile')->with('success', 'Welcome, ' . $newUser->first_name . ' ' . $newUser->last_name . '!');
+        }
+    } catch (\Exception $e) {
+        // Handle errors gracefully and show an error message
+        return redirect()->route('login')->with('error', 'Something went wrong. Please try again.');
+    }
+}
+
+    
+    public function facebookCallback()
+    {
+        try {
+            $user = Socialite::driver('facebook')->user();
+
+            // Check if the user already exists based on social_id or email
+            $oldUser = User::where('social_id', $user->id)
+                ->orWhere('email', $user->email)
+                ->first();
+
+            if ($oldUser->role ? 'vendor' : 'user') {
+                // User exists, log them in
                 Auth::login($oldUser);
-                return redirect()->route($oldUser->role . '-profile');
-            }
-            // otherwise, create a new user
-            else{
-                $newUser = User::create([
-                    'name' => $user->name,
-                    'username' => isset($user->username) ? $user->username : $user->name,
-                    'email' => $user->email,
-                    'password' => Hash::make($user->password),
-                    'role' => isset($user->role) ? $user->role : 'vendor',
-                    'social_type' => 'google',
+
+                // Update user data (if needed)
+                $oldUser->update([
+                    // This might not be necessary since you're using Google login
+                    // 'role' => $user->role ? 'vendor' : 'user',
+                    'social_type' => 'facebook',
                     'social_id' => $user->id,
                 ]);
+                // dd($oldUser->role);
 
-                RegisteredUserController::completeVendorRegistration($newUser);
-                event(new Registered($newUser));
-
-                Auth::login($newUser);
-
-                // notify the admin
-                $admins = User::where('role', 'admin')->get();
-                Notification::send($admins, new RegisteredNewVendor());
-
-                return redirect()->route('vendor-profile');
+                // Redirect based on their role
+                return redirect($oldUser->role . '/profile')->with('success', 'Welcome, ' . $oldUser->first_name. ' '. $oldUser->last_name . '!');
+            } else {
+                // If the user doesn't exist, handle the case accordingly
+                return redirect()->route('login')->with('error', 'No user found with this social account.');
             }
-
-
-        } catch (Exception $e){
-            return redirect('coupon')->with('error', 'Something went wrong, try again.');
+        } catch (\Exception $e) {
+            // Handle errors gracefully
+            return redirect()->route('login')->with('error', 'Something went wrong! Please try again.');
         }
     }
+
+    public function redirectToYoutube(){
+        return Socialite::driver('youtube')->redirect();
+    }
+
+    public function youtubeCallback()
+    {
+        try {
+            $user = Socialite::driver('youtube')->user();
+
+            // Check if the user already exists based on social_id or email
+            $oldUser = User::where('social_id', $user->id)
+                ->orWhere('email', $user->email)
+                ->first();
+
+            if ($oldUser->role ? 'vendor' : 'user') {
+                // User exists, log them in
+                Auth::login($oldUser);
+
+                // Update user data (if needed)
+                $oldUser->update([
+                    // This might not be necessary since you're using Google login
+                    // 'role' => $user->role ? 'vendor' : 'user',
+                    'social_type' => 'youtube',
+                    'social_id' => $user->id,
+                ]);
+                // dd($oldUser->role);
+
+                // Redirect based on their role
+                return redirect($oldUser->role . '/profile')->with('success', 'Welcome, ' . $oldUser->first_name. ' '. $oldUser->last_name . '!');
+            } else {
+                // If the user doesn't exist, handle the case accordingly
+                return redirect()->route('login')->with('error', 'No user found with this social account.');
+            }
+        } catch (\Exception $e) {
+            // Handle errors gracefully
+            return redirect()->route('login')->with('error', 'Something went wrong! Please try again.');
+        }
+    }
+
+
+    public function redirectToYahoo(){
+        return Socialite::driver('yahoo')->redirect();
+    }
+
+    public function yahooCallback()
+    {
+        try {
+            $user = Socialite::driver('yahoo')->user();
+
+            // Check if the user already exists based on social_id or email
+            $oldUser = User::where('social_id', $user->id)
+                ->orWhere('email', $user->email)
+                ->first();
+
+            if ($oldUser->role ? 'vendor' : 'user') {
+                // User exists, log them in
+                Auth::login($oldUser);
+
+                // Update user data (if needed)
+                $oldUser->update([
+                    // This might not be necessary since you're using Google login
+                    // 'role' => $user->role ? 'vendor' : 'user',
+                    'social_type' => 'yahoo',
+                    'social_id' => $user->id,
+                ]);
+                // dd($oldUser->role);
+
+                // Redirect based on their role
+                return redirect($oldUser->role . '/profile')->with('success', 'Welcome, ' . $oldUser->first_name. ' '. $oldUser->last_name . '!');
+            } else {
+                // If the user doesn't exist, handle the case accordingly
+                return redirect()->route('login')->with('error', 'No user found with this social account.');
+            }
+        } catch (\Exception $e) {
+            // Handle errors gracefully
+            return redirect()->route('login')->with('error', 'Something went wrong! Please try again.');
+        }
+    }
+
+
 
 }

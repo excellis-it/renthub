@@ -1,4 +1,6 @@
-@if (isset($machinery))
+@if ($machinery->isEmpty())
+    <div class="mt-4 text-center">No data found</div>
+@else
     @foreach ($machinery as $val)
         <div class="mb-3 col-lg-3">
             <div class="feature_box">
@@ -24,7 +26,7 @@
                                         <li><i class="fa-solid fa-star"></i></li>
                                         <li><span>(5)</span></li>
                                     </ul>
-                                    
+
                                 </a>
                             </div>
                         @endif

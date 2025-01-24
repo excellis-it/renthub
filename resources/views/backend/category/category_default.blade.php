@@ -112,7 +112,7 @@ $role = Auth::user()->role;
                                                                 <div class="col-sm-9 text-secondary">
                                                                     <input name="category_name" type="text"
                                                                         class="form-control"
-                                                                        value="{{$item->category_name}}" required
+                                                                        value="{{$item->category_name}}"
                                                                         autofocus />
                                                                     <small style="color: #e20000" class="error"
                                                                         id="category_name-error"></small>

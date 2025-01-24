@@ -33,7 +33,7 @@
                                 <div class="property-img-main">
                                     <a href="{{ url('vehicle-details/' . $data->product_id) }}"
                                         data-lightbox="homePortfolio">
-                                        <img src="{{ asset('public/images/' . $data->product_thumbnail) }}" />
+                                        <img src="{{ asset('images/' . $data->product_thumbnail) }}" />
                                     </a>
                                     <!-- <img src="assets/images/feature_car.jpg" alt=""> -->
                                 </div>
@@ -48,7 +48,7 @@
                                             <div class="property-img-others">
                                                 <a href="{{ url('vehicle-details/' . $val->product_id) }}"
                                                     data-lightbox="homePortfolio">
-                                                    <img src="{{ asset('public/images/' . $val->product_image) }}" />
+                                                    <img src="{{ asset('images/' . $val->product_image) }}" />
                                                 </a>
                                             </div>
                                         </div>
@@ -184,7 +184,7 @@
                                             class="fa-solid fa-heart"></i></a>
                                     <div class="feature_img">
                                         <a href="{{ url('vehicle-details/' . $val->product_id) }}"><img
-                                                src="{{ asset('public/images/' . $val->product_thumbnail) }}" /></a>
+                                                src="{{ asset('images/' . $val->product_thumbnail) }}" /></a>
                                     </div>
                                     <div class="feature_text">
                                         <div class="d-block d-md-flex justify-content-between">
@@ -235,13 +235,13 @@
                                             <img src="{{ asset('frontend_assets/assets/images/logo.png') }}"
                                                  class="pt-2 img-fluid rounded-start" alt="...">
                                         </div>
-            
+
                                         <div class="col-md-9">
                                             <div class="card-body">
                                                 <h5 class="mb-0 card-title">
                                                     {{ $val->user->first_name }} {{ $val->user->last_name }}
                                                 </h5>
-            
+
                                                 @php
                                                     $rating_point = $val->rating_point;
                                                 @endphp
@@ -277,6 +277,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
- 
+
 
 @endsection

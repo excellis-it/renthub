@@ -6,7 +6,7 @@
                 <a href="" class="wishlist_rent"><i class="fa-solid fa-heart"></i></a>
                 <div class="feature_img">
                     <a href="{{ URL::to('electronics-home-appliances-details/' . $val->product_id) }}"><img
-                            src="{{ asset('public/images/' . $val->product_thumbnail) }}" /></a>
+                            src="{{ asset('images/' . $val->product_thumbnail) }}" /></a>
                 </div>
                 <div class="feature_text">
                     <div class="d-block d-md-flex justify-content-between">

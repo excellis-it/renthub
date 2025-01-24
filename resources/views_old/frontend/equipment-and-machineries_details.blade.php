@@ -31,9 +31,9 @@
                         <div class="row">
                             <div class="mb-3 col-lg-12">
                                 <div class="property-img-main">
-                                    <a href="{{ asset('public/images/' . $data->product_thumbnail) }}"
+                                    <a href="{{ asset('images/' . $data->product_thumbnail) }}"
                                         data-lightbox="homePortfolio">
-                                        <img src="{{ asset('public/images/' . $data->product_thumbnail) }}" />
+                                        <img src="{{ asset('images/' . $data->product_thumbnail) }}" />
                                     </a>
                                     <!-- <img src="assets/images/feature_car.jpg" alt=""> -->
                                 </div>
@@ -46,9 +46,9 @@
                                     @foreach ($images as $val)
                                         <div class="mb-3 col-lg-6">
                                             <div class="property-img-others">
-                                                <a href="{{ asset('public/images/' . $val->product_image) }}"
+                                                <a href="{{ asset('images/' . $val->product_image) }}"
                                                     data-lightbox="homePortfolio">
-                                                    <img src="{{ asset('public/images/' . $val->product_image) }}" />
+                                                    <img src="{{ asset('images/' . $val->product_image) }}" />
                                                 </a>
                                             </div>
                                         </div>
@@ -184,7 +184,7 @@
                                             class="fa-solid fa-heart"></i></a>
                                     <div class="feature_img">
                                         <a href="{{ URL::to('equipment-and-machineries-details/' . $val->product_id) }}"><img
-                                                src="{{ asset('public/images/' . $val->product_thumbnail) }}" /></a>
+                                                src="{{ asset('images/' . $val->product_thumbnail) }}" /></a>
                                     </div>
                                     <div class="feature_text">
                                         <div class="d-block d-md-flex justify-content-between">
@@ -229,7 +229,7 @@
             <div class="mb-3 col-12">
                 <h2 class="mb-0 title">Reviews</h2>
             </div>
-           
+
             <div class="col-lg-12">
                 @if ($review && $review->isNotEmpty())
                     <div class="row">
@@ -241,13 +241,13 @@
                                             <img src="{{ asset('frontend_assets/assets/images/logo.png') }}"
                                                  class="pt-2 img-fluid rounded-start" alt="...">
                                         </div>
-            
+
                                         <div class="col-md-9">
                                             <div class="card-body">
                                                 <h5 class="mb-0 card-title">
                                                     {{ $val->user->first_name }} {{ $val->user->last_name }}
                                                 </h5>
-            
+
                                                 @php
                                                     $rating_point = $val->rating_point;
                                                 @endphp

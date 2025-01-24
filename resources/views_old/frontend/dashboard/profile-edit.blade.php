@@ -9,7 +9,7 @@
 <section class="inner_banner_sec" style="
     background-image: url({{asset('frontend_assets/assets/images/inr-bnr.jpg')}});
     background-position: center;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
     background-size: cover;
   ">
     <div class="container">
@@ -29,8 +29,8 @@
             <div class="row">
                 <div class="col-lg-3">
                     @include('frontend.dashboard.sidebar')
-                            
-                        
+
+
                 </div>
                 <div class="col-lg-9">
                     <div class="updateprofile_sec">
@@ -57,7 +57,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-auto">
-                                        <img src="{{ $user->photo ? asset('public/uploads/images/profile/'.$user->photo) : asset('frontend_assets/assets/images/admin-logo.jpg') }}"
+                                        <img src="{{ $user->photo ? asset('uploads/images/profile/'.$user->photo) : asset('frontend_assets/assets/images/admin-logo.jpg') }}"
                                             alt="Profile Image" class="rounded-circle" width="120" height="120"
                                             id="profile_image_preview">
                                     </div>
@@ -76,7 +76,7 @@
                                                     value="{{old('first_name', $user->first_name)}}" />
                                                     <span id="first_name-error" style="color: red;"></span>
                                             </div>
-                                            
+
                                         </div>
 
                                         <div class="col-md-3">
@@ -87,7 +87,7 @@
                                                     value="{{old ('last_name',$user->last_name)}}" />
                                                     <span id="last_name-error" style="color: red;"></span>
                                             </div>
-                                            
+
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group mb-3">
@@ -104,7 +104,7 @@
                                                 </select>
                                                 <span id="gender-error" style="color: red;"></span>
                                             </div>
-                                            
+
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group mb-3">
@@ -114,7 +114,7 @@
                                                     value="{{old ('phone_number',$user->phone_number)}}" />
                                                     <span id="phone_number-error" style="color: red;"></span>
                                             </div>
-                                            
+
                                         </div>
 
                                     </div>
@@ -251,7 +251,7 @@
                         window.location.reload();
                     }, 1000);
                     $("#profile_update")[0].reset();
-                   
+
                 },
                 error: function (response) {
                     let errors = response.responseJSON.errors;

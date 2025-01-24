@@ -36,6 +36,7 @@ Route::get('all-categories-sub/{category_slug}/{sub_category_slug}', [CmsControl
 
 Route::post('/search-result', [CmsController::class, 'searchResult'])->name('product.search');
 Route::get('privacy-policy', [RegisterController::class, 'privacy']);
+Route::get('disclaimer',[CmsController::class,'disclaimer']);
 
 Route::get('review', [CmsController::class, 'review']);
 

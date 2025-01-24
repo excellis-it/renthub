@@ -109,7 +109,7 @@ class PropertyController extends Controller
             $this->handleProductMultiImages($request->file('product_images'), $productId);
         }
 
-        
+        toastr()->success('Property added successfully');
         return response()->json(['status' => true, 'message' => 'Property added successfully']);
     }
 
@@ -192,7 +192,7 @@ class PropertyController extends Controller
         if ($request->hasFile('product_images')) {
             $this->handleProductMultiImages($request->file('product_images'), $id);
         }
-
+        toastr()->success('Property updated successfully');
         return response()->json(['status' => true, 'message' => 'Property updated successfully']);
 
         // toastr()->success('Property Updated successfully', ['timeout' => 1000]);

@@ -242,7 +242,7 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    console.log(response); // Log the response for debugging
+                    // console.log(response); // Log the response for debugging
 
                     if(response.status == true){
                         //message show in toaster

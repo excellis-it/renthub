@@ -15,6 +15,6 @@ class SubCategoryModel extends Model
 
     public function category()
     {
-        return $this->belongsTo(CategoryModel::class, 'category_id'); 
+        return $this->belongsTo(CategoryModel::class, 'category_id');
     }
 }

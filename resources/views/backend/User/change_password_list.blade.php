@@ -20,12 +20,6 @@
         </div>
     </div>
 
-    @if (session('message'))
-        <div class="alert alert-success">
-            {{ session('message') }}
-        </div>
-    @endif
-
     <!-- End Breadcrumb -->
     <div class="card">
         <div class="card-body">
@@ -34,7 +28,7 @@
                 @csrf
                 <input type="hidden" name="id" value="{{$data}}">
                 {{-- @dd($data); --}}
-                
+
                 {{-- New Password --}}
                 <div class="row mb-3">
                     <div class="col-sm-3">
@@ -47,7 +41,7 @@
                     </div>
                 </div>
 
-            
+
                {{-- Confirm Password --}}
                 <div class="row mb-3">
                     <div class="col-sm-3">
@@ -91,17 +85,17 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-       
+
             // Prevent form submission on submit
             $('form').on('submit', function (e) {
                 e.preventDefault();
-    
+
                 // Clear previous error messages
                 $('.error').text('');
-    
+
                 // Create a FormData object for file uploads and other inputs
                 let formData = new FormData(this);
-    
+
                 $.ajax({
                     type: "POST",
                     url: "{{ route('admin-store-password-list') }}",  // Laravel route URL
@@ -110,9 +104,9 @@
                     processData: false,
                     success: function (response) {
                         //console.log(response); // Log the response for debugging
-                        
+
                         if(response.status == true){
-                           
+
                             window.location.replace("{{ URL::to('admin/user/listing_user') }}");
                             toastr.success(response.message, {timeout: 1000});
                         } else {

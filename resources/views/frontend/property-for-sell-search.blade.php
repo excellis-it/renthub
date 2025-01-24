@@ -24,7 +24,7 @@
                                         <li><i class="fa-solid fa-star"></i></li>
                                         <li><span>(5)</span></li>
                                     </ul>
-                                    
+
                                 </a>
                             </div>
                         @endif
@@ -55,7 +55,7 @@
                     @else
                     <a href="{{ url('login/') }}"><span>Inquire Now</span></a>
                     @endif
-                   
+
                 </div>
             </div>
         </div>
